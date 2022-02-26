@@ -1,8 +1,10 @@
 import glob
 import datetime
 import time
+from importlib import import_module
 import os
 import sys
+from pathlib import Path
 
 from syscore.dateutils import SECONDS_PER_DAY
 
@@ -31,7 +33,7 @@ def does_file_exist(filename: str):
 
 def get_filename_for_package(pathname: str, filename=None):
     """
-    A way of resolving relative and absolute filenames, and dealing with akward OS specific things
+    A way of resolving relative and absolute filenames, and dealing with awkward OS specific things
 
     We can either have pathname = 'some.path.filename.csv' or pathname='some.path', filename='filename.csv'
 
@@ -48,6 +50,8 @@ def get_filename_for_package(pathname: str, filename=None):
     Absolute filenames always begin with ., / or \
     Relative filenames do not
     """
+    if isinstance(pathname, Path):
+        pathname = str(pathname.absolute())
     pathname_replaced_with_ampersands = add_ampersand_to_pathname(pathname)
     if filename is None:
         # filename will be at the end of the pathname
@@ -78,6 +82,8 @@ def add_ampersand_to_pathname(pathname: str) -> str:
 
 
 def get_resolved_pathname(pathname):
+    if isinstance(pathname, Path):
+        pathname = str(pathname.absolute())
     # Turn /,\ into . so system independent
     if "@" in pathname:
         # This is an ssh address for rsync - don't change
@@ -124,7 +130,7 @@ def get_pathname_for_package_from_list(path_as_list):
     """
     package_name = path_as_list[0]
     paths_or_files = path_as_list[1:]
-    d = os.path.dirname(sys.modules[package_name].__file__)
+    d = os.path.dirname(import_module(package_name).__file__)
 
     if len(paths_or_files) == 0:
         return d

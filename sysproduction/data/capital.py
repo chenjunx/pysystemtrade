@@ -4,12 +4,14 @@ import pandas as pd
 from syscore.objects import arg_not_supplied, missing_data
 
 from sysdata.production.capital import totalCapitalCalculationData
+from sysdata.production.capital import capitalData
+from sysdata.production.margin import marginData, seriesOfMargin
+
 from sysdata.mongodb.mongo_capital import mongoCapitalData
+from sysdata.mongodb.mongo_margin import mongoMarginData
 from sysdata.data_blob import dataBlob
 
 from sysproduction.data.generic_production_data import productionDataLayerGeneric
-from sysdata.production.capital import capitalData
-
 
 class dataCapital(productionDataLayerGeneric):
     def _add_required_classes_to_data(self, data) -> dataBlob:
@@ -22,6 +24,9 @@ class dataCapital(productionDataLayerGeneric):
         return self.data.db_capital
 
     ## TOTAL CAPITAL...
+
+    def get_percentage_returns_as_pd(self) -> pd.DataFrame:
+        return self.total_capital_calculator.get_percentage_returns_as_pd()
 
     def get_current_total_capital(self) -> float:
         return self.total_capital_calculator.get_current_total_capital()
@@ -104,3 +109,37 @@ class dataCapital(productionDataLayerGeneric):
         self.db_capital_data.update_capital_value_for_strategy(
             strategy_name, new_capital_value, date=date
         )
+
+class dataMargin(productionDataLayerGeneric):
+    def _add_required_classes_to_data(self, data) -> dataBlob:
+        data.add_class_object(mongoMarginData)
+
+        return data
+
+    @property
+    def db_margin_data(self) -> marginData:
+        return self.data.db_margin
+
+    def get_series_of_total_margin(self) -> seriesOfMargin:
+        return self.db_margin_data.get_series_of_total_margin()
+
+    def get_current_total_margin(self) -> float:
+        return self.db_margin_data.get_current_total_margin()
+
+    def add_total_margin_entry(self, margin_entry: float):
+        self.db_margin_data.add_total_margin_entry(margin_entry)
+
+    def get_list_of_strategies_with_margin(self) -> list:
+        return self.db_margin_data.get_list_of_strategies_with_margin()
+
+    def get_current_strategy_margin(self, strategy_name: str) -> float:
+        return self.db_margin_data.get_current_strategy_margin(strategy_name)
+
+    def add_strategy_margin_entry(self, margin_entry: float,
+                                  strategy_name: str):
+        self.db_margin_data.add_strategy_margin_entry(margin_entry=margin_entry,
+                                                      strategy_name=strategy_name)
+
+    def get_series_of_strategy_margin(self, strategy_name: str) -> seriesOfMargin:
+        return self.db_margin_data.get_series_of_strategy_margin(strategy_name)
+

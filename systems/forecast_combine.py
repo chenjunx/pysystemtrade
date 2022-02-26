@@ -444,6 +444,7 @@ class ForecastCombine(SystemStage):
             for rule_variation_name in rule_variation_list
         ]
 
+
         forecasts = pd.concat(forecasts, axis=1)
 
         forecasts.columns = rule_variation_list
@@ -451,6 +452,11 @@ class ForecastCombine(SystemStage):
         forecasts = forecasts.ffill()
 
         return forecasts
+
+
+    @property
+    def raw_data_stage(self):
+        return self.parent.rawdata
 
     @input
     def _get_capped_individual_forecast(
@@ -507,7 +513,12 @@ class ForecastCombine(SystemStage):
             ## will come back as 2*N data frame
             forecast_weights = self.get_raw_fixed_forecast_weights(instrument_code)
 
-        return forecast_weights
+        forecast_weights_cheap_rules_only = self._remove_expensive_rules_from_weights(
+            instrument_code, forecast_weights
+        )
+
+
+        return forecast_weights_cheap_rules_only
 
     @dont_cache
     def _use_estimated_weights(self):
@@ -552,13 +563,9 @@ class ForecastCombine(SystemStage):
         optimiser = self.calculation_of_raw_estimated_monthly_forecast_weights(
             instrument_code
         )
-        weights = optimiser.weights()
-        # Apply postprocessing cheap rules
-        forecast_weights_cheap_rules_only = self._remove_expensive_rules_from_weights(
-            instrument_code, weights
-        )
+        forecast_weights = optimiser.weights()
 
-        return forecast_weights_cheap_rules_only
+        return forecast_weights
 
     @diagnostic(not_pickable=True, protected=True)
     def calculation_of_raw_estimated_monthly_forecast_weights(self, instrument_code):
@@ -774,10 +781,12 @@ class ForecastCombine(SystemStage):
         ]
 
         if len(cheap_rule_list) == 0:
-            self.log.critical(
-                "No rules are cheap enough for %s with threshold %.3f SR units! Raise threshold (system.config.forecast_weight_estimate['ceiling_cost_SR']), add rules, or drop instrument."
+            error_msg = \
+                "No rules are cheap enough for %s with threshold %.3f SR units! Raise threshold (system.config.forecast_weight_estimate['ceiling_cost_SR']), add rules, or drop instrument." \
                 % (instrument_code, ceiling_cost_SR)
-            )
+            self.log.critical(error_msg)
+            raise Exception(error_msg)
+
         else:
             self.log.msg(
                 "Only this set of rules %s is cheap enough to trade for %s"

@@ -12,7 +12,6 @@ from sysproduction.strategy_code.run_system_classic import (
 from sysproduction.data.contracts import dataContracts
 from sysproduction.data.positions import (
     dataOptimalPositions,
-    strategy_name_with_raw_tag,
 )
 from sysproduction.data.backtest import store_backtest_state
 
@@ -26,7 +25,7 @@ class runSystemCarryTrendDynamic(runSystemClassic):
     # DO NOT CHANGE THE NAME OF THIS FUNCTION; IT IS HARDCODED INTO CONFIGURATION FILES
     # BECAUSE IT IS ALSO USED TO LOAD BACKTESTS
     def system_method(
-        self, notional_trading_capital: float = None, base_currency: str = None
+        self, notional_trading_capital: float = arg_not_supplied, base_currency: str = arg_not_supplied
     ) -> System:
         data = self.data
         backtest_config_filename = self.backtest_config_filename
@@ -86,8 +85,6 @@ def dynamic_system(
     return system
 
 
-from sysdata.config.configdata import Config
-
 from systems.forecasting import Rules
 from systems.basesystem import System
 from systems.forecast_combine import ForecastCombine
@@ -95,13 +92,10 @@ from systems.forecast_scale_cap import ForecastScaleCap
 from systems.rawdata import RawData
 from systems.positionsizing import PositionSizing
 from systems.portfolio import Portfolios
-from systems.provided.dynamic_small_system_optimise.portfolio_weights_stage import (
-    portfolioWeightsStage,
-)
 from systems.provided.dynamic_small_system_optimise.optimised_positions_stage import (
     optimisedPositions,
 )
-from systems.provided.dynamic_small_system_optimise.risk import Risk
+from systems.risk import Risk
 from systems.provided.dynamic_small_system_optimise.accounts_stage import (
     accountForOptimisedStage,
 )
@@ -114,7 +108,6 @@ def futures_system(data, config):
             Risk(),
             accountForOptimisedStage(),
             optimisedPositions(),
-            portfolioWeightsStage(),
             Portfolios(),
             PositionSizing(),
             RawData(),

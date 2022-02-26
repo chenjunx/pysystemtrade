@@ -525,6 +525,7 @@ class systemCache(dict):
         protected=False,
         not_pickable=False,
         instrument_classify=True,
+        use_arg_names = True,
         **kwargs
     ):
         """
@@ -558,7 +559,10 @@ class systemCache(dict):
         # Turn all the arguments into things we can use to identify the cache
         # element uniquely
         cache_ref = self.cache_ref(
-            func, this_stage, *args, instrument_classify=instrument_classify, **kwargs
+            func, this_stage, *args,
+            use_arg_names=use_arg_names,
+            instrument_classify=instrument_classify,
+            **kwargs
         )
 
         value = self._get_item_from_cache(cache_ref)
@@ -573,7 +577,9 @@ class systemCache(dict):
 
         return value
 
-    def cache_ref(self, func, this_stage, *args, instrument_classify=True, **kwargs):
+    def cache_ref(self, func, this_stage, *args,
+                  use_arg_names = True,
+                  instrument_classify=True, **kwargs):
         """
         Return cache key
 
@@ -606,10 +612,12 @@ class systemCache(dict):
             list_of_codes = []
 
         (instrument_code, keyname) = resolve_args_to_code_and_key(
-            args, list_of_codes
+            args, list_of_codes,
+            use_arg_names = use_arg_names
         )  # instrument involved, and/or other keys eg rule name
         flags = resolve_kwargs_to_str(
-            kwargs
+            kwargs,
+            use_arg_names = use_arg_names
         )  # used mostly in accounts, eg to identify delayed returns
 
         cache_ref = cacheRef(
@@ -619,7 +627,8 @@ class systemCache(dict):
         return cache_ref
 
 
-def resolve_args_to_code_and_key(args, list_of_codes):
+def resolve_args_to_code_and_key(args, list_of_codes,
+                                 use_arg_names = True):
     """
     Resolves a list of placed args for a function
     Pulls out the first arg that is an instrument_code (in list_of_codes)
@@ -629,7 +638,11 @@ def resolve_args_to_code_and_key(args, list_of_codes):
     :return: (instrument_code, keyname)
     """
     keyname_list = []
-    args_to_process = list(args)
+    if use_arg_names:
+        args_to_process = list(args)
+    else:
+        args_to_process = []
+
     instrument_code = None
 
     while len(args_to_process) > 0:
@@ -658,7 +671,7 @@ def resolve_args_to_code_and_key(args, list_of_codes):
     return (instrument_code, keyname)
 
 
-def resolve_kwargs_to_str(kwargs):
+def resolve_kwargs_to_str(kwargs, use_arg_names:bool = True):
     """
     Turn a list of named arguments into a flag string representing them,
     eg resolve_flags_to_str(dict(a=1, b=2)
@@ -667,6 +680,8 @@ def resolve_kwargs_to_str(kwargs):
     :param kwargs: dict of arguments passed to some function
     :return: str
     """
+    if not use_arg_names:
+        return ""
 
     def resolve_individual_flag(single_flag, kwargs):
         argvalue = str(kwargs[single_flag])
@@ -747,7 +762,9 @@ def base_system_cache(protected=False, not_pickable=False):
                 protected=protected,
                 not_pickable=not_pickable,
                 instrument_classify=False,
-                **kwargs
+                use_arg_names = False,
+                **kwargs,
+
             )
 
             return ans
