@@ -5,9 +5,8 @@ import pandas as pd
 
 
 
-from sysbrokers.IB.client.ib_client import PACING_INTERVAL_SECONDS
-from sysbrokers.IB.client.ib_contracts_client import ibContractsClient
-from sysbrokers.IB.ib_positions import resolveBS_for_list
+from sysbrokers.mills.client.mills_contracts_client import millsContractsClient
+
 
 from syscore.objects import missing_contract, missing_data
 from syscore.dateutils import (
@@ -31,7 +30,7 @@ class tickerWithBS(object):
 
 
 # we don't include ibClient since we get that through contracts client
-class millsPriceClient(ibContractsClient):
+class millsPriceClient(millsContractsClient):
     def broker_get_historical_futures_data_for_contract(
         self,
         contract_object_with_ib_broker_config: futuresContract,

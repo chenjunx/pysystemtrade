@@ -8,6 +8,8 @@ from sysbrokers.IB.ib_contract_position_data import ibContractPositionData
 from sysbrokers.IB.ib_orders import ibExecutionStackData
 from sysbrokers.IB.ib_static_data import ibStaticData
 from sysbrokers.IB.ib_fx_handling import ibFxHandlingData
+from sysbrokers.mills.mills_fx_handing import millsFxHandlingData
+from sysbrokers.mills.mills_fx_prices_data import millsFxPricesData
 
 from sysbrokers.broker_fx_handling import brokerFxHandlingData
 from sysbrokers.broker_static_data import brokerStaticData
@@ -54,15 +56,17 @@ class dataBroker(productionDataLayerGeneric):
         ## These will be aliased as self.data.broker_fx_prices, self.data.broker_futures_contract_price ... and so on
         data.add_class_list(
             [
-                ibFxPricesData,
-                ibFuturesContractPriceData,
-                ibFuturesContractData,
-                ibContractPositionData,
-                ibExecutionStackData,
-                ibStaticData,
-                ibCapitalData,
-                ibFuturesInstrumentData,
-                ibFxHandlingData,
+                # ibFxPricesData,
+                # ibFuturesContractPriceData,
+                # ibFuturesContractData,
+                # ibContractPositionData,
+                # ibExecutionStackData,
+                # ibStaticData,
+                # ibCapitalData,
+                # ibFuturesInstrumentData,
+                # ibFxHandlingData,
+                millsFxHandlingData,
+                millsFxPricesData
             ]
         )
 

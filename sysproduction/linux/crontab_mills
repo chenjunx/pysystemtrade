@@ -4,7 +4,7 @@
 #
 #
 #
-05 20  * * 1-5 $SCRIPT_PATH/run_daily_price_updates  >> $ECHO_PATH/run_daily_price_updates.txt 2>&1
+05 20  * * 1-5 $SCRIPT_PATH/run_daily_price_updates_mills  >> $ECHO_PATH/run_daily_price_updates.txt 2>&1
 #
 # Note: $MONGO_DATA must be accessible at boot; this won't work if it's in an encrypted home folder
 @reboot          $HOME/.profile; mongod --dbpath $MONGO_DATA
