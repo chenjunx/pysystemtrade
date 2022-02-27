@@ -8,14 +8,13 @@ from sysbrokers.mills.client.mills_price_client import millsPriceClient
 class millsFxClient(millsPriceClient):
     def broker_fx_balances(self, account_id: str = arg_not_supplied) -> dict:
         if account_id is arg_not_supplied:
-            account_summary = self.ib.accountValues()
+            account_summary = self.millsGW.accountValues()
         else:
-            account_summary = self.ib.accountValues(account=account_id)
+            account_summary = self.millsGW.accountValues(account=account_id)
 
         fx_balance_dict = extract_fx_balances_from_account_summary(account_summary)
 
         return fx_balance_dict
-
     def broker_fx_market_order(
         self,
         trade: float,
@@ -46,6 +45,8 @@ class millsFxClient(millsPriceClient):
         trade_with_contract = tradeWithContract(contract_object_to_return, order_object)
 
         return trade_with_contract
+
+    pass
 
     def _create_fx_market_order_for_submission(
         self, trade: float, account_id: str = arg_not_supplied
