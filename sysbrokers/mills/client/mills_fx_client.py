@@ -5,7 +5,7 @@ from syscore.dateutils import Frequency, DAILY_PRICE_FREQ
 from sysbrokers.mills.client.mills_price_client import millsPriceClient
 
 import requests
-
+import json
 class millsFxClient(millsPriceClient):
     # def broker_fx_balances(self, account_id: str = arg_not_supplied) -> dict:
     #     if account_id is arg_not_supplied:
@@ -85,10 +85,15 @@ class millsFxClient(millsPriceClient):
 
         url="https://v6.exchangerate-api.com/v6/25c26574f2eac4a80b0def3c/latest/"+ccy2
         res = requests.get(url)
-        print(res.text)
-
-        # return fx_data
-        pass
+        if res.text:
+            url = "https://v6.exchangerate-api.com/v6/25c26574f2eac4a80b0def3c/latest/USD"
+            res = requests.get(url)
+            print(res.text)
+            jsonData = json.loads(res.text)
+            print(jsonData['base_code'])
+            print(jsonData['conversion_rates']['CNY'])
+            fx_data = pd.Series({'DATETIME': '2022-02-28 00:00:00', "PRICE":jsonData['conversion_rates']['CNY']})
+        return fx_data
 
     # def ib_spotfx_contract(self, ccy1, ccy2="USD") -> Forex:
     #
@@ -97,7 +102,3 @@ class millsFxClient(millsPriceClient):
     #
     #     return ibcontract
 
-if __name__ == '__main__':
-    url = "https://v6.exchangerate-api.com/v6/25c26574f2eac4a80b0def3c/latest/USD"
-    res = requests.get(url)
-    print(res.text)
