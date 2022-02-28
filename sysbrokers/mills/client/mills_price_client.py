@@ -64,34 +64,34 @@ class millsPriceClient(millsContractsClient):
 
         return price_data
 
-    def get_ticker_object(
-        self,
-        contract_object_with_ib_data: futuresContract,
-        trade_list_for_multiple_legs: tradeQuantity = None,
-    ) -> tickerWithBS:
-
-        specific_log = contract_object_with_ib_data.specific_log(self.log)
-
-        ibcontract = self.ib_futures_contract(
-            contract_object_with_ib_data,
-            trade_list_for_multiple_legs=trade_list_for_multiple_legs,
-        )
-
-        if ibcontract is missing_contract:
-            specific_log.warn(
-                "Can't find matching IB contract for %s"
-                % str(contract_object_with_ib_data)
-            )
-            return missing_contract
-
-        self.ib.reqMktData(ibcontract, "", False, False)
-        ticker = self.ib.ticker(ibcontract)
-
-        ib_BS_str, ib_qty = resolveBS_for_list(trade_list_for_multiple_legs)
-
-        ticker_with_bs = tickerWithBS(ticker, ib_BS_str)
-
-        return ticker_with_bs
+    # def get_ticker_object(
+    #     self,
+    #     contract_object_with_ib_data: futuresContract,
+    #     trade_list_for_multiple_legs: tradeQuantity = None,
+    # ) -> tickerWithBS:
+    #
+    #     specific_log = contract_object_with_ib_data.specific_log(self.log)
+    #
+    #     ibcontract = self.ib_futures_contract(
+    #         contract_object_with_ib_data,
+    #         trade_list_for_multiple_legs=trade_list_for_multiple_legs,
+    #     )
+    #
+    #     if ibcontract is missing_contract:
+    #         specific_log.warn(
+    #             "Can't find matching IB contract for %s"
+    #             % str(contract_object_with_ib_data)
+    #         )
+    #         return missing_contract
+    #
+    #     self.ib.reqMktData(ibcontract, "", False, False)
+    #     ticker = self.ib.ticker(ibcontract)
+    #
+    #     ib_BS_str, ib_qty = resolveBS_for_list(trade_list_for_multiple_legs)
+    #
+    #     ticker_with_bs = tickerWithBS(ticker, ib_BS_str)
+    #
+    #     return ticker_with_bs
 
     def cancel_market_data_for_contract_object(
         self,
@@ -151,44 +151,44 @@ class millsPriceClient(millsContractsClient):
 
         return tick_data
 
-    def _get_generic_data_for_contract(
-        self,
-        ibcontract: ibContract,
-        log: logger = None,
-        bar_freq: Frequency = DAILY_PRICE_FREQ,
-        whatToShow: str = "TRADES",
-    ) -> pd.DataFrame:
-        """
-        Get historical daily data
-
-        :param contract_object_with_ib_data: contract where instrument has ib metadata
-        :param freq: str; one of D, H, 5M, M, 10S, S
-        :return: futuresContractPriceData
-        """
-        if log is None:
-            log = self.log
-
-        try:
-            barSizeSetting, durationStr = _get_barsize_and_duration_from_frequency(
-                bar_freq
-            )
-        except Exception as exception:
-            log.warn(exception)
-            return missing_data
-
-        price_data_raw = self._ib_get_historical_data_of_duration_and_barSize(
-            ibcontract,
-            durationStr=durationStr,
-            barSizeSetting=barSizeSetting,
-            whatToShow=whatToShow,
-            log=log,
-        )
-
-        price_data_as_df = self._raw_ib_data_to_df(
-            price_data_raw=price_data_raw, log=log
-        )
-
-        return price_data_as_df
+    # def _get_generic_data_for_contract(
+    #     self,
+    #     ibcontract: ibContract,
+    #     log: logger = None,
+    #     bar_freq: Frequency = DAILY_PRICE_FREQ,
+    #     whatToShow: str = "TRADES",
+    # ) -> pd.DataFrame:
+    #     """
+    #     Get historical daily data
+    #
+    #     :param contract_object_with_ib_data: contract where instrument has ib metadata
+    #     :param freq: str; one of D, H, 5M, M, 10S, S
+    #     :return: futuresContractPriceData
+    #     """
+    #     if log is None:
+    #         log = self.log
+    #
+    #     try:
+    #         barSizeSetting, durationStr = _get_barsize_and_duration_from_frequency(
+    #             bar_freq
+    #         )
+    #     except Exception as exception:
+    #         log.warn(exception)
+    #         return missing_data
+    #
+    #     price_data_raw = self._ib_get_historical_data_of_duration_and_barSize(
+    #         ibcontract,
+    #         durationStr=durationStr,
+    #         barSizeSetting=barSizeSetting,
+    #         whatToShow=whatToShow,
+    #         log=log,
+    #     )
+    #
+    #     price_data_as_df = self._raw_ib_data_to_df(
+    #         price_data_raw=price_data_raw, log=log
+    #     )
+    #
+    #     return price_data_as_df
 
     def _raw_ib_data_to_df(
         self, price_data_raw: pd.DataFrame, log: logger
@@ -244,41 +244,41 @@ class millsPriceClient(millsContractsClient):
 
     # HISTORICAL DATA
     # Works for FX and futures
-    def _ib_get_historical_data_of_duration_and_barSize(
-        self,
-        ibcontract: ibContract,
-        durationStr: str = "1 Y",
-        barSizeSetting: str = "1 day",
-        whatToShow="TRADES",
-        log: logger = None,
-    ) -> pd.DataFrame:
-        """
-        Returns historical prices for a contract, up to today
-        ibcontract is a Contract
-        :returns list of prices in 4 tuples: Open high low close volume
-        """
-
-        if log is None:
-            log = self.log
-
-        last_call = self.last_historic_price_calltime
-        _avoid_pacing_violation(last_call, log=log)
-
-        bars = self.ib.reqHistoricalData(
-            ibcontract,
-            endDateTime="",
-            durationStr=durationStr,
-            barSizeSetting=barSizeSetting,
-            whatToShow=whatToShow,
-            useRTH=True,
-            formatDate=2,
-        )
-        df = util.df(bars)
-
-        self.last_historic_price_calltime = datetime.datetime.now()
-
-        return df
-
+    # def _ib_get_historical_data_of_duration_and_barSize(
+    #     self,
+    #     ibcontract: ibContract,
+    #     durationStr: str = "1 Y",
+    #     barSizeSetting: str = "1 day",
+    #     whatToShow="TRADES",
+    #     log: logger = None,
+    # ) -> pd.DataFrame:
+    #     """
+    #     Returns historical prices for a contract, up to today
+    #     ibcontract is a Contract
+    #     :returns list of prices in 4 tuples: Open high low close volume
+    #     """
+    #
+    #     if log is None:
+    #         log = self.log
+    #
+    #     last_call = self.last_historic_price_calltime
+    #     _avoid_pacing_violation(last_call, log=log)
+    #
+    #     bars = self.ib.reqHistoricalData(
+    #         ibcontract,
+    #         endDateTime="",
+    #         durationStr=durationStr,
+    #         barSizeSetting=barSizeSetting,
+    #         whatToShow=whatToShow,
+    #         useRTH=True,
+    #         formatDate=2,
+    #     )
+    #     df = util.df(bars)
+    #
+    #     self.last_historic_price_calltime = datetime.datetime.now()
+    #
+    #     return df
+    #
 
 def _get_barsize_and_duration_from_frequency(bar_freq: Frequency) -> (str, str):
 
@@ -320,27 +320,27 @@ def _get_barsize_and_duration_from_frequency(bar_freq: Frequency) -> (str, str):
     return ib_barsize, ib_duration
 
 
-def _avoid_pacing_violation(
-    last_call_datetime: datetime.datetime, log: logger = logtoscreen("")
-):
-    printed_warning_already = False
-    while _pause_for_pacing(last_call_datetime):
-        if not printed_warning_already:
-            log.msg(
-                "Pausing %f seconds to avoid pacing violation"
-                % (
-                    last_call_datetime
-                    + datetime.timedelta(seconds=PACING_INTERVAL_SECONDS)
-                    - datetime.datetime.now()
-                ).total_seconds()
-            )
-            printed_warning_already = True
-        pass
+# def _avoid_pacing_violation(
+#     last_call_datetime: datetime.datetime, log: logger = logtoscreen("")
+# ):
+#     printed_warning_already = False
+#     while _pause_for_pacing(last_call_datetime):
+#         if not printed_warning_already:
+#             log.msg(
+#                 "Pausing %f seconds to avoid pacing violation"
+#                 % (
+#                     last_call_datetime
+#                     + datetime.timedelta(seconds=PACING_INTERVAL_SECONDS)
+#                     - datetime.datetime.now()
+#                 ).total_seconds()
+#             )
+#             printed_warning_already = True
+#         pass
 
 
-def _pause_for_pacing(last_call_datetime: datetime.datetime):
-    time_since_last_call = datetime.datetime.now() - last_call_datetime
-    seconds_since_last_call = time_since_last_call.total_seconds()
-    should_pause = seconds_since_last_call < PACING_INTERVAL_SECONDS
-
-    return should_pause
+# def _pause_for_pacing(last_call_datetime: datetime.datetime):
+#     time_since_last_call = datetime.datetime.now() - last_call_datetime
+#     seconds_since_last_call = time_since_last_call.total_seconds()
+#     should_pause = seconds_since_last_call < PACING_INTERVAL_SECONDS
+#
+#     return should_pause
