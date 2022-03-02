@@ -183,7 +183,6 @@ def _check_if_process_status_is_okay_to_run(process_to_run: processToRun) -> boo
     data_control = process_to_run.data_control
     process_name = process_to_run.process_name
     okay_to_run = data_control.check_if_okay_to_start_process(process_name)
-
     wait_reporter = process_to_run.wait_reporter
     if okay_to_run is process_running:
         # already running

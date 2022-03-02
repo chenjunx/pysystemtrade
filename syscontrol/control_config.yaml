@@ -35,7 +35,7 @@ process_configuration_methods:
       max_executions: 1
   run_daily_prices_updates:
     update_fx_prices:
-      max_executions: 1
+      max_executions: -1
     update_sampled_contracts:
       max_executions: 1
     update_historical_prices:

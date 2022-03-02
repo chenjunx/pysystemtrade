@@ -30,7 +30,7 @@ def mills_defaults(**kwargs):
         output_dict[param_name] = param_value
 
     # Get from dictionary
-    ipaddress = output_dict["ib_ipaddress"]
-    port = output_dict["ib_port"]
+    ipaddress = output_dict["mills_ipaddress"]
+    port = output_dict["mills_port"]
 
     return ipaddress, port

@@ -1,6 +1,8 @@
 from copy import copy
 
 from sysbrokers.IB.ib_connection import connectionIB
+from sysbrokers.mills.mills_connection import connectionMills
+
 from syscore.objects import arg_not_supplied, get_class_name
 from syscore.text import camel_case_split
 from sysdata.config.production_config import get_production_config, Config
@@ -11,6 +13,9 @@ from syslogdiag.logger import logger
 from sysdata.mongodb.mongo_IB_client_id import mongoIbBrokerClientIdData
 
 
+
+
+
 class dataBlob(object):
     def __init__(
         self,
@@ -19,6 +24,7 @@ class dataBlob(object):
         csv_data_paths: dict = arg_not_supplied,
         ib_conn: connectionIB = arg_not_supplied,
         mongo_db: mongoDb = arg_not_supplied,
+        connection_mills: connectionMills = arg_not_supplied,
         log: logger = arg_not_supplied,
         keep_original_prefix: bool = False,
     ):
@@ -64,7 +70,7 @@ class dataBlob(object):
         self._log_name = log_name
         self._csv_data_paths = csv_data_paths
         self._keep_original_prefix = keep_original_prefix
-
+        self._connection_mills =connection_mills
         self._attr_list = []
 
         if class_list is arg_not_supplied:
@@ -102,6 +108,7 @@ class dataBlob(object):
             csv=self._add_csv_class,
             arctic=self._add_arctic_class,
             mongo=self._add_mongo_class,
+            mills=self._add_mills_class
         )
 
         method_to_add_with = class_dict.get(prefix, None)
@@ -130,6 +137,21 @@ class dataBlob(object):
                 "Error %s couldn't evaluate %s(self.ib_conn, log = self.log.setup(component = %s)) This might be because (a) IB gateway not running, or (b) import is missing\
                          or (c) arguments don't follow pattern"
                 % (str(e), class_name, class_name)
+            )
+            self._raise_and_log_error(msg)
+
+        return resolved_instance
+
+    def _add_mills_class(self, class_object):
+        log = self._get_specific_logger(class_object)
+        try:
+            resolved_instance = class_object(self.mills_conn, log=log)
+        except Exception as e:
+            class_name = get_class_name(class_object)
+            msg = (
+                    "Error %s couldn't evaluate %s(self.mills_conn, log = self.log.setup(component = %s)) This might be because (a) IB gateway not running, or (b) import is missing\
+                             or (c) arguments don't follow pattern"
+                    % (str(e), class_name, class_name)
             )
             self._raise_and_log_error(msg)
 
@@ -272,6 +294,18 @@ class dataBlob(object):
             self._ib_conn = ib_conn
 
         return ib_conn
+
+    @property
+    def mills_conn(self) -> connectionMills:
+        mills_conn = getattr(self, "_connection_mills", arg_not_supplied)
+        if mills_conn is arg_not_supplied:
+            mills_conn = self._get_new_mills_connection()
+            self._connection_mills = mills_conn
+        return mills_conn
+
+    def _get_new_mills_connection(self) -> connectionMills:
+        connection_Mills = connectionMills()
+        return connection_Mills
 
     def _get_new_ib_connection(self) -> connectionIB:
         # Try this 5 times...
