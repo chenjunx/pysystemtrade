@@ -13,7 +13,7 @@ class connectionMills(object):
             account: str = arg_not_supplied,
             log=logtoscreen("connectionMills"),
     ):
-        ipaddress, port, __ = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
+        ipaddress, port = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
 
         log.label(broker="mills")
         self._mills_connection_config = dict(
