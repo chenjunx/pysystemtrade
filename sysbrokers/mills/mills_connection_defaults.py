@@ -10,7 +10,6 @@ def mills_defaults(**kwargs):
     1- if passed in arguments: ipaddress, port, millsoffset - use that
     2- if defined in private_config file, use that. mills_ipaddress, mills_port
     3 - if defined in system defaults file, use that
-
     :return: mongo db, hostname, port
     """
 
