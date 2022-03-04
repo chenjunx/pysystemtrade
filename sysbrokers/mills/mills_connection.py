@@ -1,7 +1,6 @@
 from syscore.objects import missing_data, arg_not_supplied
 
 from syslogdiag.log_to_screen import logtoscreen
-from sysdata.config.production_config import get_production_config
 from sysbrokers.mills.mills_connection_defaults import  mills_defaults
 
 import requests

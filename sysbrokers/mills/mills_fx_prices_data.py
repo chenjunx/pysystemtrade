@@ -27,7 +27,7 @@ class millsFxPricesData(brokerFxPricesData):
 
     #获取外部汇率的方法
     def _get_fx_prices_without_checking(self, currency_code: str) -> fxPrices:
-        print(self._millsconnection.__dict__)
+        print(dir(self._millsconnection))
 
         print(self._millsconnection.query_fx_Data())
 
