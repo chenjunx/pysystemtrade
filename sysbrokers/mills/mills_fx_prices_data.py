@@ -7,12 +7,16 @@ from syscore.fileutils import get_filename_for_package
 from syscore.objects import missing_instrument, missing_file, missing_data
 import pandas as pd
 from sysbrokers.mills.mills_connection import connectionMills
+from datetime import datetime
+from syscore.pdutils import  DEFAULT_DATE_FORMAT
+
+
 Mills_CCY_CONFIG_FILE = get_filename_for_package("sysbrokers.mills.mills_config_spot_FX.csv")
 
 millsFXConfig = namedtuple("ibFXConfig", ["ccy1", "ccy2", "invert"])
 
 class millsFxPricesData(brokerFxPricesData):
-    def __init__(self, millsconnection, log=logtoscreen("millsFxPricesData")):
+    def __init__(self, millsconnection: connectionMills, log=logtoscreen("millsFxPricesData")):
         self._millsconnection = millsconnection
         super().__init__(log=log)
 
@@ -28,13 +32,31 @@ class millsFxPricesData(brokerFxPricesData):
     #获取外部汇率的方法
     def _get_fx_prices_without_checking(self, currency_code: str) -> fxPrices:
         print(dir(self._millsconnection))
+        jsonData = self._millsconnection.query_fx_Data()
+        print(jsonData)
 
-        print(self._millsconnection.query_fx_Data())
+        # price_column = config.price_column
+        # date_column = config.date_column
+        # date_format = config.date_format
 
+        # try:
+        #     fx_data = pd_readcsv(
+        #         filename, date_format=date_format, date_index_name=date_column
+        #     )
+        # except OSError:
+        #     self.log.warn("Can't find currency price file %s" % filename, fx_code=code)
+        #     return fxPrices.create_empty()
+        #
+        # fx_data = pd.Series(fx_data[price_column])
+        #
+        # fx_data = fxPrices(fx_data.sort_index())
         # print(jsonData['base_code'])
         # print(jsonData['conversion_rates']['CNY'])
-        # fx_data = pd.Series({'DATETIME': '2022-02-28 00:00:00', "PRICE": jsonData['conversion_rates']['CNY']})
-        pass
+        fx_data = pd.Series( [jsonData['conversion_rates']['CNY']],index=[datetime.strptime('2022-03-05 00:00:00',DEFAULT_DATE_FORMAT)])
+        # fx_data.index = fx_data['DATETIME']
+        fx_data = fxPrices(fx_data.sort_index())
+        print(fx_data)
+        return fx_data
 
     def update_fx_prices(self, *args, **kwargs):
 
