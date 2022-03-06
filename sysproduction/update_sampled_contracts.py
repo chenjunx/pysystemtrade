@@ -83,7 +83,6 @@ def update_active_contracts_with_data(
         list_of_codes = diag_prices.get_list_of_instruments_in_multiple_prices()
     else:
         list_of_codes = [instrument_code]
-
     for instrument_code in list_of_codes:
         update_active_contracts_for_instrument(instrument_code, data)
 

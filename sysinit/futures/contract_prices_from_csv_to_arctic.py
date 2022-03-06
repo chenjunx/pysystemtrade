@@ -1,5 +1,5 @@
 from syscore.objects import arg_not_supplied
-
+from sysdata.csv.csv_futures_contract_prices import ConfigCsvFuturesPrices
 from sysdata.csv.csv_futures_contract_prices import csvFuturesContractPriceData
 from sysdata.arctic.arctic_futures_per_contract_prices import (
     arcticFuturesContractPriceData,
@@ -52,7 +52,16 @@ def init_arctic_with_csv_futures_contract_prices_for_code(
 
 
 if __name__ == "__main__":
-    input("Will overwrite existing prices are you sure?! CTL-C to abort")
+    # input("Will overwrite existing prices are you sure?! CTL-C to abort")
     # modify flags as required
-    datapath = "*** NEED TO DEFINE A DATAPATH***"
-    init_arctic_with_csv_futures_contract_prices(datapath)
+    # datapath = "*** NEED TO DEFINE A DATAPATH***"
+
+    csv_config=  ConfigCsvFuturesPrices(input_date_index_name="Time",input_date_format='%m/%d/%Y',
+                           input_column_mapping=dict(OPEN='Open',
+                                                     HIGH='High',
+                                                     LOW='Low',
+                                                     FINAL='Last',
+                                                     VOLUME='Volume'
+                                                     ))
+    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/history/BITCOIN_FTX"
+    init_arctic_with_csv_futures_contract_prices(datapath,csv_config=csv_config)

@@ -185,12 +185,12 @@ def add_phantom_row(
 
 
 if __name__ == "__main__":
-    input("Will overwrite existing prices are you sure?! CTL-C to abort")
+    # input("Will overwrite existing prices are you sure?! CTL-C to abort")
     # change if you want to write elsewhere
-    csv_multiple_data_path = arg_not_supplied
+    csv_multiple_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/multiple_data"
 
     # only change if you have written the files elsewhere
-    csv_roll_data_path = arg_not_supplied
+    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BITCOIN_FTX"
 
     # modify flags as required
     process_multiple_prices_all_instruments(

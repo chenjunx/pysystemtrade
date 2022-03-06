@@ -37,7 +37,7 @@ mills_ipaddress: 127.0.0.1
 mills_port: 80
 #
 # Mongo DB
-mongo_host: 127.0.0.1
+mongo_host: 216.127.184.31
 mongo_db: 'production'
 # DO NOT CHANGE THIS VALUE!!!! IT WILL SCREW UP ARCTIC. If you need to use a port other than 27017, use the url
 # format for mongo_host, eg mongodb://127.0.0.1:27018
