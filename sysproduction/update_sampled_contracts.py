@@ -75,6 +75,7 @@ class updateSampledContracts(object):
         update_active_contracts_with_data(data, instrument_code=instrument_code)
 
 
+
 def update_active_contracts_with_data(
     data: dataBlob, instrument_code: str = ALL_INSTRUMENTS
 ):
@@ -90,9 +91,11 @@ def update_active_contracts_with_data(
 def update_active_contracts_for_instrument(instrument_code: str, data: dataBlob):
     # Get the list of contracts we'd want to get prices for, given current
     # roll calendar
+    #获取可能要交易的合同(如何判断待定)
     required_contract_chain = get_contract_chain(data, instrument_code)
 
     # Make sure contract chain and database are aligned
+    #把可能交易的合同添加进monogodb的futures_contracts表
     update_contract_database_with_contract_chain(
         instrument_code, required_contract_chain, data
     )

@@ -66,6 +66,7 @@ class dataBroker(productionDataLayerGeneric):
                 # ibCapitalData,
                 # ibFuturesInstrumentData,
                 # ibFxHandlingData,
+                millsFuturesContractData,
                 millsFuturesInstrumentData,
                 millsFxHandlingData,
                 millsFxPricesData
