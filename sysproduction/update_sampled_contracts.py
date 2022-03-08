@@ -91,7 +91,7 @@ def update_active_contracts_with_data(
 def update_active_contracts_for_instrument(instrument_code: str, data: dataBlob):
     # Get the list of contracts we'd want to get prices for, given current
     # roll calendar
-    #获取可能要交易的合同(如何判断待定)
+    #获取可能要交易的合同(如何判断待定?)
     required_contract_chain = get_contract_chain(data, instrument_code)
 
     # Make sure contract chain and database are aligned

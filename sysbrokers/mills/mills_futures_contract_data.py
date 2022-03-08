@@ -3,10 +3,19 @@ from sysbrokers.broker_futures_contract_data import brokerFuturesContractData
 from syscore.dateutils import listOfOpeningTimes
 from sysobjects.contract_dates_and_expiries import expiryDate
 from sysobjects.contracts import futuresContract
+from sysbrokers.mills.mills_connection import connectionMills
+from syslogdiag.log_to_screen import logtoscreen
 
 from syscore.objects import missing_contract
 
 class millsFuturesContractData(brokerFuturesContractData):
+
+    def __init__(
+            self, connection_Mills: connectionMills, log=logtoscreen("ibFuturesContractData")
+    ):
+        super().__init__(log=log)
+        self._connection_Mills = connection_Mills
+
     def get_actual_expiry_date_for_single_contract(self, futures_contract: futuresContract) -> expiryDate:
         """
                Get the actual expiry date of a contract from mills
