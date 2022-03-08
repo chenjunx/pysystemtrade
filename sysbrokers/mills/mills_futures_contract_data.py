@@ -4,10 +4,31 @@ from syscore.dateutils import listOfOpeningTimes
 from sysobjects.contract_dates_and_expiries import expiryDate
 from sysobjects.contracts import futuresContract
 
+from syscore.objects import missing_contract
 
 class millsFuturesContractData(brokerFuturesContractData):
     def get_actual_expiry_date_for_single_contract(self, futures_contract: futuresContract) -> expiryDate:
-        pass
+        """
+               Get the actual expiry date of a contract from mills
+                从mills中获取实际的过期日期
+               :param futures_contract: type futuresContract
+               :return: YYYYMMDD or None
+               """
+        log = futures_contract.specific_log(self.log)
+        print(str(futures_contract))
+        if futures_contract.is_spread_contract():
+            log.warn("Can't find expiry for multiple leg contract here")
+            return missing_contract
+
+        # contract_object_with_ib_data = self.get_contract_object_with_mills_data(
+        #     futures_contract
+        # )
+        # if contract_object_with_ib_data is missing_contract:
+        #     return missing_contract
+        #
+        # expiry_date = contract_object_with_ib_data.expiry_date
+
+        return
 
     def get_min_tick_size_for_contract(self, contract_object: futuresContract) -> float:
         pass
