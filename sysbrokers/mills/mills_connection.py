@@ -2,6 +2,7 @@ from syscore.objects import missing_data, arg_not_supplied
 
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import  mills_defaults
+from sysobjects.contracts import futuresContract
 
 import requests
 import json
@@ -18,7 +19,7 @@ class connectionMills(object):
 
         log.label(broker="mills")
         self._mills_connection_config = dict(
-            ipaddress=ipaddress, port=port
+            ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port)
         )
         pass
 
@@ -33,3 +34,21 @@ class connectionMills(object):
         print(res.text)
         jsonData = json.loads(res.text)
         return jsonData
+
+    #查询期货信息
+    def query_contract_info(self,futures_contract: futuresContract):
+        res = self.send_post("/gateway/contract_info",futures_contract.as_dict())
+        return res
+
+    #查询指定的合同的历史价格
+    def query_historical_futures_data_for_contract(self, contract_object: futuresContract):
+        res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
+        return res
+
+    def send_get(self,endpoint,params):
+        url= self._mills_connection_config.get("header")+endpoint;
+        return requests.get(url=url,params=params).text
+
+    def send_post(self, endpoint, params):
+        url = self._mills_connection_config.get("header") + endpoint;
+        return requests.post(url=url, json=json.dumps(params)).text

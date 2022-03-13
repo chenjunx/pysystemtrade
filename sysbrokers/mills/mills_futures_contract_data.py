@@ -24,11 +24,14 @@ class millsFuturesContractData(brokerFuturesContractData):
                :return: YYYYMMDD or None
                """
         log = futures_contract.specific_log(self.log)
-        print(str(futures_contract))
         if futures_contract.is_spread_contract():
             log.warn("Can't find expiry for multiple leg contract here")
             return missing_contract
 
+        contract_object_with_mills_data = self._connection_Mills.query_contract_info(futures_contract)
+        if contract_object_with_mills_data == str(missing_contract):
+            return missing_contract
+        # return missing_contract
         # contract_object_with_ib_data = self.get_contract_object_with_mills_data(
         #     futures_contract
         # )
@@ -36,8 +39,8 @@ class millsFuturesContractData(brokerFuturesContractData):
         #     return missing_contract
         #
         # expiry_date = contract_object_with_ib_data.expiry_date
-
-        return
+        expiry_date = expiryDate.from_str(contract_object_with_mills_data)
+        return expiry_date
 
     def get_min_tick_size_for_contract(self, contract_object: futuresContract) -> float:
         pass

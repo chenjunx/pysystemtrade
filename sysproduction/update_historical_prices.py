@@ -74,7 +74,7 @@ def update_historical_prices_for_instrument_and_contract(
     contract_object: futuresContract, data: dataBlob
 ):
     """
-    Do a daily update for futures contract prices, using IB historical data
+    Do a daily update for futures contract prices, using mills historical data
 
     There are two different calls, the first using intraday frequency, the second daily.
     So in a typical session we'd get the hourly intraday prices for a given instrument,

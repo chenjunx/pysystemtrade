@@ -39,15 +39,22 @@ def get_list_of_timer_functions_for_price_update():
     return list_of_timer_names_and_functions
 
 if __name__ == '__main__':
-    data_contracts = dataBlob(log_name="update_sampled_contracts")
-    contracts_update_object = updateSampledContracts(data_contracts)
+    # data_contracts = dataBlob(log_name="update_sampled_contracts")
+    # contracts_update_object = updateSampledContracts(data_contracts)
+    # data_historical = dataBlob(log_name="update_historical_prices")
+    # historical_update_object = updateHistoricalPrices(data_historical)
+    data_multiple = dataBlob(log_name="update_multiple_adjusted_prices")
+    multiple_update_object = updateMultipleAdjustedPrices(data_multiple)
+
     process_name = "run_daily_prices_updates"
     data = dataBlob(log_name=process_name)
 
     list_of_timer_names_and_functions = [
-        ("update_sampled_contracts", contracts_update_object)
+        # ("update_sampled_contracts", contracts_update_object)
         # ("update_historical_prices", historical_update_object),
         # ("update_multiple_adjusted_prices", multiple_update_object),
+        ("update_multiple_adjusted_prices", multiple_update_object),
+
     ]
     price_process = processToRun(process_name, data, list_of_timer_names_and_functions)
     price_process.run_process()

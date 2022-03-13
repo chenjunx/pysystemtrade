@@ -12,7 +12,7 @@ from sysbrokers.mills.mills_fx_handing import millsFxHandlingData
 from sysbrokers.mills.mills_fx_prices_data import millsFxPricesData
 # from sysbrokers.mills.mills_instrument_data import millsFuturesInstrumentData
 from sysbrokers.mills.mills_futures_contract_data import millsFuturesContractData
-
+from sysbrokers.mills.mills_futures_contract_price_data import millsFuturesContractPriceData
 
 from sysbrokers.broker_fx_handling import brokerFxHandlingData
 from sysbrokers.broker_static_data import brokerStaticData
@@ -68,6 +68,7 @@ class dataBroker(productionDataLayerGeneric):
                 # ibCapitalData,
                 # ibFuturesInstrumentData,
                 # ibFxHandlingData,
+                millsFuturesContractPriceData,
                 millsFuturesContractData,
                 millsFxHandlingData,
                 millsFxPricesData
