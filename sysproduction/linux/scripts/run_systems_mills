@@ -1,0 +1,3 @@
+#!/bin/bash
+#. ~/.profile
+$SCRIPT_PATH/p_mills sysproduction.run_systems.run_systems
