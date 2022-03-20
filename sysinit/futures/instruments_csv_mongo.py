@@ -15,7 +15,20 @@ instrument_list = data_in.get_list_of_instruments()
 
 if __name__ == "__main__":
     input("Will overwrite existing data are you sure?! CTL-C to abort")
+
+    # 单个期货录入
     # modify flags as required
+    # for instrument_code in instrument_list:
+    # instrument_code = "ETHEREUM_FTX"
+    # instrument_object = data_in.get_instrument_data(instrument_code)
+    # data_out.delete_instrument_data(instrument_code, are_you_sure=True)
+    # data_out.add_instrument_data(instrument_object)
+    #
+    #     # check
+    # instrument_added = data_out.get_instrument_data(instrument_code)
+    # print("Added %s to %s" % (instrument_added.instrument_code, data_out))
+
+    # 多个期货录入
     for instrument_code in instrument_list:
         instrument_object = data_in.get_instrument_data(instrument_code)
         data_out.delete_instrument_data(instrument_code, are_you_sure=True)

@@ -56,12 +56,12 @@ if __name__ == "__main__":
     # modify flags as required
     # datapath = "*** NEED TO DEFINE A DATAPATH***"
 
-    csv_config=  ConfigCsvFuturesPrices(input_date_index_name="Time",input_date_format='%m/%d/%Y',
+    csv_config=  ConfigCsvFuturesPrices(input_date_index_name="Time",input_date_format='%Y%m%d',
                            input_column_mapping=dict(OPEN='Open',
                                                      HIGH='High',
                                                      LOW='Low',
                                                      FINAL='Last',
                                                      VOLUME='Volume'
                                                      ))
-    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/history/BITCOIN_FTX"
+    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/history/ETHEREUM_FTX"
     init_arctic_with_csv_futures_contract_prices(datapath,csv_config=csv_config)
