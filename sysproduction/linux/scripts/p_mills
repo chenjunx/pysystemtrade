@@ -1,2 +1,2 @@
 #. ~/.profile
-python3 $SCRIPT_PATH/run.py $1
+/home/software/anaconda3/bin/python3 /home/software/pysystemtrade/sysproduction/linux/scripts/run.py $1
