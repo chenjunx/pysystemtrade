@@ -1,4 +1,3 @@
 #!/bin/bash
 #. ~/.profile
-/etc/profile
-$SCRIPT_PATH/p_mills sysproduction.run_systems.run_systems
+/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_systems.run_systems
