@@ -61,7 +61,8 @@ if __name__ == "__main__":
                                                      HIGH='High',
                                                      LOW='Low',
                                                      FINAL='Last',
-                                                     VOLUME='Volume'
+                                                     VOLUME='Volumn'
                                                      ))
-    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/history/ETHEREUM_FTX"
+    # datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/history/BNB_FTX"
+    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/豆粕/temp"
     init_arctic_with_csv_futures_contract_prices(datapath,csv_config=csv_config)

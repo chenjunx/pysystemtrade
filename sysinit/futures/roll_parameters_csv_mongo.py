@@ -12,14 +12,25 @@ if __name__ == "__main__":
     data_out = mongoRollParametersData()
     data_in = csvRollParametersData()
 
-    instrument_list = data_in.get_list_of_instruments()
+    #单个期货录入
+    instrument_code = "BNB_FTX"
+    instrument_object = data_in.get_roll_parameters(instrument_code)
 
-    for instrument_code in instrument_list:
-        instrument_object = data_in.get_roll_parameters(instrument_code)
+    data_out.delete_roll_parameters(instrument_code, are_you_sure=True)
+    data_out.add_roll_parameters(instrument_code, instrument_object)
 
-        data_out.delete_roll_parameters(instrument_code, are_you_sure=True)
-        data_out.add_roll_parameters(instrument_code, instrument_object)
+    # check
+    instrument_added = data_out.get_roll_parameters(instrument_code)
+    print("Added %s: %s to %s" % (instrument_code, instrument_added, data_out))
+    # instrument_list = data_in.get_list_of_instruments()
 
-        # check
-        instrument_added = data_out.get_roll_parameters(instrument_code)
-        print("Added %s: %s to %s" % (instrument_code, instrument_added, data_out))
+
+    # for instrument_code in instrument_list:
+    #     instrument_object = data_in.get_roll_parameters(instrument_code)
+    #
+    #     data_out.delete_roll_parameters(instrument_code, are_you_sure=True)
+    #     data_out.add_roll_parameters(instrument_code, instrument_object)
+    #
+    #     # check
+    #     instrument_added = data_out.get_roll_parameters(instrument_code)
+    #     print("Added %s: %s to %s" % (instrument_code, instrument_added, data_out))

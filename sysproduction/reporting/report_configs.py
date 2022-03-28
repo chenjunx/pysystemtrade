@@ -131,7 +131,7 @@ remove_markets_report_config = reportConfig(title="Remove markets report",
 
 ## The reports will be run in this order
 report_config_defaults = dict(
-    slippage_report = slippage_report_config,
+    # slippage_report = slippage_report_config,
     # costs_report=costs_report_config,
     roll_report=roll_report_config,
     # daily_pandl_report=daily_pandl_report_config,
@@ -139,10 +139,10 @@ report_config_defaults = dict(
     # trade_report=trade_report_config,
     strategy_report=strategy_report_config,
     # risk_report=risk_report_config,
-    status_report=status_report_config,
+    # status_report=status_report_config,
     # liquidity_report=liquidity_report_config,
-    instrument_risk_report = instrument_risk_report_config,
-    min_capital = min_capital_report_config,
-    duplicate_market =duplicate_market_report_config,
-    remove_markets_report = remove_markets_report_config
+    # instrument_risk_report = instrument_risk_report_config,
+    # min_capital = min_capital_report_config,
+    # duplicate_market =duplicate_market_report_config,
+    # remove_markets_report = remove_markets_report_config
 )

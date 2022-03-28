@@ -122,4 +122,8 @@ if __name__ == "__main__":
     # instrument_code = get_valid_instrument_code_from_user(source="single")
     ## MODIFY DATAPATH IF REQUIRED
     # build_and_write_roll_calendar(instrument_code, output_datapath=arg_not_supplied)
-    build_and_write_roll_calendar("ETHEREUM_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars")
+    # build_and_write_roll_calendar("SoybeanMeal", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/豆粕/rollcalendars")
+    # build_and_write_roll_calendar("BCH_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BCH_FTX")
+    # build_and_write_roll_calendar("BITCOIN_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BITCOIN_FTX")
+    # build_and_write_roll_calendar("ETHEREUM_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/ETHEREUM_FTX")
+    build_and_write_roll_calendar("BNB_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX")

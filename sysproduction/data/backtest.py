@@ -276,6 +276,7 @@ def get_directory_store_backtests():
     store_directory = production_config.get_element_or_missing_data(
         "backtest_store_directory"
     )
+    print("---"+str(store_directory))
     if store_directory is missing_data:
         raise Exception("Need to specify backtest_store_directory in config file")
 
