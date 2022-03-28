@@ -265,6 +265,7 @@ def get_backtest_directory_for_strategy(strategy_name):
     directory_store_backtests = get_directory_store_backtests()
 
     directory_store_backtests = get_resolved_pathname(directory_store_backtests)
+    print("000"+str(directory_store_backtests))
     full_directory = os.path.join(directory_store_backtests, strategy_name)
 
     return full_directory
@@ -276,7 +277,6 @@ def get_directory_store_backtests():
     store_directory = production_config.get_element_or_missing_data(
         "backtest_store_directory"
     )
-    print("---"+str(store_directory))
     if store_directory is missing_data:
         raise Exception("Need to specify backtest_store_directory in config file")
 
