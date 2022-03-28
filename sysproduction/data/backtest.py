@@ -267,9 +267,8 @@ def get_backtest_directory_for_strategy(strategy_name):
     directory_store_backtests = get_resolved_pathname(directory_store_backtests)
     full_directory = os.path.join(directory_store_backtests, strategy_name)
 
-    # return full_directory
-    # todo 临时解决方案
-    return "/home/software/anaconda3/lib/python3.8/site-packages/pysystemtrade-1.12.0-py3.8.egg/private/"+strategy_name
+    return full_directory
+
 
 def get_directory_store_backtests():
     # eg '/home/rob/data/backtests/'
