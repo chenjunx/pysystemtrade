@@ -89,6 +89,7 @@ def get_resolved_pathname(pathname):
         # This is an ssh address for rsync - don't change
         return pathname
     pathname_replaced_with_ampersands = add_ampersand_to_pathname(pathname)
+    print("222"+str(pathname_replaced_with_ampersands))
     resolved_pathname = get_resolved_ampersand_pathname(
         pathname_replaced_with_ampersands
     )
@@ -183,7 +184,7 @@ def files_with_extension_in_pathname(pathname, extension=".csv"):
     :return: list of files, with extensions stripped off
     """
     resolved_pathname = get_resolved_pathname(pathname)
-    print("222"+str(resolved_pathname))
+
     return files_with_extension_in_resolved_pathname(
         resolved_pathname, extension=extension
     )
