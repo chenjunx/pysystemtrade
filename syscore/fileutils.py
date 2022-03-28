@@ -88,8 +88,6 @@ def get_resolved_pathname(pathname):
     if "@" in pathname:
         # This is an ssh address for rsync - don't change
         return pathname
-    if "/home/software/anaconda3/lib/python3" in pathname:
-        return pathname
     pathname_replaced_with_ampersands = add_ampersand_to_pathname(pathname)
     resolved_pathname = get_resolved_ampersand_pathname(
         pathname_replaced_with_ampersands
