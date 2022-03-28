@@ -267,6 +267,7 @@ def get_backtest_directory_for_strategy(strategy_name):
     directory_store_backtests = get_resolved_pathname(directory_store_backtests)
     print("000"+str(directory_store_backtests))
     full_directory = os.path.join(directory_store_backtests, strategy_name)
+    print("111"+str(directory_store_backtests))
 
     return full_directory
 
