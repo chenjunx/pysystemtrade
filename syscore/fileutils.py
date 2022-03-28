@@ -183,7 +183,7 @@ def files_with_extension_in_pathname(pathname, extension=".csv"):
     :return: list of files, with extensions stripped off
     """
     resolved_pathname = get_resolved_pathname(pathname)
-
+    print("222"+str(resolved_pathname))
     return files_with_extension_in_resolved_pathname(
         resolved_pathname, extension=extension
     )
