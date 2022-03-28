@@ -98,7 +98,7 @@ def get_resolved_pathname(pathname):
 
 def get_resolved_ampersand_pathname(pathname_replaced_with_ampersands: str) -> str:
     path_as_list = pathname_replaced_with_ampersands.rsplit("&")
-    print("222"+str(path_as_list))
+
     # Check for absolute or relative
     pathname = get_pathname_from_list(path_as_list)
 
