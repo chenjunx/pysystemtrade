@@ -72,10 +72,7 @@ def get_filename_for_package(pathname: str, filename=None):
 
 
 def add_ampersand_to_pathname(pathname: str) -> str:
-    if pathname.find("/home/software/anaconda3/lib/python3") >= 1:
-        pathname_replace_dots = pathname
-    else:
-        pathname_replace_dots = pathname.replace(".", "&")
+    pathname_replace_dots = pathname.replace(".", "&")
     pathname_replace_forward_slash = pathname_replace_dots.replace("/", "&")
     pathname_replaced_with_ampersands = pathname_replace_forward_slash.replace(
         "\\", "&"
@@ -90,6 +87,8 @@ def get_resolved_pathname(pathname):
     # Turn /,\ into . so system independent
     if "@" in pathname:
         # This is an ssh address for rsync - don't change
+        return pathname
+    if "/home/software/anaconda3/lib/python3" in pathname:
         return pathname
     pathname_replaced_with_ampersands = add_ampersand_to_pathname(pathname)
     resolved_pathname = get_resolved_ampersand_pathname(
