@@ -72,9 +72,9 @@ def get_filename_for_package(pathname: str, filename=None):
 
 
 def add_ampersand_to_pathname(pathname: str) -> str:
-    # pathname_replace_dots = pathname.replace(".", "&")
+    pathname_replace_dots = pathname.replace(".", "&")
     #不知道为何要.替换&
-    pathname_replace_dots = pathname
+    # pathname_replace_dots = pathname
     pathname_replace_forward_slash = pathname_replace_dots.replace("/", "&")
     pathname_replaced_with_ampersands = pathname_replace_forward_slash.replace(
         "\\", "&"
