@@ -72,9 +72,8 @@ def get_filename_for_package(pathname: str, filename=None):
 
 
 def add_ampersand_to_pathname(pathname: str) -> str:
-    # pathname_replace_dots = pathname.replace(".", "&")
-    #不知道为何要.替换&
-    pathname_replace_forward_slash = pathname.replace("/", "&")
+    pathname_replace_dots = pathname.replace(".", "&")
+    pathname_replace_forward_slash = pathname_replace_dots.replace("/", "&")
     pathname_replaced_with_ampersands = pathname_replace_forward_slash.replace(
         "\\", "&"
     )
@@ -90,7 +89,6 @@ def get_resolved_pathname(pathname):
         # This is an ssh address for rsync - don't change
         return pathname
     pathname_replaced_with_ampersands = add_ampersand_to_pathname(pathname)
-    print("222"+str(pathname_replaced_with_ampersands))
     resolved_pathname = get_resolved_ampersand_pathname(
         pathname_replaced_with_ampersands
     )
@@ -100,7 +98,7 @@ def get_resolved_pathname(pathname):
 
 def get_resolved_ampersand_pathname(pathname_replaced_with_ampersands: str) -> str:
     path_as_list = pathname_replaced_with_ampersands.rsplit("&")
-
+    print("222"+str(path_as_list))
     # Check for absolute or relative
     pathname = get_pathname_from_list(path_as_list)
 
