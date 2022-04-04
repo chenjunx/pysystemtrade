@@ -14,6 +14,9 @@ BITCOIN,0.1,0,5,0,Metals,USD,Micro Bitcoin,25
 BITCOIN_FTX,1,0,1,0,Metals,USD,FTX Bitcoin,25
 BCH_FTX,1,0,1,0,Metals,USD,FTX BCH,5
 BNB_FTX,1,0,1,0,Metals,USD,FTX BNB,4
+LINK_FTX,1,0,1,0,Metals,USD,FTX LINK,0.2
+LTC_FTX,1,0,1,0,Metals,USD,FTX LINK,0.8
+XRP_FTX,1,0,1,0,Metals,USD,FTX LINK,0.008
 ETHEREUM_FTX,1,0,1,0,Metals,USD,FTX ethereum,4
 BOBL,1000,0,2,0,Bond,EUR,German 5 year bond Bobl,0.005
 BONO,1000,0,2,0,Bond,EUR,ES 10 year bonds,0.035

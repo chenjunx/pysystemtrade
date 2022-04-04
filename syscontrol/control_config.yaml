@@ -2,12 +2,12 @@ process_configuration_start_time:
   default: '00:01'
   run_stack_handler: '00:01'
   run_capital_update: '01:00'
-  run_daily_prices_updates: '20:00'
-  run_systems: '20:05'
+  run_daily_prices_updates: '00:00'
+  run_systems: '00:05'
   run_strategy_order_generator: '20:10'
   run_backups: '20:15'
   run_cleaners: '20:20'
-  run_reports: '20:25'
+  run_reports: '00:25'
 process_configuration_stop_time:
   default: '23:50'
   run_strategy_order_generator: '19:30'
@@ -101,7 +101,7 @@ process_configuration_methods:
       object: sysproduction.strategy_code.run_system_classic.runSystemClassic
       backtest_config_filename: systems.provided.mills.mills.yaml
 # You need to create an entry in private control config that looks like this for each strategy
-#  run_strategy_order_generator:
-#    example:
-#      object: sysexecution.strategies.classic_buffered_positions.orderGeneratorForBufferedPositions
-#      max_executions: 1
+  run_strategy_order_generator:
+    bitcoin:
+      object: sysexecution.strategies.classic_buffered_positions.orderGeneratorForBufferedPositions
+      max_executions: 1

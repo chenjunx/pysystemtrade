@@ -1,4 +1,4 @@
-from syscore.objects import missing_data, arg_not_supplied
+from syscore.objects import missing_data, arg_not_supplied,missing_contract
 
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import  mills_defaults
@@ -43,6 +43,11 @@ class connectionMills(object):
     #查询指定的合同的历史价格
     def query_historical_futures_data_for_contract(self, contract_object: futuresContract):
         res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
+        return res
+
+    #查询指定的合同的交易时间段
+    def query_trading_hours(self,contract_object: futuresContract):
+        res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
         return res
 
     def send_get(self,endpoint,params):

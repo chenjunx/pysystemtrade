@@ -190,11 +190,11 @@ if __name__ == "__main__":
     csv_multiple_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/multiple_data"
 
     # only change if you have written the files elsewhere
-    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BCH_FTX"
+    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX"
     # csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/豆粕/rollcalendars"
 
     #单个标的
-    process_multiple_prices_single_instrument(instrument_code="BCH_FTX",
+    process_multiple_prices_single_instrument(instrument_code="BNB_FTX",
                                                   csv_multiple_data_path=csv_multiple_data_path,
                                                   csv_roll_data_path=csv_roll_data_path,
                                               )

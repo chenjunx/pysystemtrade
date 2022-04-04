@@ -13,7 +13,7 @@ if __name__ == "__main__":
     data_in = csvRollParametersData()
 
     #单个期货录入
-    instrument_code = "BNB_FTX"
+    instrument_code = "XRP_FTX"
     instrument_object = data_in.get_roll_parameters(instrument_code)
 
     data_out.delete_roll_parameters(instrument_code, are_you_sure=True)
