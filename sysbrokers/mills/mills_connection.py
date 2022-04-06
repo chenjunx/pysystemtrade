@@ -50,7 +50,17 @@ class connectionMills(object):
         res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
         return res
 
-    def send_get(self,endpoint,params):
+    #查询账户有多少价值
+    def query_total_accout_value(self):
+        res = self.send_get("/gateway/total_accout_value")
+        return res
+
+    #查询流动资金
+    def query_excess_liquidity_value_across(self):
+        res = self.send_get("/gateway/excess_liquidity_value_across")
+        return res
+
+    def send_get(self,endpoint,params={}):
         url= self._mills_connection_config.get("header")+endpoint;
         return requests.get(url=url,params=params).text
 

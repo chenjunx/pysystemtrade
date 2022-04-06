@@ -56,7 +56,7 @@ daily_pandl_report_config = reportConfig(
     title="P&L report",
     function="sysproduction.reporting.pandl_report.pandl_info",
     calendar_days_back=1,
-    output="email"
+    output="console"
 )
 
 reconcile_report_config = reportConfig(
@@ -69,7 +69,7 @@ trade_report_config = reportConfig(
     title="Trade report",
     function="sysproduction.reporting.trades_report.trades_info",
     calendar_days_back=1,
-    output="email"
+    output="console"
 )
 
 strategy_report_config = reportConfig(
@@ -134,12 +134,12 @@ report_config_defaults = dict(
     # slippage_report = slippage_report_config,
     # costs_report=costs_report_config,
     roll_report=roll_report_config,
-    # daily_pandl_report=daily_pandl_report_config,
+    daily_pandl_report=daily_pandl_report_config,
     # reconcile_report=reconcile_report_config,
     trade_report=trade_report_config,
     strategy_report=strategy_report_config,
     # risk_report=risk_report_config,
-    # status_report=status_report_config,
+    status_report=status_report_config,
     # liquidity_report=liquidity_report_config,
     # instrument_risk_report = instrument_risk_report_config,
     # min_capital = min_capital_report_config,

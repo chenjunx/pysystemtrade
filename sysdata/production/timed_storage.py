@@ -173,12 +173,12 @@ class listOfEntriesData(baseData):
         return current_entry
 
     def _get_series_for_args_dict(self, args_dict) -> listOfEntries:
+
         class_with_series_as_list_of_dicts = (
             self._get_series_dict_and_class_for_args_dict(args_dict)
         )
         if class_with_series_as_list_of_dicts is missing_data:
             return self._empty_data_series
-
         entry_series = class_with_series_as_list_of_dicts.as_list_of_entries()
 
         return entry_series
