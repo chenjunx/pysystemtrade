@@ -1,0 +1,3 @@
+#!/bin/bash
+#. ~/.profile
+/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_capital_update.run_capital_update

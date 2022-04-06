@@ -42,21 +42,21 @@ class reportConfig(object):
 status_report_config = reportConfig(
     title="Status report",
     function="sysproduction.reporting.status_reporting.system_status",
-    output="console"
+    output="email"
 )
 
 roll_report_config = reportConfig(
     title="Roll report",
     function="sysproduction.reporting.roll_report.roll_info",
     instrument_code=ALL_ROLL_INSTRUMENTS,
-    output="console"
+    output="email"
 )
 
 daily_pandl_report_config = reportConfig(
     title="P&L report",
     function="sysproduction.reporting.pandl_report.pandl_info",
     calendar_days_back=1,
-    output="console"
+    output="email"
 )
 
 reconcile_report_config = reportConfig(
@@ -69,13 +69,13 @@ trade_report_config = reportConfig(
     title="Trade report",
     function="sysproduction.reporting.trades_report.trades_info",
     calendar_days_back=1,
-    output="console"
+    output="email"
 )
 
 strategy_report_config = reportConfig(
     title="Strategy report",
     function="sysproduction.reporting.strategies_report.strategy_report",
-    output="console"
+    output="email"
 )
 
 risk_report_config = reportConfig(
