@@ -140,7 +140,7 @@ def get_control_data_list_for_all_methods_as_df(data):
     cd_list = get_control_data_list_for_all_methods(data)
     pdf = make_df_from_list_of_named_tuple(dataForMethod, cd_list)
     #missing 替换默认时间，以防止报错
-    pdf['last_start'].replace(missing_data,datetime.datetime.strptime('1970-01-01 08:00:00','%Y-%m-%d %H:%M:%S'),inplace=True)
+    # pdf['last_start'].replace(missing_data,datetime.datetime.strptime('1970-01-01 08:00:00','%Y-%m-%d %H:%M:%S'),inplace=True)
     pdf = pdf.sort_values("last_start")
     return pdf
 
