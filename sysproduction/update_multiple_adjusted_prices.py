@@ -76,7 +76,6 @@ class updateMultipleAdjustedPrices(object):
 
     def update_multiple_adjusted_prices(self, instrument_code: str = ALL_INSTRUMENTS):
         data = self.data
-        instrument_code = "SoybeanMeal"
         update_multiple_adjusted_prices_with_data(data, instrument_code=instrument_code)
 
 

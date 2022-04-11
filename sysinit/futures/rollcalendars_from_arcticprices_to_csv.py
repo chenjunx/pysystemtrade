@@ -123,10 +123,12 @@ if __name__ == "__main__":
     ## MODIFY DATAPATH IF REQUIRED
     # build_and_write_roll_calendar(instrument_code, output_datapath=arg_not_supplied)
     # build_and_write_roll_calendar("SoybeanMeal", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/豆粕/rollcalendars")
+    # build_and_write_roll_calendar("MAIZE", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玉米/rollcalendars")
+    build_and_write_roll_calendar("CORNSTARCH", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玉米淀粉/rollcalendars")
     # build_and_write_roll_calendar("BCH_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BCH_FTX")
     # build_and_write_roll_calendar("BITCOIN_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BITCOIN_FTX")
     # build_and_write_roll_calendar("ETHEREUM_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/ETHEREUM_FTX")
-    build_and_write_roll_calendar("BNB_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX")
+    # build_and_write_roll_calendar("BNB_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX")
     # build_and_write_roll_calendar("LINK_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/LINK_FTX")
     # build_and_write_roll_calendar("LTC_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/LTC_FTX")
     # build_and_write_roll_calendar("XRP_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/XRP_FTX")

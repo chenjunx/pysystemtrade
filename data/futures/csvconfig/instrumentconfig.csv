@@ -42,6 +42,8 @@ CLP,50000000,0,0.85,0,FX,USD,Chilean peso,
 CNH,100000,0,11.2,0,FX,CNH,SGX US Dollar in offshore Chinese Renminbi (CNH),0.0004
 CNH-onshore,500000,0,1.8,0,FX,USD,SGX onshore Chinese Renminbi (CNY) in US Dollar Futures (CY@SGX),0.00015
 COCOA,10,0,3,0,Ags,USD,Cocoa NY,0.5
+MAIZE,10,0,0,0,Ags,USD,大商所玉米,2
+CORNSTARCH,10,0,0,0,Ags,USD,大商所玉米淀粉,3
 COCOA_LDN,10,,,,Ags,GBP,Cocoa London,
 COCOA_NY,10,,,,Ags,USD,Cocoa  NY,
 COFFEE,37500,0,3,0,Ags,USD,Coffee,0.001
