@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # 单个期货录入
     # modify flags as required
     # for instrument_code in instrument_list:
-    instrument_code = "CORNSTARCH"
+    instrument_code = "POLYETHYLENE"
     instrument_object = data_in.get_instrument_data(instrument_code)
     data_out.delete_instrument_data(instrument_code, are_you_sure=True)
     data_out.add_instrument_data(instrument_object)
