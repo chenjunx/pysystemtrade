@@ -499,9 +499,12 @@ class reportingApi(object):
 
         return table_strategy_risk
 
-    def table_of_risk_all_instruments(self):
+    def table_of_risk_all_instruments(self,
+                                      table_header =
+                                      "Risk of all instruments with data - sorted by annualised % standard deviation",
+                                      sort_by = 'annual_perc_stdev'):
         instrument_risk_all = self.instrument_risk_data_all_instruments()
-        instrument_risk_sorted = instrument_risk_all.sort_values('annual_perc_stdev')
+        instrument_risk_sorted = instrument_risk_all.sort_values(sort_by)
         instrument_risk_sorted = instrument_risk_sorted[['daily_price_stdev',
                     'annual_price_stdev', 'price', 'daily_perc_stdev',
        'annual_perc_stdev', 'point_size_base', 'contract_exposure',
@@ -515,7 +518,7 @@ class reportingApi(object):
                                           'point_size_base': 3,
                                           'contract_exposure': 0,
                                           'annual_risk_per_contract': 0})
-        instrument_risk_sorted_table = table("Risk of all instruments with data",
+        instrument_risk_sorted_table = table(table_header,
                                              instrument_risk_sorted)
 
         return instrument_risk_sorted_table
@@ -899,7 +902,9 @@ def filter_data_for_delays(data_with_datetime,
                 max_delay_in_days = 3) -> pd.DataFrame:
 
     max_delay_in_seconds = max_delay_in_days * SECONDS_PER_DAY
-    time_delays = datetime.datetime.now() -data_with_datetime[datetime_colum]
+    # ignore missing data
+    data_with_datetime = data_with_datetime[data_with_datetime[datetime_colum] != missing_data]
+    time_delays = datetime.datetime.now() - data_with_datetime[datetime_colum]
     delayed = [time_difference.total_seconds() > max_delay_in_seconds
                for time_difference in time_delays]
 
