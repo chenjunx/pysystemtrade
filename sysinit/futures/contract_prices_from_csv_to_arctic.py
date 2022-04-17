@@ -64,5 +64,5 @@ if __name__ == "__main__":
                                                      VOLUME='Volumn'
                                                      ))
     # datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/history/BNB_FTX"
-    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/聚乙烯/"
+    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/沥青/"
     init_arctic_with_csv_futures_contract_prices(datapath,csv_config=csv_config)

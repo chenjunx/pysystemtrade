@@ -191,10 +191,10 @@ if __name__ == "__main__":
 
     # only change if you have written the files elsewhere
     # csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX"
-    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玉米淀粉/rollcalendars"
+    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玉米/rollcalendars"
 
     #单个标的
-    process_multiple_prices_single_instrument(instrument_code="CORNSTARCH",
+    process_multiple_prices_single_instrument(instrument_code="MAIZE",
                                                   csv_multiple_data_path=csv_multiple_data_path,
                                                   csv_roll_data_path=csv_roll_data_path,
                                               )

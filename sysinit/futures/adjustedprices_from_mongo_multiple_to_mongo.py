@@ -72,6 +72,6 @@ if __name__ == "__main__":
     #     ADD_TO_ARCTIC=True, ADD_TO_CSV=True, csv_adj_data_path=arg_not_supplied
     # )
     process_adjusted_prices_single_instrument(
-        instrument_code="CORNSTARCH",
+        instrument_code="MAIZE",
         ADD_TO_ARCTIC=True, ADD_TO_CSV=False
     )
