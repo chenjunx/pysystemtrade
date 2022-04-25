@@ -579,3 +579,6 @@ def roll_adjusted_and_multiple_prices(
         return failure
 
     return success
+
+if __name__ == '__main__':
+    interactive_update_roll_status()
