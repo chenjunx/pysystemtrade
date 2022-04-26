@@ -86,4 +86,5 @@ def clone_adjusted_prices(
         csv_adjusted.add_adjusted_prices(instrument_to, adjusted_price_data=prices)
 
 if __name__ == '__main__':
-    clone_adjusted_prices("SoybeanMeal","SoybeanMeal")
+    # clone_adjusted_prices("SoybeanMeal","SoybeanMeal")
+    clone_multiple_prices("SoybeanMeal","SoybeanMeal")
