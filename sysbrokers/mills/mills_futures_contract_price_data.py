@@ -10,6 +10,7 @@ from sysbrokers.mills.mills_connection import connectionMills
 from syscore.objects import missing_contract
 
 from syslogdiag.log_to_screen import logtoscreen
+from syscore.dateutils import from_config_frequency_pandas_resample
 
 import pandas as pd
 from datetime import datetime
@@ -56,7 +57,16 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
         if not self.has_data_for_contract(contract_object):
             new_log.warn("Can't get data for %s" % str(contract_object))
             return futuresContractPrices.create_empty()
-        price_data = self._connection_Mills.query_historical_futures_data_for_contract(contract_object)
+        resample_freq = from_config_frequency_pandas_resample(freq)
+        timestr = ''
+        price_data = futuresContractPrices.create_empty()
+        if resample_freq == 'D':
+            timestr = '%Y%m%d'
+            price_data = self._connection_Mills.query_historical_futures_data_for_contract(contract_object)
+        elif resample_freq == 'H':
+            timestr = '%Y%m%d %H:%M:%S'
+            price_data = self._connection_Mills.query_historical_futures_data_for_contract(contract_object)
+
         if price_data == str(missing_contract):
             new_log.warn(
                 "Something went wrong getting mills price data for %s"
@@ -73,7 +83,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
             df = pd.read_json(price_data, encoding = "utf-8", orient = 'records')
 
             df['Time1'] = df['Time'].apply(
-                lambda time: datetime.strptime(str(time),'%Y%m%d'))
+                lambda time: datetime.strptime(str(time),timestr))
             df.index = df['Time1']
             df.drop("Time", axis=1, inplace=True)
             df.drop("Time1", axis=1, inplace=True)

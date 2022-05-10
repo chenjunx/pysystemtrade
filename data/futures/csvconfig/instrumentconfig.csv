@@ -54,6 +54,7 @@ FG,20,0,0,0,Ags,CNH,郑商所玻璃,2
 TA,5,0,0,0,Ags,CNH,郑商所PTA,6
 MA,10,0,0,0,Ags,CNH,郑商所甲醇,3
 SR,10,0,0,0,Ags,CNH,郑商所白糖,6
+JD,5,0,0,0,Ags,CNH,郑商所鸡蛋,5
 COCOA_LDN,10,,,,Ags,GBP,Cocoa London,
 COCOA_NY,10,,,,Ags,USD,Cocoa  NY,
 COFFEE,37500,0,3,0,Ags,USD,Coffee,0.001

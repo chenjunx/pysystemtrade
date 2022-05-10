@@ -45,6 +45,11 @@ class connectionMills(object):
         res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
         return res
 
+    # 查询指定的合同的历史价格
+    def query_historical_futures_data_for_contract_hour(self, contract_object: futuresContract):
+        res = self.send_post("/gateway/historical_futures_data_hour", contract_object.as_dict())
+        return res
+
     #查询指定的合同的交易时间段
     def query_trading_hours(self,contract_object: futuresContract):
         res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
