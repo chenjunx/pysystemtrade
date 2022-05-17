@@ -43,6 +43,7 @@ def update_historical_prices_with_data(data: dataBlob):
     for instrument_code in list_of_codes_all:
         data.log.label(instrument_code=instrument_code)
         update_historical_prices_for_instrument(instrument_code, data)
+    # update_historical_prices_for_instrument("RB", data)
 
 
 def update_historical_prices_for_instrument(instrument_code: str, data: dataBlob):

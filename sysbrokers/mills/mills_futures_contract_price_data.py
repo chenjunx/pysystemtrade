@@ -65,7 +65,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
             price_data = self._connection_Mills.query_historical_futures_data_for_contract(contract_object)
         elif resample_freq == 'H':
             timestr = '%Y%m%d %H:%M:%S'
-            price_data = self._connection_Mills.query_historical_futures_data_for_contract(contract_object)
+            price_data = self._connection_Mills.query_historical_futures_data_for_contract_hour(contract_object)
 
         if price_data == str(missing_contract):
             new_log.warn(
