@@ -33,3 +33,4 @@ def run_future_strategy():
     for i in instruments_sorted:
         str = str + i['code'] + ' ' + i['name'] + "\n" + my_system.combForecast.get_combined_forecast(i['code']).tail(
             5).to_string() + "\n\n"
+    send_mail_msg(str, "国内期货策略")
