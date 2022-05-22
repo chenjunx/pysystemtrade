@@ -10,6 +10,22 @@ def run_future_strategy():
     #动态参数期货
     my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future_estimate.yaml"))
     str = ''
-    for i in ["POLYETHYLENE","HC","JD","RB","CORNSTARCH","PVC","PP","SoybeanMeal","MAIZE","FG","TA","MA","SR","FU"]:
-        str = str +i+"\n"+ my_system.combForecast.get_combined_forecast(i).tail(5).to_string() +"\n\n"
+    instruments = [
+        {"code": "POLYETHYLENE", "name": "聚乙烯(塑料)"},
+        {"code": "HC", "name": "热卷"},
+        {"code": "JD", "name": "鸡蛋"},
+        {"code": "RB", "name": "螺纹钢"},
+        {"code": "CORNSTARCH", "name": "淀粉"},
+        {"code": "PVC", "name": "聚氯乙烯"},
+        {"code": "PP", "name": "聚丙烯"},
+        {"code": "SoybeanMeal", "name": "豆粕"},
+        {"code": "MAIZE", "name": "玉米"},
+        {"code": "FG", "name": "玻璃"},
+        {"code": "TA", "name": "PTA"},
+        {"code": "MA", "name": "甲醇"},
+        {"code": "SR", "name": "白糖"},
+        {"code": "FU", "name": "燃油"}
+    ]
+    for i in instruments:
+        str = str +i['code']+' '+i['name']+"\n"+ my_system.combForecast.get_combined_forecast(i['code']).tail(5).to_string() +"\n\n"
     send_mail_msg(str , "国内期货策略")
