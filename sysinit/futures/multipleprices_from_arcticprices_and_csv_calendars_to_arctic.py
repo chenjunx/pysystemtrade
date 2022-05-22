@@ -191,8 +191,8 @@ if __name__ == "__main__":
 
     # only change if you have written the files elsewhere
     # csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX"
-    name = "聚乙烯"
-    code = "POLYETHYLENE"
+    name = "燃油"
+    code = "FU"
     csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars"
 
     #单个标的
