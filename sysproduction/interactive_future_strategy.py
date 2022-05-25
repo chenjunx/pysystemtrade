@@ -10,6 +10,8 @@ def run_future_strategy():
     #动态参数期货
     my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future_estimate.yaml"))
     str = ''
+    import pandas as pd
+    position = pd.read_csv('/home/software/pysystemtrade/sysproduction/pysystemtrader_position.csv')
     instruments = [
         {"code": "POLYETHYLENE", "name": "聚乙烯(塑料)"},
         {"code": "HC", "name": "热卷"},
@@ -32,5 +34,5 @@ def run_future_strategy():
     instruments_sorted = sorted(instruments, key=lambda i: abs(i['forecast']), reverse=True)
     for i in instruments_sorted:
         str = str + i['code'] + ' ' + i['name'] + "\n" + my_system.combForecast.get_combined_forecast(i['code']).tail(
-            10).to_string() + "\n\n"
+            10).to_string() + "\n"+ position.query("symbol=='"+i['code']+"' & state=='o'").to_string() +"\n\n"
     send_mail_msg(str, "国内期货策略")
