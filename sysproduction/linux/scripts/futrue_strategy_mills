@@ -1,4 +1,4 @@
 #!/bin/bash
 #. ~/.profile
 /root/.bashrc
-/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.interactive_future_strategy.run_future_strategy
+/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills_3_8 sysproduction.interactive_future_strategy.run_future_strategy

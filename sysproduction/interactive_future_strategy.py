@@ -28,7 +28,7 @@ def run_future_strategy():
         {"code": "TA", "name": "PTA"},
         {"code": "MA", "name": "甲醇"},
         {"code": "SR", "name": "白糖"},
-        # {"code": "FU", "name": "燃油"}
+        {"code": "FU", "name": "燃油"}
     ]
     for i in instruments:
         ser = my_system.combForecast.get_combined_forecast(i['code'])
