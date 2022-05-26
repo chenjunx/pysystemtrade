@@ -5,8 +5,7 @@ from syslogdiag.emailing import send_mail_msg
 from arctic import Arctic
 
 def run_future_strategy():
-    store = Arctic('localhost')
-    library = store['simple_foreast']
+
     data = dbFuturesSimData()
     #固定参数期货
     # my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future.yaml"))
@@ -35,6 +34,8 @@ def run_future_strategy():
         ser = my_system.combForecast.get_combined_forecast(i['code'])
         i['forecast'] = ser[ser.size - 1]
     instruments_sorted = sorted(instruments, key=lambda i: abs(i['forecast']), reverse=True)
+    store = Arctic('localhost')
+    library = store['simple_foreast']
     for i in instruments_sorted:
         item = library.read(i['code'])
         data = item.data
