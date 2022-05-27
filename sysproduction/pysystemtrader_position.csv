@@ -4,5 +4,5 @@ id,symbol,type,fill,date,price,state
 3,FG,S,1,2022-05-23,1792,o
 4,POLYETHYLENE,S,1,2022-05-20,8508,f
 5,SoybeanMeal,L,1,2022-05-19,4143,o
-6,JD,L,1,2022-05-26,4827,o
+6,JD,L,1,2022-05-26,4827,f
 7,FU,L,1,2022-05-26,4305,o
