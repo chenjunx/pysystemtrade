@@ -47,7 +47,7 @@ def run_future_strategy():
         data1.drop_duplicates(inplace=True)
         for p in position:
             if p['symbol'] == i['code']:
-                str = str + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + p + "\n\n"
+                str = str + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + str(p) + "\n\n"
         library.write(i['code'], data1)
     send_mail_msg(str, "国内期货策略")
     myclient.close()
