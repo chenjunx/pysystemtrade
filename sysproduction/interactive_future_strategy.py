@@ -13,7 +13,7 @@ def run_future_strategy():
     # my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future.yaml"))
     #动态参数期货
     my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future_estimate.yaml"))
-    str = ''
+    msg = ''
     import pandas as pd
     # position = pd.read_csv('/home/software/pysystemtrade/sysproduction/pysystemtrader_position.csv')
     pysystemtrader_position = production["pysystemtrader_position"]
@@ -47,7 +47,7 @@ def run_future_strategy():
         data1.drop_duplicates(inplace=True)
         for p in position:
             if p['symbol'] == i['code']:
-                str = str + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + str(p) + "\n\n"
+                msg = msg + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + str(p) + "\n\n"
         library.write(i['code'], data1)
-    send_mail_msg(str, "国内期货策略")
+    send_mail_msg(msg, "国内期货策略")
     myclient.close()
