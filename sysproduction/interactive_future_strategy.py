@@ -3,9 +3,11 @@ from sysdata.config.configdata import Config
 from sysdata.sim.db_futures_sim_data import dbFuturesSimData
 from syslogdiag.emailing import send_mail_msg
 from arctic import Arctic
+import pymongo
 
 def run_future_strategy():
-
+    myclient = pymongo.MongoClient('mongodb://localhost:27017/')
+    production = myclient['production']
     data = dbFuturesSimData()
     #固定参数期货
     # my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future.yaml"))
@@ -13,7 +15,9 @@ def run_future_strategy():
     my_system=simplesystem(data=data,config=Config("/home/software/pysystemtrade/systems/provided/mills/mills_future_estimate.yaml"))
     str = ''
     import pandas as pd
-    position = pd.read_csv('/home/software/pysystemtrade/sysproduction/pysystemtrader_position.csv')
+    # position = pd.read_csv('/home/software/pysystemtrade/sysproduction/pysystemtrader_position.csv')
+    pysystemtrader_position = production["pysystemtrader_position"]
+    position = pysystemtrader_position.find({"state": "o"})
     instruments = [
         {"code": "POLYETHYLENE", "name": "聚乙烯(塑料)"},
         {"code": "HC", "name": "热卷"},
@@ -41,7 +45,9 @@ def run_future_strategy():
         data = item.data
         data1 = data.append(my_system.combForecast.get_combined_forecast(i['code']).tail(1))
         data1.drop_duplicates(inplace=True)
-        str = str + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + position.query(
-            "symbol=='" + i['code'] + "' & state=='o'").to_string() + "\n\n"
+        for p in position:
+            if p['symbol'] == i['code']:
+                str = str + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + p + "\n\n"
         library.write(i['code'], data1)
     send_mail_msg(str, "国内期货策略")
+    myclient.close()
