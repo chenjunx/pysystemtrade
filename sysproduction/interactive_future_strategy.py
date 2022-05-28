@@ -45,9 +45,12 @@ def run_future_strategy():
         data = item.data
         data1 = data.append(my_system.combForecast.get_combined_forecast(i['code']).tail(1))
         data1.drop_duplicates(inplace=True)
+        pstr = ""
         for p in position:
             if p['symbol'] == i['code']:
-                msg = msg + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + str(p) + "\n\n"
+                if p['symbol'] == i['code']:
+                    pstr = pstr + str(p) + "\n"
+        msg = msg + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + pstr + "\n\n"
         library.write(i['code'], data1)
     send_mail_msg(msg, "国内期货策略")
     myclient.close()
