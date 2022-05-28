@@ -48,8 +48,7 @@ def run_future_strategy():
         pstr = ""
         for p in position:
             if p['symbol'] == i['code']:
-                if p['symbol'] == i['code']:
-                    pstr = pstr + str(p) + "\n"
+                pstr = pstr + str(p) + "\n"
         msg = msg + i['code'] + ' ' + i['name'] + "\n" + data1.to_string() + "\n" + pstr + "\n\n"
         library.write(i['code'], data1)
     send_mail_msg(msg, "国内期货策略")
