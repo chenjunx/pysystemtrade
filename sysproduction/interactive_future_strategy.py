@@ -17,7 +17,7 @@ def run_future_strategy():
     import pandas as pd
     # position = pd.read_csv('/home/software/pysystemtrade/sysproduction/pysystemtrader_position.csv')
     pysystemtrader_position = production["pysystemtrader_position"]
-    position = pysystemtrader_position.find({"state": "o"})
+    position = list(pysystemtrader_position.find({"state": "o"}))
     instruments = [
         {"code": "POLYETHYLENE", "name": "聚乙烯(塑料)"},
         {"code": "HC", "name": "热卷"},
