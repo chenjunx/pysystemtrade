@@ -44,7 +44,8 @@ def run_future_strategy():
         item = library.read(i['code'])
         data = item.data
         data1 = data.append(my_system.combForecast.get_combined_forecast(i['code']).tail(1))
-        data1.drop_duplicates(inplace=True)
+        #会删除相同数值的行，暂时去掉
+        # data1.drop_duplicates(inplace=True)
         pstr = ""
         for p in position:
             if p['symbol'] == i['code']:

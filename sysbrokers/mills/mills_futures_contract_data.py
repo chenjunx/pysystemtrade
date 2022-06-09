@@ -50,15 +50,15 @@ def parse_trading_for_day(
 
     # Doesn't deal with DST. We will be conservative and only trade 1 hour
     # after and 1 hour before
-    adjust_start = 1 + one_off_adjustment[0]
-    adjust_end = -1 + one_off_adjustment[-1]
+    # adjust_start = 1 + one_off_adjustment[0]
+    # adjust_end = -1 + one_off_adjustment[-1]
 
     start_dt = parse_phrase(
-        start_phrase, adjustment_hours=adjustment_hours, additional_adjust=adjust_start
+        start_phrase
     )
 
     end_dt = parse_phrase(
-        end_phrase, adjustment_hours=adjustment_hours, additional_adjust=adjust_end
+        end_phrase
     )
 
     return openingTimes(start_dt, end_dt)
@@ -122,7 +122,7 @@ class millsFuturesContractData(brokerFuturesContractData):
         if contract_object_with_mills_data == str(missing_contract):
             new_log.msg("Can't resolve contract")
             return missing_contract
-        trading_hours = self._connection_Mills.query_trading_hours
+        trading_hours = self._connection_Mills.query_trading_hours(futures_contract)
 
         if trading_hours == str(missing_contract):
             new_log.msg("No mills expiry date found")
