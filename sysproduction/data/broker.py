@@ -16,6 +16,7 @@ from sysbrokers.mills.mills_futures_contract_price_data import millsFuturesContr
 from sysbrokers.mills.mills_capital_data import millsCapitalData
 from sysbrokers.mills.mills_static_data import millsStaticData
 
+from sysbrokers.broker_factory import get_broker_class_list
 from sysbrokers.broker_fx_handling import brokerFxHandlingData
 from sysbrokers.broker_static_data import brokerStaticData
 from sysbrokers.broker_execution_stack import brokerExecutionStackData
@@ -30,11 +31,12 @@ from syscore.objects import (
     arg_not_supplied,
     missing_order,
     missing_contract,
-    missing_data,
+    missing_data
 )
-from syscore.dateutils import Frequency, listOfOpeningTimes, openingTimes
+from syscore.dateutils import Frequency, DAILY_PRICE_FREQ, listOfOpeningTimes
 
 from sysdata.data_blob import dataBlob
+from sysdata.tools.cleaner import apply_price_cleaning
 
 from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.orders.list_of_orders import listOfOrders
@@ -80,6 +82,11 @@ class dataBroker(productionDataLayerGeneric):
             ]
         )
 
+        # Add a list of broker specific classes that will be aliased as self.data.broker_fx_prices,
+        # self.data.broker_futures_contract_price ... and so on
+
+        broker_class_list = get_broker_class_list(data)
+        data.add_class_list(broker_class_list)
         return data
 
     @property
@@ -144,12 +151,30 @@ class dataBroker(productionDataLayerGeneric):
                 "%s %s is not recognised by broker - try inverting" % (ccy1, ccy2)
             )
 
+    def get_cleaned_prices_at_frequency_for_contract_object(
+        self, contract_object: futuresContract, frequency: Frequency,
+            cleaning_config = arg_not_supplied
+    ) -> futuresContractPrices:
+
+        broker_prices_raw = \
+                self.get_prices_at_frequency_for_contract_object(contract_object=contract_object,
+                                                         frequency = frequency)
+        daily_data = frequency is DAILY_PRICE_FREQ
+
+        broker_prices = apply_price_cleaning(data = self.data,
+                                             daily_data=daily_data,
+                                             broker_prices_raw = broker_prices_raw,
+                                             cleaning_config = cleaning_config)
+
+        return broker_prices
+
     def get_prices_at_frequency_for_contract_object(
         self, contract_object: futuresContract, frequency: Frequency
     ) -> futuresContractPrices:
 
         return self.broker_futures_contract_price_data.get_prices_at_frequency_for_contract_object(
-            contract_object, frequency
+            contract_object, frequency,
+            return_empty=False ##want to return a failure if no prices available
         )
 
     def get_recent_bid_ask_tick_data_for_contract_object(
@@ -549,3 +574,5 @@ class dataBroker(productionDataLayerGeneric):
         )
 
         return total_account_value_in_base_currency
+
+
