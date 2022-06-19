@@ -10,6 +10,13 @@ from sysbrokers.IB.ib_fx_handling import ibFxHandlingData
 from syscore.objects import missing_data, resolve_function
 from sysdata.config.production_config import get_production_config
 from sysdata.data_blob import dataBlob
+from sysbrokers.mills.mills_fx_handing import millsFxHandlingData
+from sysbrokers.mills.mills_fx_prices_data import millsFxPricesData
+# from sysbrokers.mills.mills_instrument_data import millsFuturesInstrumentData
+from sysbrokers.mills.mills_futures_contract_data import millsFuturesContractData
+from sysbrokers.mills.mills_futures_contract_price_data import millsFuturesContractPriceData
+from sysbrokers.mills.mills_capital_data import millsCapitalData
+from sysbrokers.mills.mills_static_data import millsStaticData
 
 def get_broker_class_list(data: dataBlob):
     """
@@ -35,13 +42,19 @@ def get_broker_class_list(data: dataBlob):
 
 def get_ib_class_list():
     return [
-        ibFxPricesData,
-        ibFuturesContractPriceData,
-        ibFuturesContractData,
-        ibContractPositionData,
-        ibExecutionStackData,
-        ibStaticData,
-        ibCapitalData,
-        ibFuturesInstrumentData,
-        ibFxHandlingData,
+        # ibFxPricesData,
+        # ibFuturesContractPriceData,
+        # ibFuturesContractData,
+        # ibContractPositionData,
+        # ibExecutionStackData,
+        # ibStaticData,
+        # ibCapitalData,
+        # ibFuturesInstrumentData,
+        # ibFxHandlingData,
+        millsStaticData,
+        millsCapitalData,
+        millsFuturesContractPriceData,
+        millsFuturesContractData,
+        millsFxHandlingData,
+        millsFxPricesData
     ]

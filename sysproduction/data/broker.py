@@ -8,13 +8,7 @@ from sysbrokers.IB.ib_contract_position_data import ibContractPositionData
 from sysbrokers.IB.ib_orders import ibExecutionStackData
 from sysbrokers.IB.ib_static_data import ibStaticData
 from sysbrokers.IB.ib_fx_handling import ibFxHandlingData
-from sysbrokers.mills.mills_fx_handing import millsFxHandlingData
-from sysbrokers.mills.mills_fx_prices_data import millsFxPricesData
-# from sysbrokers.mills.mills_instrument_data import millsFuturesInstrumentData
-from sysbrokers.mills.mills_futures_contract_data import millsFuturesContractData
-from sysbrokers.mills.mills_futures_contract_price_data import millsFuturesContractPriceData
-from sysbrokers.mills.mills_capital_data import millsCapitalData
-from sysbrokers.mills.mills_static_data import millsStaticData
+
 
 from sysbrokers.broker_factory import get_broker_class_list
 from sysbrokers.broker_fx_handling import brokerFxHandlingData
@@ -62,25 +56,6 @@ class dataBroker(productionDataLayerGeneric):
     def _add_required_classes_to_data(self, data) -> dataBlob:
         ## Modify these to use another broker
         ## These will be aliased as self.data.broker_fx_prices, self.data.broker_futures_contract_price ... and so on
-        data.add_class_list(
-            [
-                # ibFxPricesData,
-                # ibFuturesContractPriceData,
-                # ibFuturesContractData,
-                # ibContractPositionData,
-                # ibExecutionStackData,
-                # ibStaticData,
-                # ibCapitalData,
-                # ibFuturesInstrumentData,
-                # ibFxHandlingData,
-                millsStaticData,
-                millsCapitalData,
-                millsFuturesContractPriceData,
-                millsFuturesContractData,
-                millsFxHandlingData,
-                millsFxPricesData
-            ]
-        )
 
         # Add a list of broker specific classes that will be aliased as self.data.broker_fx_prices,
         # self.data.broker_futures_contract_price ... and so on
