@@ -93,7 +93,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
         price_data = price_data.remove_future_data()
 
         ## Ignore zeros if no volumes (if volume could be real price eg crude oil)
-        price_data = price_data.remove_zero_prices_if_zero_volumes()
+        # price_data = price_data.remove_zero_prices_if_zero_volumes()
         return price_data
 
     ## 判断期货是否存在
