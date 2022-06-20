@@ -13,11 +13,11 @@ process_configuration_stop_time:
   run_strategy_order_generator: '15:30'
   run_stack_handler: '19:45'
   run_capital_update: '19:50'
-  run_daily_prices_updates: '14:45'
-  run_systems: '15:00'
+  run_daily_prices_updates: '23:45'
+  run_systems: '23:00'
   run_backups: '23:50'
   run_cleaners: '23:50'
-  run_reports: '15:30'
+  run_reports: '23:30'
 # Examples:
 #process_configuration_previous_process:
 #  run_systems: 'run_daily_prices_updates'
