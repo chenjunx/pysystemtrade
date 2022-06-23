@@ -1,7 +1,7 @@
 process_configuration_start_time:
   default: '00:01'
   run_stack_handler: '00:01'
-  run_capital_update: '01:00'
+  run_capital_update: '09:30'
   run_daily_prices_updates: '14:05'
   run_systems: '14:10'
   run_strategy_order_generator: '14:15'
@@ -12,7 +12,7 @@ process_configuration_stop_time:
   default: '23:50'
   run_strategy_order_generator: '15:30'
   run_stack_handler: '19:45'
-  run_capital_update: '19:50'
+  run_capital_update: '22:30'
   run_daily_prices_updates: '23:45'
   run_systems: '23:00'
   run_backups: '23:50'
@@ -29,8 +29,8 @@ process_configuration_stop_time:
 process_configuration_methods:
   run_capital_update:
     update_total_capital:
-      frequency: 120
-      max_executions: 10
+      frequency: 60
+      max_executions: 13
     strategy_allocation:
       max_executions: 1
   run_daily_prices_updates:
