@@ -255,3 +255,7 @@ def delete_all_capital(data: dataBlob):
             print(
                 "Something went wrong: You may have to manually drop collection in mongo DB"
             )
+
+
+if __name__ == '__main__':
+    interactive_update_capital_manual()
