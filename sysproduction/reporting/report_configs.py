@@ -136,7 +136,7 @@ market_monitor_report_config = reportConfig(title = "Market monitor report",
 
 ## The reports will be run in this order
 report_config_defaults = dict(
-    slippage_report = slippage_report_config,
+    # slippage_report = slippage_report_config,
     costs_report=costs_report_config,
     roll_report=roll_report_config,
     daily_pandl_report=daily_pandl_report_config,
