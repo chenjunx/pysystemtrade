@@ -42,40 +42,40 @@ class reportConfig(object):
 status_report_config = reportConfig(
     title="Status report",
     function="sysproduction.reporting.status_reporting.system_status",
-    output="emailfile"
+    output="email"
 )
 
 roll_report_config = reportConfig(
     title="Roll report",
     function="sysproduction.reporting.roll_report.roll_info",
     instrument_code=ALL_ROLL_INSTRUMENTS,
-    output="emailfile"
+    output="email"
 )
 
 daily_pandl_report_config = reportConfig(
     title="P&L report",
     function="sysproduction.reporting.pandl_report.pandl_info",
     calendar_days_back=1,
-    output="emailfile"
+    output="email"
 )
 
 reconcile_report_config = reportConfig(
     title="Reconcile report",
     function="sysproduction.reporting.reconcile_report.reconcile_info",
-    output="emailfile"
+    output="email"
 )
 
 trade_report_config = reportConfig(
     title="Trade report",
     function="sysproduction.reporting.trades_report.trades_info",
     calendar_days_back=1,
-    output="emailfile"
+    output="email"
 )
 
 strategy_report_config = reportConfig(
     title="Strategy report",
     function="sysproduction.reporting.strategies_report.strategy_report",
-    output="emailfile"
+    output="email"
 )
 
 risk_report_config = reportConfig(
@@ -87,14 +87,14 @@ risk_report_config = reportConfig(
 liquidity_report_config = reportConfig(
     title="Liquidity report",
     function="sysproduction.reporting.liquidity_report.liquidity_report",
-    output="emailfile"
+    output="email"
 
 )
 
 costs_report_config = reportConfig(
     title="Costs report",
     function="sysproduction.reporting.costs_report.costs_report",
-    output="emailfile",
+    output="email",
     calendar_days_back = 250
 
 )
@@ -103,36 +103,36 @@ slippage_report_config = reportConfig(
     title="Slippage report",
     function="sysproduction.reporting.slippage_report.slippage_report",
     calendar_days_back=250,
-    output="emailfile"
+    output="email"
 
 )
 
 instrument_risk_report_config = reportConfig(title="Instrument risk report",
     function=
     "sysproduction.reporting.instrument_risk_report.instrument_risk_report",
-                                             output="emailfile"
+                                             output="email"
                                              )
 
 min_capital_report_config= reportConfig(title="Minimum capital report",
     function=
     "sysproduction.reporting.minimum_capital_report.minimum_capital_report",
-                                        output="emailfile"
+                                        output="email"
                                         )
 
 duplicate_market_report_config = reportConfig(title="Duplicate markets report",
     function=
     "sysproduction.reporting.duplicate_market_report.duplicate_market_report",
-                                              output="emailfile"
+                                              output="email"
                                               )
 
 remove_markets_report_config = reportConfig(title="Remove markets report",
     function = "sysproduction.reporting.remove_markets_report.remove_markets_report",
-                                            output="emailfile"
+                                            output="email"
                                             )
 
 market_monitor_report_config = reportConfig(title = "Market monitor report",
         function = "sysproduction.reporting.market_monitor_report.market_monitor_report",
-                                            output="emailfile")
+                                            output="email")
 
 ## The reports will be run in this order
 report_config_defaults = dict(
