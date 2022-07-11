@@ -19,8 +19,8 @@ strategy_capital_allocation:
   function: sysproduction.strategy_code.strategy_allocation.weighted_strategy_allocation
   strategy_weights:
 #    bitcoin: 100.0
-    bitcoin: 22.0
-    mills_future: 78.0
+    bitcoin: 28
+    mills_future: 72.0
 #
 ## Where do we save backtests
 backtest_store_directory: 'private'
