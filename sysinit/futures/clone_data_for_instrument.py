@@ -91,6 +91,10 @@ def clone_adjusted_prices(
     if write_to_csv:
         csv_adjusted.add_adjusted_prices(instrument_to, adjusted_price_data=prices)
 
+
+if __name__ == '__main__':
+    clone_adjusted_prices("MAIZE","MAIZE.csv")
+
 if __name__ == '__main__':
     # clone_adjusted_prices("SoybeanMeal","SoybeanMeal")
     clone_multiple_prices("SoybeanMeal","SoybeanMeal")
