@@ -120,7 +120,8 @@ function update_pandl() {
 
       $.each(data["captials_pandl"], function(k, v) {
         $("#recent_captail_table tbody").append(`<tr>
-          <td>${v["codes"]}</td><td>${v["pandl"].toFixed(2)}</td></tr>`);
+          <td>${v["Accumulated"]}</td><td>${v["Actual"].toFixed(2)}</td>
+          <td>${v["Broker"]}</td><td>${v["Max"].toFixed(2)}</td></tr>`);
       });
       $("#pandl > div.loading").hide();
       $("#pandl > table").show("slow");
