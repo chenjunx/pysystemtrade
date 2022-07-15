@@ -117,6 +117,11 @@ function update_pandl() {
         $("#pandl_class_table tbody").append(`<tr>
           <td>${v["codes"]}</td><td>${v["pandl"].toFixed(2)}</td></tr>`);
       });
+
+      $.each(data["captials_pandl"], function(k, v) {
+        $("#recent_captail_table tbody").append(`<tr>
+          <td>${v["codes"]}</td><td>${v["pandl"].toFixed(2)}</td></tr>`);
+      });
       $("#pandl > div.loading").hide();
       $("#pandl > table").show("slow");
     }

@@ -117,6 +117,12 @@ def pandl():
         orient="records"
     )
 
+    data_capital = dataCapital(data)
+
+    all_calcs = data_capital.get_series_of_all_global_capital()
+    pandl_data[
+        "captials_pandl"
+    ] = all_calcs.to_dict(orient="records")
     return pandl_data
 
 
