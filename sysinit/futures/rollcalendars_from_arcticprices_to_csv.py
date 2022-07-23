@@ -119,8 +119,8 @@ def check_saved_roll_calendar(
 
 
 if __name__ == "__main__":
-    # input("Will overwrite existing prices are you sure?! CTL-C to abort")
-    # instrument_code = get_valid_instrument_code_from_user(source="single")
+    input("Will overwrite existing prices are you sure?! CTL-C to abort")
+    instrument_code = get_valid_instrument_code_from_user(source="single")
     ## MODIFY DATAPATH IF REQUIRED
     code = 'PK'
     name = "花生"

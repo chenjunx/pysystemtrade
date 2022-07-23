@@ -37,7 +37,6 @@ def strategy_order_function_to_be_renamed(self):
 def get_list_of_strategy_order_timer_functions_for_strategies(data):
     list_of_strategy_names = get_list_of_strategies_for_process(data, process_name)
     list_of_timer_names_and_functions = []
-
     for strategy_name in list_of_strategy_names:
         # we add a method to the class with the strategy name, that just calls run_strategy_method with the current
         #    strategy
@@ -50,6 +49,7 @@ def get_list_of_strategy_order_timer_functions_for_strategies(data):
         list_of_timer_names_and_functions.append(strategy_tuple)
 
     return list_of_timer_names_and_functions
+
 
 if __name__ == '__main__':
     run_strategy_order_generator()

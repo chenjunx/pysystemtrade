@@ -436,3 +436,6 @@ def check_and_update_sampling_status(
         )
 
 
+
+if __name__ == '__main__':
+    update_sampled_contracts()

@@ -135,5 +135,8 @@ def write_allocated_strategy_margin(data: dataBlob, strategy_margin_dict: dict):
             strategy_name=strategy_name,
         )
 
+
+
+
 if __name__ == '__main__':
     update_strategy_capital()

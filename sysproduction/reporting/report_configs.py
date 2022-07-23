@@ -141,6 +141,10 @@ market_monitor_report_config = reportConfig(title = "Market monitor report",
         function = "sysproduction.reporting.market_monitor_report.market_monitor_report",
                                             output="email")
 
+account_curve_report_config = reportConfig(title = "Account curve report",
+        function = "sysproduction.reporting.account_curve_report.account_curve_report",
+                                           output="email")
+
 ## The reports will be run in this order
 report_config_defaults = dict(
     # slippage_report = slippage_report_config,
@@ -149,7 +153,7 @@ report_config_defaults = dict(
     daily_pandl_report=daily_pandl_report_config,
     # month_pandl_report=month_pandl_report_config,
     # reconcile_report=reconcile_report_config,
-    trade_report=trade_report_config,
+    # trade_report=trade_report_config,
     strategy_report=strategy_report_config,
     # risk_report=risk_report_config,
     status_report=status_report_config,
@@ -158,7 +162,6 @@ report_config_defaults = dict(
     min_capital = min_capital_report_config,
     # duplicate_market =duplicate_market_report_config,
     # remove_markets_report = remove_markets_report_config,
-    market_monitor_report = market_monitor_report_config
-    # liquidity_report=liquidity_report_config,
-    # instrument_risk_report = instrument_risk_report_config,
+    market_monitor_report = market_monitor_report_config,
+    account_curve_report=account_curve_report_config
 )
