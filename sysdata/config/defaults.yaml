@@ -39,7 +39,7 @@ mills_ipaddress: 216.127.184.31
 mills_port: 80
 #
 # Broker class list resolution function
-broker_factory_func: 'sysbrokers.broker_factory.get_ib_class_list'
+broker_factory_func: 'sysbrokers.broker_factory.get_mills_class_list'
 #
 # Mongo DB
 mongo_host: 216.127.184.31
