@@ -7,7 +7,7 @@ from sysbrokers.IB.ib_contract_position_data import ibContractPositionData
 from sysbrokers.IB.ib_orders import ibExecutionStackData
 from sysbrokers.IB.ib_static_data import ibStaticData
 from sysbrokers.IB.ib_fx_handling import ibFxHandlingData
-# from sysbrokers.mills.mills_execution_stack import millsExecutionStackData
+from sysbrokers.mills.mills_execution_stack import millsExecutionStackData
 from syscore.objects import missing_data, resolve_function
 from sysdata.config.production_config import get_production_config
 from sysdata.data_blob import dataBlob
@@ -63,5 +63,5 @@ def get_mills_class_list():
         millsFuturesContractData,
         millsFxHandlingData,
         millsFxPricesData,
-        # millsExecutionStackData,
+        millsExecutionStackData,
     ]
