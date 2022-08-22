@@ -65,6 +65,10 @@ class connectionMills(object):
         res = self.send_get("/gateway/excess_liquidity_value_across")
         return res
 
+    def query_active_orders(self):
+        res = self.send_get("/gateway/query_active_orders")
+        return res
+
     def send_get(self,endpoint,params={}):
         url= self._mills_connection_config.get("header")+endpoint;
         return requests.get(url=url,params=params).text
