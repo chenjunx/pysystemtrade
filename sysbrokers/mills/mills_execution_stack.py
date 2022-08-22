@@ -22,13 +22,13 @@ class millsExecutionStackData(brokerExecutionStackData):
         new_orders = []
         self.log.warn(orders)
         for order in orders:
-            brokerOrder = brokerOrder(fill_datetime=order['datetime'],
+            v_rokerOrder = brokerOrder(fill_datetime=order['datetime'],
                                       key= order['id'],
                                       order_id=order['id'],
                                       filled_price=order['info']['avgFillPrice'],
                                       fill=order['filled'],
                                       trade=order['amount'])
-            new_orders.append(brokerOrder)
+            new_orders.append(v_rokerOrder)
         order_list = listOfOrders(new_orders)
         return order_list
 
