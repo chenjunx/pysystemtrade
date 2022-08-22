@@ -26,7 +26,8 @@ class millsExecutionStackData(brokerExecutionStackData):
                                       order_id=order['id'],
                                       filled_price=order['info']['avgFillPrice'],
                                       fill=order['filled'],
-                                      trade=order['amount'])
+                                      trade=order['amount'],
+                                       commission=order['fee'])
             new_orders.append(v_rokerOrder)
         order_list = listOfOrders(new_orders)
         return order_list
