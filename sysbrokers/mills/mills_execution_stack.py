@@ -21,7 +21,6 @@ class millsExecutionStackData(brokerExecutionStackData):
         orders = json.loads(orders_str)
         new_orders = []
         for order in orders:
-            self.log.warn(order)
             neworder = {}
             neworder['fill_datetime'] = order['datetime']
             neworder['key'] = order['id']
@@ -29,6 +28,7 @@ class millsExecutionStackData(brokerExecutionStackData):
             neworder['filled_price'] = order['info']['avgFillPrice']
             neworder['fill'] = order['filled']
             neworder['trade'] = order['amount']
+            neworder['commission'] = order['fee']
             new_orders.append(neworder)
         order_list = listOfOrders(new_orders)
         return order_list
