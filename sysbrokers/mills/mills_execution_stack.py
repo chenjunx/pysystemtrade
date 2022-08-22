@@ -20,7 +20,6 @@ class millsExecutionStackData(brokerExecutionStackData):
         orders_str = self._connection_Mills.query_active_orders()
         orders = json.loads(orders_str)
         new_orders = []
-        self.log.warn(orders)
         for order in orders:
             v_rokerOrder = brokerOrder(fill_datetime=order['datetime'],
                                       key= order['id'],
