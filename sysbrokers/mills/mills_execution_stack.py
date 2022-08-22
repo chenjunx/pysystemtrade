@@ -20,8 +20,8 @@ class millsExecutionStackData(brokerExecutionStackData):
         orders_str = self._connection_Mills.query_active_orders()
         orders = json.loads(orders_str)
         new_orders = []
-        self.log.warn(orders)
         for order in orders:
+            self.log.warn(order)
             neworder = {}
             neworder.fill_datetime = order.datetime
             neworder.key = order.id
