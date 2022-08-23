@@ -70,7 +70,7 @@ def _market_monitor_report_full(
     formatted_output.append(MARKET_REPORT)
 
     #eg 1 day, 7 days, 1 month, 3 months, 6 months, YTD and 1 year
-    truncate = True
+    truncate = False
     for period in list_of_periods:
         for sortby in [ 'change', 'vol_adjusted']:
             formatted_output.append(
