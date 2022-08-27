@@ -34,9 +34,9 @@ class millsExecutionStackData(brokerExecutionStackData):
                 order_type =  brokerOrderType('market')
             fill = tradeQuantity([])
             if order['symbol'].startswith("BTC"):
-                fill =  tradeQuantity([int(float(order['filled'])/0.01)])
+                fill = tradeQuantity([int(float(order['filled'])/0.01)],int(float(order['amount'])/0.01))
             if order['symbol'].startswith("ETH"):
-                fill =  tradeQuantity([int(float(order['filled'])/0.1)])
+                fill = tradeQuantity([int(float(order['filled'])/0.1)],[int(float(order['amount'])/0.1)])
             v_rokerOrder = brokerOrder(
                                     fill=fill,
                                      fill_datetime=order['datetime'],
@@ -46,7 +46,8 @@ class millsExecutionStackData(brokerExecutionStackData):
                                       trade=order['amount'],
                                        commission=order['fee'],
                                         active = active,
-                                        order_type = order_type)
+                                        order_type = order_type,
+                                        manual_fill=True)
             new_orders.append(v_rokerOrder)
         order_list = listOfOrders(new_orders)
         return order_list
