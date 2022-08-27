@@ -6,6 +6,11 @@ from syscore.objects import missing_order, failure, success, arg_not_supplied
 from sysexecution.orders.list_of_orders import listOfOrders
 from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.order_stacks.broker_order_stack import orderWithControls
+from sysexecution.orders.broker_orders import (
+    brokerOrderType
+)
+from sysexecution.trade_qty import tradeQuantity
+
 import json
 
 class millsExecutionStackData(brokerExecutionStackData):
@@ -21,13 +26,27 @@ class millsExecutionStackData(brokerExecutionStackData):
         orders = json.loads(orders_str)
         new_orders = []
         for order in orders:
-            v_rokerOrder = brokerOrder(fill_datetime=order['datetime'],
+            active = False
+            if order['status'] != 'close':
+                active = True
+            order_type = brokerOrderType('limit')
+            if order['type'] == 'market':
+                order_type =  brokerOrderType('market')
+            fill = tradeQuantity([])
+            if order['symbol'].startswith("BTC"):
+                fill =  tradeQuantity([int(float(order['filledSize'])/0.01)])
+            if order['symbol'].startswith("ETH"):
+                fill =  tradeQuantity([int(float(order['filledSize'])/0.1)])
+            v_rokerOrder = brokerOrder(
+                                    fill=fill,
+                                     fill_datetime=order['datetime'],
                                       key= order['id'],
                                       order_id=order['id'],
                                       filled_price=order['info']['avgFillPrice'],
-                                      fill=order['filled'],
                                       trade=order['amount'],
-                                       commission=order['fee'])
+                                       commission=order['fee'],
+                                        active = active,
+                                        order_type = order_type)
             new_orders.append(v_rokerOrder)
         order_list = listOfOrders(new_orders)
         return order_list
