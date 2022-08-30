@@ -166,7 +166,7 @@ class millsBrokerOrder(brokerOrder):
         )
 
 
-        fill = tradeQuantity(extracted_trade_data.fills)
+        fill = tradeQuantity(extracted_trade_data.fills[0].signed_qty)
 
         fill_price = extracted_trade_data.fills[0].avg_price
 
