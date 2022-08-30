@@ -2,16 +2,18 @@
 from sysbrokers.broker_execution_stack import brokerExecutionStackData
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection import connectionMills
-from syscore.objects import missing_order, failure, success, arg_not_supplied
 from sysexecution.orders.list_of_orders import listOfOrders
 from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.order_stacks.broker_order_stack import orderWithControls
-from sysexecution.orders.broker_orders import (
-    brokerOrderType
-)
-from sysexecution.trade_qty import tradeQuantity
+from syscore.objects import missing_order, arg_not_supplied, missing_data
+
+from  sysbrokers.mills.mills_order_with_controls import millsOrderCouldntCreateException
+from sysbrokers.mills.mills_order_with_controls import millsOrderWithControls
 
 import json
+
+
+
 
 class millsExecutionStackData(brokerExecutionStackData):
     def __init__(self,connection_Mills: connectionMills, log=logtoscreen("millsExecutionStackData")):
@@ -22,35 +24,65 @@ class millsExecutionStackData(brokerExecutionStackData):
     def get_list_of_broker_orders_with_account_id(
         self, account_id: str = arg_not_supplied
     ) -> listOfOrders:
-        orders_str = self._connection_Mills.query_active_orders()
-        orders = json.loads(orders_str)
-        new_orders = []
-        for order in orders:
-            active = False
-            if order['status'] != 'close':
-                active = True
-            order_type = brokerOrderType('limit')
-            if order['type'] == 'market':
-                order_type =  brokerOrderType('market')
-            fill = tradeQuantity([])
-            if order['symbol'].startswith("BTC"):
-                fill = tradeQuantity([int(float(order['filled'])/0.01),int(float(order['amount'])/0.01)])
-            if order['symbol'].startswith("ETH"):
-                fill = tradeQuantity([int(float(order['filled'])/0.1),int(float(order['amount'])/0.1)])
-            v_rokerOrder = brokerOrder(
-                                    fill=fill,
-                                     fill_datetime=order['datetime'],
-                                      key= order['id'],
-                                      order_id=order['id'],
-                                      filled_price=order['info']['avgFillPrice'],
-                                      trade=order['amount'],
-                                       commission=order['fee'],
-                                        active = active,
-                                        order_type = order_type,
-                                        manual_fill=True)
-            new_orders.append(v_rokerOrder)
-        order_list = listOfOrders(new_orders)
+        list_of_control_objects = self._get_list_of_broker_control_orders(
+        )
+        order_list = [
+            order_with_control.order for order_with_control in list_of_control_objects
+        ]
+
+        order_list = listOfOrders(order_list)
         return order_list
+
+    def _get_list_of_broker_control_orders(
+            self, account_id: str = arg_not_supplied
+    ) -> list:
+        """
+        Get list of broker orders from IB, and return as list of orders with controls
+
+        :return: list of brokerOrder objects
+        """
+        orders_str = self._connection_Mills.query_active_orders()
+        list_of_raw_orders_as_trade_objects = json.loads(orders_str)
+
+        broker_order_with_controls_list = [
+            self._create_broker_control_order_object(broker_trade_object_results)
+            for broker_trade_object_results in list_of_raw_orders_as_trade_objects
+        ]
+
+        broker_order_with_controls_list = [
+            broker_order_with_controls
+            for broker_order_with_controls in broker_order_with_controls_list
+            if broker_order_with_controls is not missing_order
+        ]
+
+        return broker_order_with_controls_list
+
+
+    def _create_broker_control_order_object(
+        self, order
+    ):
+        """
+        Map from the data mills gives us to my broker order object, to order with controls
+
+        :param trade_with_contract_from_ib: tradeWithContract
+        :return: brokerOrder
+        """
+        try:
+
+            instrument_code = order['instrument_code']
+            broker_order_with_controls = millsOrderWithControls(
+                order,
+                instrument_code=instrument_code,
+            )
+            return broker_order_with_controls
+        except millsOrderCouldntCreateException:
+            self.log.warn(
+                "Couldn't create order from mills returned order %s, usual behaviour for FX and equities trades"
+                % str(order)
+            )
+            return missing_order
+
+
 
     def get_list_of_orders_from_storage(self) -> listOfOrders:
         raise NotImplementedError

@@ -71,7 +71,7 @@ if __name__ == "__main__":
     # process_adjusted_prices_all_instruments(
     #     ADD_TO_ARCTIC=True, ADD_TO_CSV=True, csv_adj_data_path=arg_not_supplied
     # )
-    code = "FU"
+    code = "ss"
     process_adjusted_prices_single_instrument(
         instrument_code=code,
         ADD_TO_ARCTIC=True, ADD_TO_CSV=False
