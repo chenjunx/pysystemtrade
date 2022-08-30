@@ -180,7 +180,7 @@ class millsBrokerOrder(brokerOrder):
             limit_price=limit_price,
             filled_price=fill_price,
             algo_comment=algo_comment,
-            fill_datetime=extracted_trade_data.order.time,
+            fill_datetime=extracted_trade_data.fills[0].time,
             broker_account=broker_account,
             commission=extracted_trade_data.order,
             leg_filled_price=extracted_trade_data.fills,
