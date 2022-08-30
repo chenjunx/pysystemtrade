@@ -142,7 +142,7 @@ class millsBrokerOrder(brokerOrder):
     def from_broker_trade_object(
         millsBrokerOrder, extracted_trade_data, instrument_code=arg_not_supplied
     ):
-        sec_type = extracted_trade_data.contract.ib_sectype
+        sec_type = extracted_trade_data.contract.mills_sectype
 
         if sec_type not in ["FUT", "BAG"]:
             # Doesn't handle non futures trades, just ignores them
