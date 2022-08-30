@@ -205,7 +205,7 @@ class millsBrokerOrder(brokerOrder):
 class millsOrderCouldntCreateException(Exception):
     pass
 class millsOrderWithControls(orderWithControls):
-    def __init__(self,order, broker_order: brokerOrder,  instrument_code: str = None, ticker_object: tickerObject = None):
+    def __init__(self,order, broker_order: brokerOrder =None,  instrument_code: str = None, ticker_object: tickerObject = None):
         order_info = extract_order_info(order)
         contract_info = extract_contract_info(order)
         fill_info = extract_fill_info(order)
