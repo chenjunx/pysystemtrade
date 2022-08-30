@@ -109,7 +109,7 @@ def extract_order_info(order):
     return order_info
 
 
-def extract_contract_info(contract, legs):
+def extract_contract_info(contract, legs=None):
     mills_instrument_code = contract['instrument_code']
     mills_sectype = 'FUT'
 
