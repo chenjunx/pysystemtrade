@@ -123,7 +123,7 @@ if __name__ == "__main__":
     instrument_code = get_valid_instrument_code_from_user(source="single")
     ## MODIFY DATAPATH IF REQUIRED
     code = instrument_code
-    name = "不锈钢"
+    name = "苯乙烯"
     # build_and_write_roll_calendar(instrument_code, output_datapath=arg_not_supplied)
     # build_and_write_roll_calendar("SoybeanMeal", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/豆粕/rollcalendars")
     # build_and_write_roll_calendar("MAIZE", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玉米/rollcalendars")
