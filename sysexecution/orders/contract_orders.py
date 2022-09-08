@@ -331,6 +331,7 @@ def from_contract_order_args_to_resolved_args(
 def split_contract_order_args(
     args: tuple, fill: tradeQuantity
 ) -> contractOrderKeyArguments:
+    print("-----"+str(args))
     if len(args) == 2:
         tradeable_object = futuresContractStrategy.from_key(args[0])
         trade = args[1]
