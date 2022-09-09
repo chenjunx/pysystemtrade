@@ -18,6 +18,9 @@ from syscore.dateutils import from_config_frequency_pandas_resample
 
 import pandas as pd
 from datetime import datetime
+VERY_BIG_NUMBER = 999999.0
+
+
 class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def __init__(self, connection_Mills: connectionMills, log=logtoscreen("millsFuturesContractPriceData")):
         self._connection_Mills = connection_Mills
