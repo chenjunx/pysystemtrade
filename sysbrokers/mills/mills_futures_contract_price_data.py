@@ -65,8 +65,8 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def get_prices_at_frequency_for_contract_object(self, contract_object: futuresContract, frequency: Frequency,
                                                     return_empty: bool = True):
         prices = self._get_prices_at_frequency_for_contract_object_no_checking(
-            futures_contract_object=contract_object,
-            frequency=frequency
+            contract_object=contract_object,
+            freq=frequency
         )
         if prices is missing_data:
             if return_empty:
