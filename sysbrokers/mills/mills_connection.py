@@ -76,3 +76,7 @@ class connectionMills(object):
     def send_post(self, endpoint, params):
         url = self._mills_connection_config.get("header") + endpoint;
         return requests.post(url=url, json=json.dumps(params)).text
+
+    def query_posistions(self):
+        res = self.send_get("/gateway/query_posistions")
+        return res

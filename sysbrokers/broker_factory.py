@@ -18,6 +18,7 @@ from sysbrokers.mills.mills_futures_contract_data import millsFuturesContractDat
 from sysbrokers.mills.mills_futures_contract_price_data import millsFuturesContractPriceData
 from sysbrokers.mills.mills_capital_data import millsCapitalData
 from sysbrokers.mills.mills_static_data import millsStaticData
+from sysbrokers.mills.mills_contract_position_data import millsContractPositionData
 
 def get_broker_class_list(data: dataBlob):
     """
@@ -64,4 +65,5 @@ def get_mills_class_list():
         millsFxHandlingData,
         millsFxPricesData,
         millsExecutionStackData,
+        millsContractPositionData
     ]
