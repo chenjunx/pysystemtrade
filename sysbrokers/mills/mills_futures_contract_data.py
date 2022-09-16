@@ -107,7 +107,7 @@ class millsFuturesContractData(brokerFuturesContractData):
         return expiry_date
 
     def get_min_tick_size_for_contract(self, contract_object: futuresContract) -> float:
-        pass
+        return float(self._connection_Mills.query_min_tick_size(contract_object))
 
     def get_trading_hours_for_contract(self, futures_contract: futuresContract) -> \
             listOfOpeningTimes:

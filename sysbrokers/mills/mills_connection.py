@@ -80,3 +80,7 @@ class connectionMills(object):
     def query_posistions(self):
         res = self.send_get("/gateway/query_posistions")
         return res
+
+    def query_min_tick_size(self, contract_object):
+        res = self.send_post("/gateway/query_min_tick_size", contract_object.as_dict())
+        return res
