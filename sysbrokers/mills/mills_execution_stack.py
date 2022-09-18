@@ -1,5 +1,6 @@
 
 from sysbrokers.broker_execution_stack import brokerExecutionStackData
+from sysexecution.orders.base_orders import Order
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection import connectionMills
 from sysexecution.orders.list_of_orders import listOfOrders
@@ -19,6 +20,10 @@ class millsExecutionStackData(brokerExecutionStackData):
     def __init__(self,connection_Mills: connectionMills, log=logtoscreen("millsExecutionStackData")):
         super().__init__(log=log)
         self._connection_Mills = connection_Mills
+
+    def put_order_on_stack(self, new_order: Order):
+        order_id = self._connection_Mills.place_order(new_order)
+        return order_id
 
     ##获取从经纪商哪里获取非历史订单
     def get_list_of_broker_orders_with_account_id(

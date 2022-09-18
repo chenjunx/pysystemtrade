@@ -19,7 +19,27 @@ from syscore.dateutils import from_config_frequency_pandas_resample
 import pandas as pd
 from datetime import datetime
 VERY_BIG_NUMBER = 999999.0
+import json
 
+
+def from_mills_bid_ask_tick_data_to_dataframe(tick_data) -> dataFrameOfRecentTicks:
+    """
+
+    :param tick_data: list of HistoricalTickBidAsk()
+    :return: pd.DataFrame,['priceBid', 'priceAsk', 'sizeAsk', 'sizeBid']
+    """
+    time_index = [tick_item['time'] for tick_item in tick_data]
+    fields = ["priceBid", "priceAsk", "sizeAsk", "sizeBid"]
+
+    value_dict = {}
+    for field_name in fields:
+        for tick_item in tick_data:
+            field_values = tick_item[field_name]
+            value_dict[field_name] = field_values
+
+    output = dataFrameOfRecentTicks(value_dict, time_index)
+
+    return output
 
 class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def __init__(self, connection_Mills: connectionMills, log=logtoscreen("millsFuturesContractPriceData")):
@@ -134,9 +154,13 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def cancel_market_data_for_order(self, order: brokerOrder):
         pass
 
+
     def get_recent_bid_ask_tick_data_for_contract_object(self,
                                                          contract_object: futuresContract) -> dataFrameOfRecentTicks:
-        pass
+
+        tick_data = self._connection_Mills.query_tick_data(contract_object)
+        return from_mills_bid_ask_tick_data_to_dataframe(json.loads(tick_data))
+
 
     def _write_prices_for_contract_object_no_checking(self, *args, **kwargs):
         pass

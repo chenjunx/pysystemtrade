@@ -3,6 +3,7 @@ from syscore.objects import missing_data, arg_not_supplied,missing_contract
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import  mills_defaults
 from sysobjects.contracts import futuresContract
+from sysexecution.orders.base_orders import Order
 
 import requests
 import json
@@ -83,4 +84,12 @@ class connectionMills(object):
 
     def query_min_tick_size(self, contract_object):
         res = self.send_post("/gateway/query_min_tick_size", contract_object.as_dict())
+        return res
+
+    def place_order(self, new_order: Order):
+        res = self.send_post("/gateway/place_order",new_order.as_dict())
+        return res
+
+    def query_tick_data(self, contract_object):
+        res = self.send_post("/gateway/query_tick_data",contract_object.as_dict())
         return res
