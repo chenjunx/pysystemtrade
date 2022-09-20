@@ -51,16 +51,16 @@ class millsTickerObject(tickerObject):
         pass
 
     def bid(self):
-        return self.ticker.bid
+        return self.ticker['bid']
 
     def ask(self):
-        return self.ticker.ask
+        return self.ticker['ask']
 
     def bid_size(self):
-        return self.ticker.bidSize
+        return self.ticker['bidSize']
 
     def ask_size(self):
-        return self.ticker.askSize
+        return self.ticker['askSize']
 
 class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def __init__(self, connection_Mills: connectionMills, log=logtoscreen("millsFuturesContractPriceData")):
@@ -171,7 +171,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
 
     def get_ticker_object_for_order(self, order: contractOrder) -> tickerObject:
         tick_data = self._connection_Mills.query_ask_bid_data(order.futures_contract)
-        tick_data = tick_data[0]
+        tick_data = json.loads(tick_data)[0]
         tick_object = {}
 
         tick_object['time'] = tick_data['time']
@@ -268,3 +268,4 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
             return False
         else:
             return True
+
