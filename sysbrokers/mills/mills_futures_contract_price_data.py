@@ -41,6 +41,27 @@ def from_mills_bid_ask_tick_data_to_dataframe(tick_data) -> dataFrameOfRecentTic
 
     return output
 
+
+class millsTickerObject(tickerObject):
+    def __init__(self, ticker, qty,):
+        ticker = ticker
+        super().__init__(ticker, qty=qty)
+
+    def refresh(self):
+        pass
+
+    def bid(self):
+        return self.ticker.bid
+
+    def ask(self):
+        return self.ticker.ask
+
+    def bid_size(self):
+        return self.ticker.bidSize
+
+    def ask_size(self):
+        return self.ticker.askSize
+
 class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def __init__(self, connection_Mills: connectionMills, log=logtoscreen("millsFuturesContractPriceData")):
         self._connection_Mills = connection_Mills
@@ -149,7 +170,21 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
         pass
 
     def get_ticker_object_for_order(self, order: contractOrder) -> tickerObject:
-        pass
+        tick_data = self._connection_Mills.query_ask_bid_data(order.futures_contract)
+        tick_object = {}
+
+        tick_object['time'] = tick_data['time']
+        tick_object['bid'] = tick_data['priceBid']
+        tick_object['bidSize'] =  tick_data['sizeBid']
+        tick_object['ask'] = tick_data['priceAsk']
+        tick_object['askSize'] =  tick_data['sizeAsk']
+        qty =0
+        if order.trade[0] <0 :
+            qty = -1
+        else:
+            qty = 1
+        ticker_object = millsTickerObject(tick_object,qty)
+        return  ticker_object
 
     def cancel_market_data_for_order(self, order: brokerOrder):
         pass
