@@ -171,6 +171,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
 
     def get_ticker_object_for_order(self, order: contractOrder) -> tickerObject:
         tick_data = self._connection_Mills.query_ask_bid_data(order.futures_contract)
+        tick_data = tick_data[0]
         tick_object = {}
 
         tick_object['time'] = tick_data['time']
@@ -184,7 +185,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
         else:
             qty = 1
         ticker_object = millsTickerObject(tick_object,qty)
-        return  ticker_object
+        return ticker_object
 
     def cancel_market_data_for_order(self, order: brokerOrder):
         pass
