@@ -158,7 +158,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     def get_recent_bid_ask_tick_data_for_contract_object(self,
                                                          contract_object: futuresContract) -> dataFrameOfRecentTicks:
 
-        tick_data = self._connection_Mills.query_tick_data(contract_object)
+        tick_data = self._connection_Mills.query_ask_bid_data(contract_object)
         return from_mills_bid_ask_tick_data_to_dataframe(json.loads(tick_data))
 
 

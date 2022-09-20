@@ -90,6 +90,6 @@ class connectionMills(object):
         res = self.send_post("/gateway/place_order",new_order.as_dict())
         return res
 
-    def query_tick_data(self, contract_object):
-        res = self.send_post("/gateway/query_tick_data",contract_object.as_dict())
+    def query_ask_bid_data(self, contract_object):
+        res = self.send_post("/gateway/query_ask_bid_data",contract_object.as_dict())
         return res
