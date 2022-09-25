@@ -24,25 +24,35 @@ class millsExecutionStackData(brokerExecutionStackData):
 
     def put_order_on_stack(self, new_order: Order):
         # todo 需要编写下单方法
-        trade_with_contract_from_mills = self._connection_Mills.place_order(new_order)
-        order_time = datetime.datetime.now()
+        trade_with_contract_from_mills = json.loads(self._connection_Mills.place_order(new_order))
         if trade_with_contract_from_mills is missing_order:
             return missing_order
 
         placed_broker_order_with_controls = millsOrderWithControls(
             trade_with_contract_from_mills,
             broker_order=new_order,
+            connectionMills=connectionMills
         )
-        placed_broker_order_with_controls.order.submit_datetime = order_time
-
-        # We do this so the tempid is accurate
-        placed_broker_order_with_controls.update_order()
 
         # We do this so we can cancel stuff and get things back more easily
         self._add_order_with_controls_to_store(placed_broker_order_with_controls)
 
         return placed_broker_order_with_controls
 
+    def _add_order_with_controls_to_store(
+        self, order_with_controls: millsOrderWithControls
+    ):
+        storage_key = order_with_controls.order.broker_tempid
+        self.traded_object_store[storage_key] = order_with_controls
+
+
+    @property
+    def traded_object_store(self) -> dict:
+        store = getattr(self, "_traded_object_store", None)
+        if store is None:
+            store = self._traded_object_store = {}
+
+        return store
 
     ##获取从经纪商哪里获取非历史订单
     def get_list_of_broker_orders_with_account_id(

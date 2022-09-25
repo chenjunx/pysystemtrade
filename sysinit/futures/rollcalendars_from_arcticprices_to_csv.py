@@ -123,13 +123,13 @@ if __name__ == "__main__":
     instrument_code = get_valid_instrument_code_from_user(source="single")
     ## MODIFY DATAPATH IF REQUIRED
     code = instrument_code
-    name = "苯乙烯"
+    name = "GLD_FTX"
     # build_and_write_roll_calendar(instrument_code, output_datapath=arg_not_supplied)
     # build_and_write_roll_calendar("SoybeanMeal", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/豆粕/rollcalendars")
     # build_and_write_roll_calendar("MAIZE", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玉米/rollcalendars")
     # build_and_write_roll_calendar("FG", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/玻璃/rollcalendars")
-    build_and_write_roll_calendar(code, output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars")
-    # build_and_write_roll_calendar("POLYETHYLENE", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/聚乙烯/rollcalendars")
+    # build_and_write_roll_calendar(code, output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars")
+    # build_and_write_roll_calendar(code, output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars")
     # build_and_write_roll_calendar("PVC", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/聚氯乙烯/rollcalendars")
     # build_and_write_roll_calendar("PP", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/聚丙烯/rollcalendars")
     # build_and_write_roll_calendar("RB", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/螺纹钢/rollcalendars")
@@ -142,4 +142,4 @@ if __name__ == "__main__":
     # build_and_write_roll_calendar("BNB_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX")
     # build_and_write_roll_calendar("LINK_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/LINK_FTX")
     # build_and_write_roll_calendar("LTC_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/LTC_FTX")
-    # build_and_write_roll_calendar("XRP_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/XRP_FTX")
+    build_and_write_roll_calendar("GLD_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/GLD_FTX")

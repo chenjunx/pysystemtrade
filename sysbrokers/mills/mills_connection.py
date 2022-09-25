@@ -93,3 +93,8 @@ class connectionMills(object):
     def query_ask_bid_data(self, contract_object):
         res = self.send_post("/gateway/query_ask_bid_data",contract_object.as_dict())
         return res
+
+
+    def get_order_by_id(self,order):
+        res = self.send_post("/gateway/query_order_by_id",order.as_dict())
+        return res

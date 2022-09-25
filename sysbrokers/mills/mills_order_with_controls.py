@@ -1,4 +1,5 @@
 import datetime
+from sysbrokers.mills.mills_connection import connectionMills
 
 from sysexecution.order_stacks.broker_order_stack import orderWithControls
 from sysexecution.orders.broker_orders import brokerOrder
@@ -6,7 +7,7 @@ from sysexecution.tick_data import tickerObject
 from collections import namedtuple
 from syscore.objects import missing_order, arg_not_supplied, missing_data
 from sysexecution.trade_qty import tradeQuantity
-
+from sysexecution.orders.broker_orders import brokerOrderType
 def extract_fill_info(order):
     fill_info = [extract_single_fill(order)]
     fill_info_without_bags = [
@@ -15,19 +16,19 @@ def extract_fill_info(order):
 
     return fill_info_without_bags
 
+import json
 
 def extract_single_fill(single_fill):
-    commission = float(single_fill['fee'])
+    commission = single_fill['fee']
     commission_ccy = single_fill['fee_currency']
     cum_qty = float(single_fill['amount'])
     sign = 1
     if single_fill['side'] == 'sell':
         sign = -1
     signed_qty = cum_qty * sign
-    price = float(single_fill['info']['avgFillPrice'])
-    avg_price = float(single_fill['info']['avgFillPrice'])
+    price = single_fill['info']['avgFillPrice']
+    avg_price = single_fill['info']['avgFillPrice']
 
-    # move to local time and strip TZ info
     time = single_fill['datetime']
     temp_id = single_fill['id']
     client_id = single_fill['clientOrderId']
@@ -66,14 +67,14 @@ def extract_single_fill(single_fill):
 
 
 def extract_order_info(order):
-    account = None
+    account = 1
     perm_id = None
-    client_id = None
+    client_id = 1
     limit_price = order['stopPrice']
     order_sign = 1
     if order['side'] == 'sell':
         order_sign = -1
-    order_type = order['type']
+    order_type = brokerOrderType(order['type'])
     order_id = order['id']
     remain_qty = float(order['info']['remainingSize'])
     total_qty = float(order['amount'])
@@ -109,6 +110,7 @@ def extract_order_info(order):
     return order_info
 
 
+
 def extract_contract_info(contract, legs=None):
     mills_instrument_code = contract['instrument_code']
     mills_sectype = 'FUT'
@@ -140,7 +142,7 @@ def extract_contract_info(contract, legs=None):
 class millsBrokerOrder(brokerOrder):
     @classmethod
     def from_broker_trade_object(
-        millsBrokerOrder, extracted_trade_data, instrument_code=arg_not_supplied
+        trade_info, extracted_trade_data, instrument_code=arg_not_supplied,strategy_name="",parent=None,
     ):
         sec_type = extracted_trade_data.contract.mills_sectype
 
@@ -148,7 +150,6 @@ class millsBrokerOrder(brokerOrder):
             # Doesn't handle non futures trades, just ignores them
             return missing_order
 
-        strategy_name = ""
         if instrument_code is arg_not_supplied:
             instrument_code = extracted_trade_data.contract.mills_instrument_code
         contract_id_list = extracted_trade_data.contract.mills_contract_id
@@ -158,6 +159,8 @@ class millsBrokerOrder(brokerOrder):
         limit_price = extracted_trade_data.order.limit_price
         broker_account = extracted_trade_data.order.account
         broker_permid = extracted_trade_data.order.perm_id
+        broker_tempid = extracted_trade_data.order.order_id
+        broker_clientid = extracted_trade_data.order.client_id
 
         broker_objects = dict(
             order=extracted_trade_data.order.order_object,
@@ -169,24 +172,30 @@ class millsBrokerOrder(brokerOrder):
         fill = tradeQuantity([extracted_trade_data.fills[0].cum_qty])
 
         fill_price = extracted_trade_data.fills[0].avg_price
-
+        commission = None
+        # todo 手续费查询
+        if fill_price is not None:
+            commission = 0.0
         broker_order = millsBrokerOrder(
             strategy_name,
             instrument_code,
             contract_id_list,
             extracted_trade_data.order.total_qty,
             fill=fill,
+            parent=parent,
             order_type=order_type,
             limit_price=limit_price,
             filled_price=fill_price,
             algo_comment=algo_comment,
             fill_datetime=extracted_trade_data.fills[0].time,
             broker_account=broker_account,
-            commission=extracted_trade_data.order,
+            commission=commission,
             leg_filled_price=extracted_trade_data.fills,
             broker_permid=broker_permid,
-            broker_tempid=None,
-            broker_clientid=None,
+            broker_tempid=broker_tempid,
+            broker_clientid=broker_clientid,
+            submit_datetime=extracted_trade_data.trade_object['datetime']
+
         )
 
         broker_order.broker_objects = broker_objects
@@ -205,13 +214,13 @@ class millsBrokerOrder(brokerOrder):
 class millsOrderCouldntCreateException(Exception):
     pass
 class millsOrderWithControls(orderWithControls):
-    def __init__(self,order, broker_order: brokerOrder =None,  instrument_code: str = None, ticker_object: tickerObject = None):
+    def __init__(self,order, broker_order: brokerOrder =None,  instrument_code: str = arg_not_supplied, ticker_object: tickerObject = None,connection_Mills: connectionMills=None):
         order_info = extract_order_info(order)
         contract_info = extract_contract_info(order)
         fill_info = extract_fill_info(order)
         algo_msg = ""
         active = True
-        if order['status'] != 'close':
+        if order['status'] == 'close':
             active = False
 
         tradeInfo = namedtuple(
@@ -223,92 +232,21 @@ class millsOrderWithControls(orderWithControls):
         )
         # and stage two
         mills_broker_order = millsBrokerOrder.from_broker_trade_object(
-            trade_info, instrument_code=instrument_code
+            trade_info, instrument_code=instrument_code,strategy_name=broker_order.key.split("/")[0],parent=broker_order.parent
         )
 
         # this can go wrong eg for FX
         if mills_broker_order is missing_order:
             raise millsOrderCouldntCreateException()
-        # if broker_order is None:
-        #     ## trade_with_contract_from_mills转换成broker order
-        #     # broker_order = create_broker_order_from_trade_with_contract(
-        #     #     trade_with_contract_from_mills, instrument_code
-        #     # )
-        #     active = False
-        #     if order['status'] != 'close':
-        #         active = True
-        #     order_type = brokerOrderType('limit')
-        #     if order['type'] == 'market':
-        #         order_type =  brokerOrderType('market')
-        #     fill = tradeQuantity([])
-        #     if order['symbol'].startswith("BTC"):
-        #         fill = tradeQuantity([int(float(order['filled'])/0.01),int(float(order['amount'])/0.01)])
-        #     if order['symbol'].startswith("ETH"):
-        #         fill = tradeQuantity([int(float(order['filled'])/0.1),int(float(order['amount'])/0.1)])
-        #     broker_order = brokerOrder(
-        #                             fill=fill,
-        #                              fill_datetime=order['datetime'],
-        #                               key= order['id'],
-        #                               order_id=order['id'],
-        #                               filled_price=order['info']['avgFillPrice'],
-        #                               trade=order['amount'],
-        #                                commission=order['fee'],
-        #                                 active = active,
-        #                                 order_type = order_type,
-        #                                 manual_fill=True)
+        self._connection_Mills=connection_Mills
+        super().__init__(broker_order=mills_broker_order, control_object=order, ticker_object=ticker_object)
 
-        super().__init__(millsBrokerOrder, control_object=order, ticker_object=ticker_object)
-
-    @property
-    def ticker(self) -> tickerObject:
-        return super().ticker()
-
-    def add_or_replace_ticker(self, new_ticker: tickerObject):
-        super().add_or_replace_ticker(new_ticker)
-
-    def set_submit_datetime(self, new_submit_datetime: datetime.datetime):
-        super().set_submit_datetime(new_submit_datetime)
-
-    @property
-    def control_object(self):
-        return super().control_object()
-
-    def replace_control_object(self, new_control_object):
-        super().replace_control_object(new_control_object)
-
-    @property
-    def order(self) -> brokerOrder:
-        return super().order()
-
-    @property
-    def datetime_order_submitted(self):
-        return super().datetime_order_submitted()
-
-    def message_required(self, messaging_frequency_seconds: int = 30) -> bool:
-        return super().message_required(messaging_frequency_seconds)
-
-    def seconds_since_last_message(self) -> float:
-        return super().seconds_since_last_message()
-
-    @property
-    def last_message_time(self):
-        return super().last_message_time()
-
-    def reset_last_message_time(self):
-        super().reset_last_message_time()
-
-    def seconds_since_submission(self) -> float:
-        return super().seconds_since_submission()
 
     def update_order(self):
-        pass
+        trade_with_contract_from_mills = json.loads(self._connection_Mills.get_order_by_id(self.order))
+        if trade_with_contract_from_mills is missing_order:
+            return missing_order
 
-    @property
-    def current_limit_price(self) -> float:
-        return super().current_limit_price()
-
-    def completed(self) -> bool:
-        return super().completed()
-
-    def broker_limit_price(self) -> float:
-        pass
+        ##todo 检测fill情况,如果已经填充，则更新brokerOrder
+        ##todo 1.判断填充方法  broker_order_from_trade_object.fill.equals_zero()
+        ##todo 2.填充方法 new_broker_order.fill_order
