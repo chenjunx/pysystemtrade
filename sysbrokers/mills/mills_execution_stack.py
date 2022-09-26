@@ -23,7 +23,6 @@ class millsExecutionStackData(brokerExecutionStackData):
         self._connection_Mills = connection_Mills
 
     def put_order_on_stack(self, new_order: Order):
-        # todo 需要编写下单方法
         trade_with_contract_from_mills = json.loads(self._connection_Mills.place_order(new_order))
         if trade_with_contract_from_mills is missing_order:
             return missing_order
