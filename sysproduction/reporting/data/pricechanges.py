@@ -198,5 +198,4 @@ def get_stdev_at_start_date_for_instrument(price_series: pd.Series,
     daily_price_series = price_series_for_period.resample("1B").ffill()
     daily_returns = daily_price_series.diff()
     vol_series = daily_returns.ewm(30).std()
-    print("55555555555555555555555555"+str(vol_series))
-    return vol_series[-1]
+    return vol_series[-1:]
