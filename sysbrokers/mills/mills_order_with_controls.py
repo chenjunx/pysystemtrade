@@ -8,6 +8,8 @@ from collections import namedtuple
 from syscore.objects import missing_order, arg_not_supplied, missing_data
 from sysexecution.trade_qty import tradeQuantity
 from sysexecution.orders.broker_orders import brokerOrderType
+from copy import copy
+
 def extract_fill_info(order):
     fill_info = [extract_single_fill(order)]
     fill_info_without_bags = [
@@ -214,7 +216,7 @@ class millsBrokerOrder(brokerOrder):
 class millsOrderCouldntCreateException(Exception):
     pass
 class millsOrderWithControls(orderWithControls):
-    def __init__(self,order, broker_order: brokerOrder =None,  instrument_code: str = arg_not_supplied, ticker_object: tickerObject = None,connection_Mills: connectionMills=None):
+    def __init__(self,order, broker_order: brokerOrder =None,  instrument_code: str = arg_not_supplied, ticker_object: tickerObject = None,connectionMills: connectionMills=None):
         order_info = extract_order_info(order)
         contract_info = extract_contract_info(order)
         fill_info = extract_fill_info(order)
@@ -238,16 +240,36 @@ class millsOrderWithControls(orderWithControls):
         # this can go wrong eg for FX
         if mills_broker_order is missing_order:
             raise millsOrderCouldntCreateException()
-        self._connection_Mills=connection_Mills
+        self._connectionMills=connectionMills
+        self._orgin_broker_order = broker_order
         super().__init__(broker_order=mills_broker_order, control_object=order, ticker_object=ticker_object)
 
 
     def update_order(self):
-        trade_with_contract_from_mills = json.loads(self._connection_Mills.get_order_by_id(self.order))
+        trade_with_contract_from_mills = json.loads(self._connectionMills.get_order_by_id(self.order))
         if trade_with_contract_from_mills is missing_order:
             return missing_order
 
         ##todo 检测fill情况,如果已经填充，则更新brokerOrder
-
+        broker_order_from_trade_object = millsOrderWithControls(
+            trade_with_contract_from_mills,
+            broker_order=self._orgin_broker_order,
+            connectionMills=self._connectionMills,
+        )
         ##todo 1.判断填充方法  broker_order_from_trade_object.fill.equals_zero()
+        new_broker_order = copy(self.order)
+
+        broker_order_is_filled = not broker_order_from_trade_object.order.fill.equals_zero()
         ##todo 2.填充方法 new_broker_order.fill_order
+        if broker_order_is_filled:
+            new_broker_order.fill_order(
+                broker_order_from_trade_object.fill,
+                broker_order_from_trade_object.filled_price,
+                broker_order_from_trade_object.fill_datetime,
+            )
+
+        self._order = new_broker_order
+
+
+
+

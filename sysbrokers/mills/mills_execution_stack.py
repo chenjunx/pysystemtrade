@@ -30,7 +30,7 @@ class millsExecutionStackData(brokerExecutionStackData):
         placed_broker_order_with_controls = millsOrderWithControls(
             trade_with_contract_from_mills,
             broker_order=new_order,
-            connectionMills=connectionMills
+            connectionMills=self._connection_Mills
         )
 
         # We do this so we can cancel stuff and get things back more easily
