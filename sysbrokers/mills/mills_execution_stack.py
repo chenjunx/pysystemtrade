@@ -139,6 +139,7 @@ class millsExecutionStackData(brokerExecutionStackData):
     def check_order_is_cancelled_given_control_object(
         self, broker_order_with_controls: orderWithControls
     ) -> bool:
+        ##todo 查询订单是否已取消
         raise NotImplementedError
 
     def check_order_can_be_modified_given_control_object(

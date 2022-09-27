@@ -263,9 +263,9 @@ class millsOrderWithControls(orderWithControls):
         ##todo 2.填充方法 new_broker_order.fill_order
         if broker_order_is_filled:
             new_broker_order.fill_order(
-                broker_order_from_trade_object.fill,
-                broker_order_from_trade_object.filled_price,
-                broker_order_from_trade_object.fill_datetime,
+                broker_order_from_trade_object.order.fill,
+                broker_order_from_trade_object.order.filled_price,
+                broker_order_from_trade_object.order.fill_datetime,
             )
 
         self._order = new_broker_order
