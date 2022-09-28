@@ -28,8 +28,9 @@ def extract_single_fill(single_fill):
     if single_fill['side'] == 'sell':
         sign = -1
     signed_qty = cum_qty * sign
-    price = single_fill['info']['avgFillPrice']
-    avg_price = single_fill['info']['avgFillPrice']
+
+    price = single_fill['info']['avgFillPrice'] if single_fill['info']['avgFillPrice'] is None else float(single_fill['info']['avgFillPrice'])
+    avg_price = single_fill['info']['avgFillPrice'] if single_fill['info']['avgFillPrice'] is None else float(single_fill['info']['avgFillPrice'])
 
     time = single_fill['datetime']
     temp_id = single_fill['id']
