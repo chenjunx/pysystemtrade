@@ -139,8 +139,13 @@ class millsExecutionStackData(brokerExecutionStackData):
     def check_order_is_cancelled_given_control_object(
         self, broker_order_with_controls: orderWithControls
     ) -> bool:
+        trade_with_contract_from_mills = json.loads(self._connection_Mills.get_order_by_id(broker_order_with_controls.order))
         ##todo 查询订单是否已取消
-        raise NotImplementedError
+        if trade_with_contract_from_mills['status']=='closed' and \
+                float(trade_with_contract_from_mills['filled']) == 0.0:
+            return True
+        else:
+            return False
 
     def check_order_can_be_modified_given_control_object(
         self, broker_order_with_controls: orderWithControls
