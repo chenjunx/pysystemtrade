@@ -10,7 +10,7 @@ class millsFxHandlingData(brokerFxHandlingData):
         self._connection_Mills = connection_Mills
 
     def broker_fx_balances(self, account_id: str = arg_not_supplied) -> dict:
-        totalValues = json.loads(self._connection_Mills.query_excess_liquidity_value_across())
+        totalValues = json.loads(self._connection_Mills.query_total_accout_value())
         result = dict(
             [
                 (summary_item['currency'], summary_item['value'])
