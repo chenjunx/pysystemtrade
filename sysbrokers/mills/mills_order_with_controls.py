@@ -19,6 +19,7 @@ def extract_fill_info(order):
     return fill_info_without_bags
 
 import json
+from datetime import datetime
 
 def extract_single_fill(single_fill):
     commission = single_fill['fee']
@@ -178,7 +179,7 @@ class millsBrokerOrder(brokerOrder):
         commission = None
         # todo 手续费查询
         if fill_price is not None:
-            commission = 0.0
+            commission = float(extracted_trade_data.trade_object['fee'])
         broker_order = millsBrokerOrder(
             strategy_name,
             instrument_code,
@@ -197,7 +198,7 @@ class millsBrokerOrder(brokerOrder):
             broker_permid=broker_permid,
             broker_tempid=broker_tempid,
             broker_clientid=broker_clientid,
-            submit_datetime=extracted_trade_data.trade_object['datetime']
+            submit_datetime=datetime.strptime(extracted_trade_data.trade_object['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
 
         )
 
@@ -266,7 +267,7 @@ class millsOrderWithControls(orderWithControls):
             new_broker_order.fill_order(
                 broker_order_from_trade_object.order.fill,
                 broker_order_from_trade_object.order.filled_price,
-                broker_order_from_trade_object.order.fill_datetime,
+                datetime.strptime(broker_order_from_trade_object.order.fill_datetime,'%Y-%m-%dT%H:%M:%S.%fZ'),
             )
 
         self._order = new_broker_order
