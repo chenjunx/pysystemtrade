@@ -24,7 +24,7 @@ from datetime import datetime
 def extract_single_fill(single_fill):
     commission = single_fill['fee']
     commission_ccy = single_fill['fee_currency']
-    cum_qty = float(single_fill['amount'])
+    cum_qty = float(single_fill['filled'])
     sign = 1
     if single_fill['side'] == 'sell':
         sign = -1
@@ -280,6 +280,14 @@ class millsOrderWithControls(orderWithControls):
             )
 
         self._order = new_broker_order
+
+    def broker_limit_price(self) -> float:
+        trade_with_contract_from_mills = json.loads(self._connectionMills.get_order_by_id(self.order))
+        if trade_with_contract_from_mills['info']['price'] is None:
+            return None
+        else:
+            return float(trade_with_contract_from_mills['info']['price'])
+
 
 
 

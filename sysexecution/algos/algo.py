@@ -119,7 +119,9 @@ class Algo(object):
             log.critical(error_msg)
 
             return missing_order
-
+        # 测试下单方法的,针对bnb价格
+        # limit_price = 270.00
+        # limit_price = 299.00
         broker_order = create_new_broker_order_from_contract_order(
             contract_order,
             order_type=order_type,

@@ -153,13 +153,21 @@ class millsExecutionStackData(brokerExecutionStackData):
     def check_order_can_be_modified_given_control_object(
         self, broker_order_with_controls: orderWithControls
     ) -> bool:
+        trade_with_contract_from_mills = json.loads(self._connection_Mills.get_order_by_id(broker_order_with_controls.order))
+        if trade_with_contract_from_mills['info']['status']=='closed':
+            return False
+        else:
+            return True
 
-        raise NotImplementedError
 
     def modify_limit_price_given_control_object(
         self, broker_order_with_controls: orderWithControls, new_limit_price: float
     ) -> orderWithControls:
-        raise NotImplementedError
+        broker_order_with_controls.order.limit_price = new_limit_price
+        trade_with_contract_from_mills = self._connection_Mills.place_order(broker_order_with_controls.order)
+        broker_order_with_controls.order.broker_tempid = json.loads(trade_with_contract_from_mills)['id']
+        broker_order_with_controls.update_order()
+        return broker_order_with_controls
 
     def _put_order_on_stack_no_checking(self, order: Order):
 
