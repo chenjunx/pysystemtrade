@@ -118,7 +118,10 @@ class millsExecutionStackData(brokerExecutionStackData):
 
 
     def get_list_of_orders_from_storage(self) -> listOfOrders:
-        raise NotImplementedError
+        dict_of_stored_orders = self._get_dict_of_orders_from_storage()
+        list_of_orders = listOfOrders(dict_of_stored_orders.values())
+
+        return list_of_orders
 
     def match_db_broker_order_to_order_from_brokers(
         self, broker_order_to_match: brokerOrder
@@ -163,4 +166,23 @@ class millsExecutionStackData(brokerExecutionStackData):
         pass
 
 
+    def _get_dict_of_orders_from_storage(self) -> dict:
+        # Get dict from storage, update, return just the orders
+        dict_of_orders_with_control = self._get_dict_of_control_orders_from_storage()
+        order_dict = dict(
+            [
+                (key, order_with_control.order)
+                for key, order_with_control in dict_of_orders_with_control.items()
+            ]
+        )
 
+        return order_dict
+
+    def _get_dict_of_control_orders_from_storage(self) -> dict:
+        dict_of_orders_with_control = self.traded_object_store
+        __ = [
+            order_with_control.update_order()
+            for order_with_control in dict_of_orders_with_control.values()
+        ]
+
+        return dict_of_orders_with_control

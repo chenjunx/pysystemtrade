@@ -180,6 +180,10 @@ class millsBrokerOrder(brokerOrder):
         # todo 手续费查询
         if fill_price is not None:
             commission = float(extracted_trade_data.trade_object['fee'])
+
+        submit_datetime = None
+        if extracted_trade_data.trade_object['datetime'] is not None:
+            submit_datetime = datetime.strptime(extracted_trade_data.trade_object['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
         broker_order = millsBrokerOrder(
             strategy_name,
             instrument_code,
@@ -198,7 +202,7 @@ class millsBrokerOrder(brokerOrder):
             broker_permid=broker_permid,
             broker_tempid=broker_tempid,
             broker_clientid=broker_clientid,
-            submit_datetime=datetime.strptime(extracted_trade_data.trade_object['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
+            submit_datetime=submit_datetime
 
         )
 
@@ -235,8 +239,13 @@ class millsOrderWithControls(orderWithControls):
             order_info, contract_info, fill_info, algo_msg, active, order
         )
         # and stage two
+        strategy_name = ''
+        parent = None
+        if broker_order is not None:
+            strategy_name = broker_order.key.split("/")[0]
+            parent = broker_order.parent
         mills_broker_order = millsBrokerOrder.from_broker_trade_object(
-            trade_info, instrument_code=instrument_code,strategy_name=broker_order.key.split("/")[0],parent=broker_order.parent
+                trade_info, instrument_code=instrument_code,strategy_name=strategy_name,parent=parent
         )
 
         # this can go wrong eg for FX
