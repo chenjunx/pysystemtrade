@@ -1,7 +1,7 @@
 from syscore.objects import missing_data, arg_not_supplied,missing_contract
 
 from syslogdiag.log_to_screen import logtoscreen
-from sysbrokers.mills.mills_connection_defaults import  mills_defaults
+from sysbrokers.mills.mills_connection_defaults import mills_defaults
 from sysobjects.contracts import futuresContract
 from sysexecution.orders.base_orders import Order
 
@@ -16,11 +16,11 @@ class connectionMills(object):
             account: str = arg_not_supplied,
             log=logtoscreen("connectionMills"),
     ):
-        ipaddress, port = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
+        ipaddress, port,username,password = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
 
         log.label(broker="mills")
         self._mills_connection_config = dict(
-            ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port)
+            ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
         pass
 
@@ -72,11 +72,15 @@ class connectionMills(object):
 
     def send_get(self,endpoint,params={}):
         url= self._mills_connection_config.get("header")+endpoint;
-        return requests.get(url=url,params=params).text
+        session = requests.Session()
+        session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
+        return session.get(url=url,params=params).text
 
     def send_post(self, endpoint, params):
         url = self._mills_connection_config.get("header") + endpoint;
-        return requests.post(url=url, json=json.dumps(params,indent=4, sort_keys=True, default=str)).text
+        session = requests.Session()
+        session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
+        return session.post(url=url, json=json.dumps(params,indent=4, sort_keys=True, default=str)).text
 
     def query_posistions(self):
         res = self.send_get("/gateway/query_posistions")

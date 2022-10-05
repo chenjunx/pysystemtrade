@@ -1,7 +1,7 @@
 from sysdata.config.production_config import get_production_config
 from syscore.objects import arg_not_supplied
 
-LIST_OF_IB_PARAMS = ["mills_ipaddress", "mills_port"]
+LIST_OF_MILLS_PARAMS = ["mills_ipaddress", "mills_port","mills_username","mills_password"]
 
 
 def mills_defaults(**kwargs):
@@ -17,7 +17,7 @@ def mills_defaults(**kwargs):
     passed_param_names = list(kwargs.keys())
     output_dict = {}
     config = get_production_config()
-    for param_name in LIST_OF_IB_PARAMS:
+    for param_name in LIST_OF_MILLS_PARAMS:
         if param_name in passed_param_names:
             param_value = kwargs[param_name]
         else:
@@ -31,5 +31,7 @@ def mills_defaults(**kwargs):
     # Get from dictionary
     ipaddress = output_dict["mills_ipaddress"]
     port = output_dict["mills_port"]
+    username = output_dict["mills_username"]
+    password = output_dict["mills_password"]
 
-    return ipaddress, port
+    return ipaddress, port,username,password
