@@ -102,3 +102,7 @@ class connectionMills(object):
     def get_order_by_id(self,order):
         res = self.send_post("/gateway/query_order_by_id",order.as_dict())
         return res
+
+    def cancel_order(self, order):
+        res = self.send_post("/gateway/cancel_order",order.as_dict())
+        return res

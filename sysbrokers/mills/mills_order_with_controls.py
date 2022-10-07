@@ -9,6 +9,7 @@ from syscore.objects import missing_order, arg_not_supplied, missing_data
 from sysexecution.trade_qty import tradeQuantity
 from sysexecution.orders.broker_orders import brokerOrderType
 from copy import copy
+from syscore.objects import  no_parent
 
 def extract_fill_info(order):
     fill_info = [extract_single_fill(order)]
@@ -146,7 +147,7 @@ def extract_contract_info(contract, legs=None):
 class millsBrokerOrder(brokerOrder):
     @classmethod
     def from_broker_trade_object(
-        trade_info, extracted_trade_data, instrument_code=arg_not_supplied,strategy_name="",parent=None,
+        trade_info, extracted_trade_data, instrument_code=arg_not_supplied,strategy_name="",parent=no_parent,
     ):
         sec_type = extracted_trade_data.contract.mills_sectype
 
@@ -240,7 +241,7 @@ class millsOrderWithControls(orderWithControls):
         )
         # and stage two
         strategy_name = ''
-        parent = None
+        parent = no_parent
         if broker_order is not None:
             strategy_name = broker_order.key.split("/")[0]
             parent = broker_order.parent
@@ -261,17 +262,22 @@ class millsOrderWithControls(orderWithControls):
         if trade_with_contract_from_mills is missing_order:
             return missing_order
 
-        ##todo 检测fill情况,如果已经填充，则更新brokerOrder
+        ## 检测fill情况,如果已经填充，则更新brokerOrder
         broker_order_from_trade_object = millsOrderWithControls(
             trade_with_contract_from_mills,
             broker_order=self._orgin_broker_order,
             connectionMills=self._connectionMills,
         )
-        ##todo 1.判断填充方法  broker_order_from_trade_object.fill.equals_zero()
+
+
+        ##1.判断填充方法  broker_order_from_trade_object.fill.equals_zero()
         new_broker_order = copy(self.order)
 
+
+        new_broker_order.commission = broker_order_from_trade_object._order.commission
+        new_broker_order.broker_tempid = broker_order_from_trade_object._order.broker_tempid
         broker_order_is_filled = not broker_order_from_trade_object.order.fill.equals_zero()
-        ##todo 2.填充方法 new_broker_order.fill_order
+        ## 2.填充方法 new_broker_order.fill_order
         if broker_order_is_filled:
             new_broker_order.fill_order(
                 broker_order_from_trade_object.order.fill,

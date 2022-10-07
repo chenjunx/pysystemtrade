@@ -6,14 +6,23 @@ from sysbrokers.mills.mills_connection import connectionMills
 from sysexecution.orders.list_of_orders import listOfOrders
 from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.order_stacks.broker_order_stack import orderWithControls
-from syscore.objects import missing_order, arg_not_supplied, missing_data
+from syscore.objects import missing_order, arg_not_supplied, missing_data,failure,success
 
 from  sysbrokers.mills.mills_order_with_controls import millsOrderCouldntCreateException
 from sysbrokers.mills.mills_order_with_controls import millsOrderWithControls
 
 import json
-import datetime
 
+
+def match_control_order_from_dict(
+    dict_of_broker_control_orders: dict, broker_order_to_match: brokerOrder
+):
+
+    matched_control_order_from_dict = dict_of_broker_control_orders.get(
+        broker_order_to_match.broker_tempid, missing_order
+    )
+
+    return matched_control_order_from_dict
 
 
 
@@ -53,7 +62,7 @@ class millsExecutionStackData(brokerExecutionStackData):
 
         return store
 
-    ##获取从经纪商哪里获取非历史订单
+    ##获取从经纪商哪里获取24小时以内的历史订单
     def get_list_of_broker_orders_with_account_id(
         self, account_id: str = arg_not_supplied
     ) -> listOfOrders:
@@ -126,18 +135,88 @@ class millsExecutionStackData(brokerExecutionStackData):
     def match_db_broker_order_to_order_from_brokers(
         self, broker_order_to_match: brokerOrder
     ) -> brokerOrder:
-        raise NotImplementedError
+        matched_control_order = (
+            self.match_db_broker_order_to_control_order_from_brokers(
+                broker_order_to_match
+            )
+        )
+        if matched_control_order is missing_order:
+            return missing_order
+
+        broker_order = matched_control_order.order
+
+        return broker_order
+
+    def match_db_broker_order_to_control_order_from_brokers(
+        self, broker_order_to_match: brokerOrder
+    ) -> millsOrderWithControls:
+        """
+
+        :return: brokerOrder coming from broker
+        """
+
+        # check stored orders first
+        dict_of_stored_control_orders = self._get_dict_of_control_orders_from_storage()
+        matched_control_order = match_control_order_from_dict(
+            dict_of_stored_control_orders, broker_order_to_match
+        )
+        if matched_control_order is not missing_order:
+            return matched_control_order
+
+        # try getting from broker
+        # match on temp id and clientid
+        dict_of_broker_control_orders = self._get_dict_of_broker_control_orders(
+        )
+        matched_control_order = match_control_order_from_dict(
+            dict_of_broker_control_orders, broker_order_to_match
+        )
+        if matched_control_order is not missing_order:
+            matched_control_order.order.parent = broker_order_to_match.parent
+            return matched_control_order
+
+        return matched_control_order
+
+    def _get_dict_of_broker_control_orders(
+        self
+    ) -> dict:
+        control_order_list = self._get_list_of_broker_control_orders(
+        )
+        dict_of_control_orders = dict(
+            [
+                (control_order.order.broker_tempid, control_order)
+                for control_order in control_order_list
+            ]
+        )
+        return dict_of_control_orders
 
     def cancel_order_given_control_object(
         self, broker_orders_with_controls: orderWithControls
     ):
-        raise NotImplementedError
+        self._connection_Mills.cancel_order(broker_orders_with_controls.order)
+        return success
+
 
     def cancel_order_on_stack(self, broker_order: brokerOrder):
-        raise NotImplementedError
+        log = broker_order.log_with_attributes(self.log)
+        matched_control_order = (
+            self.match_db_broker_order_to_control_order_from_brokers(broker_order)
+        )
+        if matched_control_order is missing_order:
+            log.warn("Couldn't cancel non existent order")
+            return None
+
+        self.cancel_order_given_control_object(matched_control_order)
+        log.msg("Sent cancellation for %s" % str(broker_order))
 
     def check_order_is_cancelled(self, broker_order: brokerOrder) -> bool:
-        raise NotImplementedError
+        trade_with_contract_from_mills = json.loads(
+            self._connection_Mills.get_order_by_id(broker_order))
+        ##todo 查询订单是否已取消
+        if trade_with_contract_from_mills['status'] == 'closed' and \
+                float(trade_with_contract_from_mills['filled']) == 0.0:
+            return True
+        else:
+            return False
 
     def check_order_is_cancelled_given_control_object(
         self, broker_order_with_controls: orderWithControls
