@@ -143,6 +143,8 @@ def processes():
             drop=False
         ),
     }
+
+    print("-------"+str(retval))
     retval = dict_of_df_to_dict(retval, orient="index")
 
     allprocess = {}
