@@ -141,9 +141,7 @@ def processes():
         "method_data": reporting_api.table_of_control_data_list_for_all_methods().Body.reset_index(
             drop=False
         ),
-        "price": reporting_api.table_of_last_price_updates().Body.reset_index(
-            drop=False
-        ),
+        "price": reporting_api.table_of_last_price_updates().Body,
     }
 
     print("-------"+str(retval))
