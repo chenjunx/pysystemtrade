@@ -207,14 +207,14 @@ function update_processes() {
         {
           $("#processes_prices tbody").append(`
           <tr>
-            <td>${update['name']}</td>
+            <td>${update['index']}</td>
             <td>${short_date}</td>
           </tr>
           `);
         } else {
           $("#processes_prices tbody").append(`
           <tr>
-            <td>${update['name']}</td>
+            <td>${update['index']}</td>
             <td class="red">${short_date}</td>
           </tr>
           `);
