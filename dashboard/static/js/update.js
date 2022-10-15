@@ -196,6 +196,7 @@ function update_processes() {
 
       var price_overall = 'green';
       $.each(data['price'], function(idx, update) {
+        console.log(update)
         var str = update['last_update'];
         var date = new Date(str);
         var diff = (most_recent_date.getTime() - date.getTime()) / (1000 * 24 * 60 * 60);  // days
