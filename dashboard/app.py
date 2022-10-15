@@ -138,10 +138,12 @@ def processes():
         "config": reporting_api.table_of_control_config_list_for_all_processes().Body,
         "control": reporting_api.table_of_control_status_list_for_all_processes().Body,
         "process": reporting_api.table_of_process_status_list_for_all_processes().Body,
-        "method_data": reporting_api.table_of_control_data_list_for_all_methods().Body,
-        # "price": reporting_api.table_of_last_price_updates().Body.reset_index(
-        #     drop=False
-        # ),
+        "method_data": reporting_api.table_of_control_data_list_for_all_methods().Body.reset_index(
+            drop=False
+        ),
+        "price": reporting_api.table_of_last_price_updates().Body.reset_index(
+            drop=False
+        ),
     }
 
     print("-------"+str(retval))
