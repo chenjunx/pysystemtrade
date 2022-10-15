@@ -38,6 +38,7 @@ Table of Contents
    * [Code and configuration management](#code-and-configuration-management)
       * [Managing your separate directories of code and configuration](#managing-your-separate-directories-of-code-and-configuration)
       * [Managing your private directory](#managing-your-private-directory)
+      * [Custom private directory](#custom-private-directory)
    * [Finalise your backtest configuration](#finalise-your-backtest-configuration)
    * [Linking to a broker](#linking-to-a-broker)
    * [Other data sources](#other-data-sources)
@@ -268,7 +269,7 @@ You need to:
         - '/home/user_name/data/reports'
     - Install the pysystemtrade package, and install or update, any dependencies in directory $PYSYS_CODE (it's possible to put it elsewhere, but you will need to modify the environment variables listed above). If using git clone from your home directory this should create the directory '/home/user_name/pysystemtrade/'
     - [Set up interactive brokers](/docs/IB.md), download and install their python code, and get a gateway running.
-    - [Install mongodb](https://docs.mongodb.com/manual/administration/install-on-linux/)
+    - [Install mongodb](https://docs.mongodb.com/manual/administration/install-on-linux/). Latest v4 is recommended, as [Arctic doesn't support 5](https://github.com/man-group/arctic#requirements) yet
     - create a file 'private_config.yaml' in the private directory of [pysystemtrade](/private), and optionally a ['private_control_config.yaml' file in the same directory](#process-configuration) See [here for more details](#system-defaults--private-config)
     - [check a mongodb server is running with the right data directory](/docs/data.md#mongo-db) command line: `mongod --dbpath $MONGO_DATA`
     - launch an IB gateway (this could be done automatically depending on your security setup)
@@ -490,6 +491,20 @@ cd ~/pysystemtrade/
 git pull
 ```
 
+### Custom private directory
+
+If you prefer to keep your private config outside the *pysystemtrade* directory structure, this is possible too. Set
+the environment variable `PYSYS_PRIVATE_CONFIG_DIR` with the full path to the custom directory:
+
+```
+PYSYS_PRIVATE_CONFIG_DIR=/home/user_name/private_custom_dir
+```
+
+or to set a custom config directory in the context of a single script
+
+```
+PYSYS_PRIVATE_CONFIG_DIR=/home/user_name/private_custom_dir python sysproduction/whatever.py
+```
 
 
 ## Finalise your backtest configuration

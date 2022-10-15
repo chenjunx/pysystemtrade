@@ -24,6 +24,25 @@ from syscore.objects import arg_not_supplied, missing_data
 
 DEFAULT_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
+def interpolate_data_during_day(data_series: pd.Series, resample_freq = "600S") -> pd.Series:
+    set_of_data_by_day = [group[1] for group in data_series.groupby(data_series.index.date)]
+    interpolate_data_by_day = [interpolate_for_a_single_day(data_series_for_day, resample_freq=resample_freq)
+                                for data_series_for_day in set_of_data_by_day]
+
+    interpolated_data_as_single_series = pd.concat(
+        interpolate_data_by_day,
+        axis=0)
+
+    return interpolated_data_as_single_series
+
+def interpolate_for_a_single_day(data_series_for_day: pd.Series, resample_freq = "600S"):
+    if len(data_series_for_day)<2:
+        return data_series_for_day
+
+    resampled_data = data_series_for_day.resample(resample_freq).interpolate()
+
+    return resampled_data
+
 def top_and_tail(x: pd.DataFrame, rows=5):
     return pd.concat([x[:rows], x[-rows:]], axis=0)
 
@@ -243,7 +262,7 @@ def pd_readcsv(
     :type filename: str
 
     :param date_index_name: Column name of date index
-    :type date_index_name: list of str
+    :type date_index_name: str
 
     :param date_format: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
     :type date_format: str
@@ -298,6 +317,10 @@ def fix_weights_vs_position_or_forecast(
     # forward fill forecasts/positions
     pdm_ffill = position_or_forecast.ffill()
 
+    ## Set leading all nan to zero so weights not set to zero
+    p_or_f_notnan = ~pdm_ffill.isna()
+    pdm_ffill[p_or_f_notnan.sum(axis=1) == 0] = 0
+
     # resample weights
     adj_weights = uniquets(weights)
     adj_weights = adj_weights.reindex(pdm_ffill.index, method="ffill")
@@ -308,10 +331,16 @@ def fix_weights_vs_position_or_forecast(
     # remove weights if nan forecast or position
     adj_weights[np.isnan(pdm_ffill)] = 0.0
 
-    # change rows so weights add to one
-    normalised_weights = weights_sum_to_one(adj_weights)
+    return adj_weights
 
-    return normalised_weights
+
+def reindex_last_monthly_include_first_date(x: pd.DataFrame) -> pd.DataFrame:
+    x_monthly_index = list(x.resample("1M").last().index)  ## last day in month
+    x_first_date_in_index = x.index[0]
+    x_monthly_index = [x_first_date_in_index] + x_monthly_index
+    x_reindex = x.reindex(x_monthly_index).ffill()
+
+    return x_reindex
 
 
 def weights_sum_to_one(weights: pd.DataFrame):
@@ -601,6 +630,20 @@ def get_row_of_series(
             data_at_date = series.loc[relevant_date]
         except KeyError:
             raise Exception("Date %s not found in data" % str(relevant_date))
+
+    return data_at_date
+
+
+def get_row_of_series_before_data(
+    series: pd.Series, relevant_date: datetime.datetime = arg_not_supplied
+):
+
+    if relevant_date is arg_not_supplied:
+        data_at_date = series.values[-1]
+    else:
+        index_point = get_max_index_before_datetime(series.index,
+                                                    relevant_date)
+        data_at_date = series.values[index_point]
 
     return data_at_date
 

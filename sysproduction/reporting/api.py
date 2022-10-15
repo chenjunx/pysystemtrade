@@ -560,11 +560,7 @@ class reportingApi(object):
 
     @property
     def roll_data_dict(self):
-        roll_data_dict = getattr(self, "_roll_data_dict", missing_data)
-        if roll_data_dict is missing_data:
-            roll_data_dict = self._roll_data_dict = self._get_roll_data_dict()
-
-        return roll_data_dict
+        return self.cache.get(self._get_roll_data_dict)
 
     def _get_roll_data_dict(self):
         list_of_instruments = self._list_of_all_instruments()
@@ -1023,11 +1019,8 @@ class reportingApi(object):
 
     @property
     def broker_orders(self) -> pd.DataFrame:
-        broker_orders = getattr(self, "_broker_orders", missing_data)
-        if broker_orders is missing_data:
-            broker_orders = self._broker_orders = self._get_broker_orders()
+        return self.cache.get(self._get_broker_orders)
 
-        return broker_orders
 
     def _get_broker_orders(self) -> pd.DataFrame:
         broker_orders = get_recent_broker_orders(

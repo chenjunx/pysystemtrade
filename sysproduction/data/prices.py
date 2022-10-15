@@ -283,6 +283,18 @@ class updatePrices(productionDataLayerGeneric):
             ignore_duplication=ignore_duplication,
         )
 
+    def delete_merged_contract_prices_for_instrument_code(self, instrument_code: str, are_you_sure: bool = False):
+        self.db_futures_contract_price_data.delete_merged_prices_for_instrument_code(instrument_code, areyousure=are_you_sure)
+
+    def delete_contract_prices_at_frequency_for_instrument_code(self, instrument_code: str, frequency: Frequency, are_you_sure: bool = False):
+        self.db_futures_contract_price_data.delete_prices_at_frequency_for_instrument_code(instrument_code, frequency=frequency, areyousure=are_you_sure)
+
+    def delete_adjusted_prices(self, instrument_code: str, are_you_sure: bool = False):
+        self.db_futures_adjusted_prices_data.delete_adjusted_prices(instrument_code, are_you_sure=are_you_sure)
+
+    def delete_multiple_prices(self, instrument_code: str, are_you_sure: bool = False):
+        self.db_futures_multiple_prices_data.delete_multiple_prices(instrument_code, are_you_sure=are_you_sure)
+
     def add_spread_entry(self, instrument_code: str, spread: float):
         self.db_spreads_for_instrument_data.add_spread_entry(
             instrument_code, spread=spread
@@ -423,3 +435,34 @@ def last_currency_fx(data: dataBlob, instrument_code: str) -> float:
     fx_rate = data_currency.get_last_fx_rate_to_base(currency)
 
     return fx_rate
+
+
+def modify_price_when_contract_has_changed(
+    data: dataBlob,
+    instrument_code: str,
+    new_contract_date: str,
+    original_contract_date: str,
+    original_price: float,
+) -> float:
+
+    if original_contract_date == new_contract_date:
+        return original_price
+
+    diag_prices = diagPrices(data)
+    contract_list = [original_contract_date, new_contract_date]
+    (
+        _last_matched_date,
+        list_of_matching_prices,
+    ) = diag_prices.get_last_matched_date_and_prices_for_contract_list(
+        instrument_code, contract_list
+    )
+    differential = list_of_matching_prices[1] - list_of_matching_prices[0]
+
+    if np.isnan(differential):
+        # can't adjust
+        # note need to test code there may be other ways in which this fails
+        return missing_data
+
+    adjusted_price = original_price + differential
+
+    return adjusted_price
