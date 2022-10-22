@@ -267,13 +267,15 @@ function update_reconcile() {
         var line = `<tr><td>${details['instrument_code']}</td>
           <td>${details['contract_date']}</td>`;
 
-        if (data['ib'][contract] !=undefined  &&details['position'] != data['ib'][contract]['position']) {
-          line += `<td class="red">${details['position']}</td>
-            <td class="red">${data['ib'][contract]['position']}</td>`;
-          overall = "red";
-        } else {
-          line += `<td>${details['position']}</td>
-            <td>${data['ib'][contract]['position']}</td>`;
+        if(data['ib'][contract] !=undefined) {
+              if (  details['position'] != data['ib'][contract]['position']) {
+              line += `<td class="red">${details['position']}</td>
+                <td class="red">${data['ib'][contract]['position']}</td>`;
+              overall = "red";
+            } else {
+              line += `<td>${details['position']}</td>
+                <td>${data['ib'][contract]['position']}</td>`;
+            }
         }
         $("#reconcile_contract tbody").append(line);
       }
