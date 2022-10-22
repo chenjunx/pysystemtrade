@@ -183,8 +183,10 @@ class millsBrokerOrder(brokerOrder):
             commission = float(extracted_trade_data.trade_object['fee'])
 
         submit_datetime = None
-        if extracted_trade_data.trade_object['datetime'] is not None:
-            submit_datetime = datetime.strptime(extracted_trade_data.trade_object['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
+        # if extracted_trade_data.trade_object['datetime'] is not None:
+        #     submit_datetime = datetime.strptime(extracted_trade_data.trade_object['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
+        if extracted_trade_data.trade_object['create_datetime'] is not None:
+            submit_datetime = datetime.strptime(extracted_trade_data.trade_object['create_datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
         broker_order = millsBrokerOrder(
             strategy_name,
             instrument_code,
