@@ -266,8 +266,8 @@ function update_reconcile() {
       $.each(data['my'], function(contract, details) {
         var line = `<tr><td>${details['instrument_code']}</td>
           <td>${details['contract_date']}</td>`;
-          console.log(data['ib'][contract])
-        if (details['position'] != data['ib'][contract]['position']) {
+
+        if (data['ib'][contract] !=undefined  &&details['position'] != data['ib'][contract]['position']) {
           line += `<td class="red">${details['position']}</td>
             <td class="red">${data['ib'][contract]['position']}</td>`;
           overall = "red";
