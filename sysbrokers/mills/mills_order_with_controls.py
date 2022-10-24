@@ -185,7 +185,7 @@ class millsBrokerOrder(brokerOrder):
         submit_datetime = None
         # if extracted_trade_data.trade_object['datetime'] is not None:
         #     submit_datetime = datetime.strptime(extracted_trade_data.trade_object['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
-        if extracted_trade_data.trade_object['create_datetime'] is not None:
+        if 'create_datetime' in extracted_trade_data.trade_object and extracted_trade_data.trade_object['create_datetime'] is not None:
             submit_datetime = datetime.strptime(extracted_trade_data.trade_object['create_datetime'],'%Y-%m-%dT%H:%M:%S.%fZ')
         broker_order = millsBrokerOrder(
             strategy_name,
