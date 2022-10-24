@@ -198,7 +198,7 @@ class millsBrokerOrder(brokerOrder):
             limit_price=limit_price,
             filled_price=fill_price,
             algo_comment=algo_comment,
-            fill_datetime=extracted_trade_data.fills[0].time,
+            # fill_datetime=extracted_trade_data.fills[0].time,
             broker_account=broker_account,
             commission=commission,
             leg_filled_price=extracted_trade_data.fills,
@@ -280,11 +280,12 @@ class millsOrderWithControls(orderWithControls):
         new_broker_order.broker_tempid = broker_order_from_trade_object._order.broker_tempid
         broker_order_is_filled = not broker_order_from_trade_object.order.fill.equals_zero()
         ## 2.填充方法 new_broker_order.fill_order
+
         if broker_order_is_filled:
             new_broker_order.fill_order(
                 broker_order_from_trade_object.order.fill,
                 broker_order_from_trade_object.order.filled_price,
-                datetime.strptime(broker_order_from_trade_object.order.fill_datetime,'%Y-%m-%dT%H:%M:%S.%fZ'),
+                datetime.strptime(trade_with_contract_from_mills['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ'),
             )
 
         self._order = new_broker_order
