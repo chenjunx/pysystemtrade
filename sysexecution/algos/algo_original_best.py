@@ -251,6 +251,7 @@ def file_log_report_limit_order(
             agg_txt,
             limit_price,
             broker_limit_price,
+            current_tick
         )
 
     log.msg(log_report)
