@@ -240,7 +240,7 @@ def file_log_report_limit_order(
     ticker_object = broker_order_with_controls.ticker
     current_tick = str(ticker_object.current_tick())
     log_report = ''
-    if ticker_object is None:
+    if ticker_object is None and current_tick is not None:
         log_report = "%s execution with limit price desired:%f actual:%f last tick" % (
             agg_txt,
             limit_price,
