@@ -247,7 +247,7 @@ def file_log_report_limit_order(
             broker_limit_price,
         )
     else:
-        log_report = "%s execution with limit price desired:%f actual:%f last tick" % (
+        log_report = "%s execution with limit price desired:%f actual:%f last tick %s" % (
             agg_txt,
             limit_price,
             broker_limit_price,
