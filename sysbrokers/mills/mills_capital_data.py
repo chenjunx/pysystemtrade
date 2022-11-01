@@ -15,7 +15,7 @@ class millsCapitalData(brokerCapitalData):
         self._connection_Mills = connection_Mills
 
     def get_account_value_across_currency(self, account_id: str = arg_not_supplied) -> listOfCurrencyValues:
-        totalValues = json.loads(self._connection_Mills.query_total_accout_value())
+        totalValues = self._connection_Mills.query_total_accout_value()
         list_of_values_per_currency = list(
             [
                 currencyValue(
@@ -29,7 +29,7 @@ class millsCapitalData(brokerCapitalData):
         return list_of_values_per_currency
 
     def get_excess_liquidity_value_across_currency(self, account_id: str = arg_not_supplied) -> listOfCurrencyValues:
-        totalValues = json.loads(self._connection_Mills.query_excess_liquidity_value_across())
+        totalValues = self._connection_Mills.query_excess_liquidity_value_across()
         list_of_values_per_currency = list(
             [
                 currencyValue(

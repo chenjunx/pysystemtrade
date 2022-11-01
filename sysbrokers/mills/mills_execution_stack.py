@@ -32,7 +32,7 @@ class millsExecutionStackData(brokerExecutionStackData):
         self._connection_Mills = connection_Mills
 
     def put_order_on_stack(self, new_order: Order):
-        trade_with_contract_from_mills = json.loads(self._connection_Mills.place_order(new_order))
+        trade_with_contract_from_mills = self._connection_Mills.place_order(new_order)
         if trade_with_contract_from_mills is missing_order:
             return missing_order
 
@@ -83,8 +83,7 @@ class millsExecutionStackData(brokerExecutionStackData):
 
         :return: list of brokerOrder objects
         """
-        orders_str = self._connection_Mills.query_active_orders()
-        list_of_raw_orders_as_trade_objects = json.loads(orders_str)
+        list_of_raw_orders_as_trade_objects = self._connection_Mills.query_active_orders()
 
         broker_order_with_controls_list = [
             self._create_broker_control_order_object(broker_trade_object_results)
@@ -209,8 +208,7 @@ class millsExecutionStackData(brokerExecutionStackData):
         log.msg("Sent cancellation for %s" % str(broker_order))
 
     def check_order_is_cancelled(self, broker_order: brokerOrder) -> bool:
-        trade_with_contract_from_mills = json.loads(
-            self._connection_Mills.get_order_by_id(broker_order))
+        trade_with_contract_from_mills = self._connection_Mills.get_order_by_id(broker_order)
         ##todo 查询订单是否已取消
         if trade_with_contract_from_mills['status'] == 'closed' and \
                 float(trade_with_contract_from_mills['filled']) == 0.0:
@@ -221,7 +219,7 @@ class millsExecutionStackData(brokerExecutionStackData):
     def check_order_is_cancelled_given_control_object(
         self, broker_order_with_controls: orderWithControls
     ) -> bool:
-        trade_with_contract_from_mills = json.loads(self._connection_Mills.get_order_by_id(broker_order_with_controls.order))
+        trade_with_contract_from_mills = self._connection_Mills.get_order_by_id(broker_order_with_controls.order)
         ##todo 查询订单是否已取消
         if trade_with_contract_from_mills['status']=='closed' and \
                 float(trade_with_contract_from_mills['filled']) == 0.0:
@@ -232,7 +230,7 @@ class millsExecutionStackData(brokerExecutionStackData):
     def check_order_can_be_modified_given_control_object(
         self, broker_order_with_controls: orderWithControls
     ) -> bool:
-        trade_with_contract_from_mills = json.loads(self._connection_Mills.get_order_by_id(broker_order_with_controls.order))
+        trade_with_contract_from_mills = self._connection_Mills.get_order_by_id(broker_order_with_controls.order)
         if trade_with_contract_from_mills['info']['status']=='closed':
             return False
         else:
@@ -244,7 +242,7 @@ class millsExecutionStackData(brokerExecutionStackData):
     ) -> orderWithControls:
         broker_order_with_controls.order.limit_price = new_limit_price
         trade_with_contract_from_mills = self._connection_Mills.place_order(broker_order_with_controls.order)
-        broker_order_with_controls.order.broker_tempid = json.loads(trade_with_contract_from_mills)['id']
+        broker_order_with_controls.order.broker_tempid = trade_with_contract_from_mills['id']
         broker_order_with_controls.update_order()
         return broker_order_with_controls
 

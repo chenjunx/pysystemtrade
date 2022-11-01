@@ -51,7 +51,7 @@ class millsTickerObject(tickerObject):
 
     def refresh(self):
         tick_data = self._connection_Mills.query_ask_bid_data(self._order.futures_contract)
-        tick_data = json.loads(tick_data)[0]
+        tick_data = tick_data[0]
         self.ticker['bid'] = tick_data['priceBid']
         self.ticker['bidSize'] = tick_data['sizeBid']
         self.ticker['ask'] = tick_data['priceAsk']
@@ -179,7 +179,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
 
     def get_ticker_object_for_order(self, order: contractOrder) -> tickerObject:
         tick_data = self._connection_Mills.query_ask_bid_data(order.futures_contract)
-        tick_data = json.loads(tick_data)[0]
+        tick_data = tick_data[0]
         tick_object = {}
 
         tick_object['time'] = tick_data['time']
@@ -203,7 +203,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
                                                          contract_object: futuresContract) -> dataFrameOfRecentTicks:
 
         tick_data = self._connection_Mills.query_ask_bid_data(contract_object)
-        return from_mills_bid_ask_tick_data_to_dataframe(json.loads(tick_data))
+        return from_mills_bid_ask_tick_data_to_dataframe(tick_data)
 
 
     def _write_prices_for_contract_object_no_checking(self, *args, **kwargs):

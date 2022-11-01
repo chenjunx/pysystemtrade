@@ -15,7 +15,7 @@ class millsContractPositionData(brokerContractPositionData):
 
     def get_all_current_positions_as_list_with_contract_objects(self,
                                                                 account_id=arg_not_supplied) -> listOfContractPositions:
-        raw_datas = json.loads(self._millsconnection.query_posistions())
+        raw_datas = self._millsconnection.query_posistions()
         pos = []
         for raw_data in raw_datas:
             contract = futuresContract(raw_data['symbol'], raw_data['expiry'])

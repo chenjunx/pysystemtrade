@@ -1,3 +1,5 @@
+import logging
+
 from syscore.objects import missing_data, arg_not_supplied,missing_contract
 
 from syslogdiag.log_to_screen import logtoscreen
@@ -6,7 +8,7 @@ from sysobjects.contracts import futuresContract
 from sysexecution.orders.base_orders import Order
 
 import requests
-import json
+import orjson
 import pandas as pd
 class connectionMills(object):
     def __init__(
@@ -38,36 +40,41 @@ class connectionMills(object):
 
     #查询期货信息
     def query_contract_info(self,futures_contract: futuresContract):
-        res = self.send_post("/gateway/contract_info",futures_contract.as_dict())
+        res = self.send_post("/quote?action=contract_info",futures_contract.as_dict())
         return res
 
     #查询指定的合同的历史价格
     def query_historical_futures_data_for_contract(self, contract_object: futuresContract):
-        res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
+        # res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
+        res = self.send_post("/klines?action=day",contract_object.as_dict())
         return res
 
     # 查询指定的合同的历史价格
     def query_historical_futures_data_for_contract_hour(self, contract_object: futuresContract):
-        res = self.send_post("/gateway/historical_futures_data_hour", contract_object.as_dict())
+        # res = self.send_post("/gateway/historical_futures_data_hour", contract_object.as_dict())
+        res = self.send_post("/klines?action=hour",contract_object.as_dict())
+
         return res
 
     #查询指定的合同的交易时间段
     def query_trading_hours(self,contract_object: futuresContract):
-        res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
+        # res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
+        res = self.send_post("/quote?action=trading_hours",contract_object.as_dict())
         return res
 
     #查询账户有多少价值
     def query_total_accout_value(self):
-        res = self.send_get("/gateway/total_accout_value")
+        res = self.send_get("/account?action=total_accout_value")
         return res
 
     #查询流动资金
     def query_excess_liquidity_value_across(self):
-        res = self.send_get("/gateway/excess_liquidity_value_across")
+        res = self.send_get("/account?action=excess_liquidity_value_across")
         return res
 
     def query_active_orders(self):
-        res = self.send_get("/gateway/query_active_orders")
+        # res = self.send_get("/order/query_active_orders")
+        res = self.send_get("/order")
         return res
 
     def send_get(self,endpoint,params={}):
@@ -80,29 +87,34 @@ class connectionMills(object):
         url = self._mills_connection_config.get("header") + endpoint;
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
-        return session.post(url=url, json=json.dumps(params,indent=4, sort_keys=True, default=str)).text
+        res = orjson.loads(session.post(url=url, json=orjson.loads(orjson.dumps(params,option=orjson.OPT_SERIALIZE_NUMPY,default=str))).text)
+        if(res['code'] == 10000):
+            return res['data']
+        else:
+            raise Exception("请求异常", res['msg'])
 
     def query_posistions(self):
-        res = self.send_get("/gateway/query_posistions")
+        res = self.send_get("/position")
         return res
 
     def query_min_tick_size(self, contract_object):
-        res = self.send_post("/gateway/query_min_tick_size", contract_object.as_dict())
+        # res = self.send_post("/gateway/query_min_tick_size", contract_object.as_dict())
+        res = self.send_post("/quote?action=min_tick", contract_object.as_dict())
         return res
 
     def place_order(self, new_order: Order):
-        res = self.send_post("/gateway/place_order",new_order.as_dict())
+        res = self.send_post("/order?action=place_order",new_order.as_dict())
         return res
 
     def query_ask_bid_data(self, contract_object):
-        res = self.send_post("/gateway/query_ask_bid_data",contract_object.as_dict())
+        res = self.send_post("/ticks",contract_object.as_dict())
         return res
 
 
     def get_order_by_id(self,order):
-        res = self.send_post("/gateway/query_order_by_id",order.as_dict())
+        res = self.send_post("/order?action=get",order.as_dict())
         return res
 
     def cancel_order(self, order):
-        res = self.send_post("/gateway/cancel_order",order.as_dict())
+        res = self.send_post("/order?action=cancel",order.as_dict())
         return res

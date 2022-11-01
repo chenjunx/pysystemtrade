@@ -260,7 +260,7 @@ class millsOrderWithControls(orderWithControls):
 
 
     def update_order(self):
-        trade_with_contract_from_mills = json.loads(self._connectionMills.get_order_by_id(self.order))
+        trade_with_contract_from_mills = self._connectionMills.get_order_by_id(self.order)
         if trade_with_contract_from_mills is missing_order:
             return missing_order
 
@@ -291,7 +291,7 @@ class millsOrderWithControls(orderWithControls):
         self._order = new_broker_order
 
     def broker_limit_price(self) -> float:
-        trade_with_contract_from_mills = json.loads(self._connectionMills.get_order_by_id(self.order))
+        trade_with_contract_from_mills = self._connectionMills.get_order_by_id(self.order)
         if trade_with_contract_from_mills['info']['price'] is None:
             return None
         else:
