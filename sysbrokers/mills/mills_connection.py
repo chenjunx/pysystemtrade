@@ -35,7 +35,7 @@ class connectionMills(object):
         url = "https://v6.exchangerate-api.com/v6/25c26574f2eac4a80b0def3c/latest/CNY"
         res = requests.get(url)
         print(res.text)
-        jsonData = json.loads(res.text)
+        jsonData = orjson.loads(res.text)
         return jsonData
 
     #查询期货信息
