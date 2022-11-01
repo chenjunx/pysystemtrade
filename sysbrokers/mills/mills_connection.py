@@ -81,13 +81,21 @@ class connectionMills(object):
         url= self._mills_connection_config.get("header")+endpoint;
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
-        return session.get(url=url,params=params).text
+        req_body = session.get(url=url, params=params).text
+        res = orjson.loads(req_body)
+        if (res['code'] == 10000):
+            return res['data']
+        else:
+            raise Exception("请求异常", res['msg'])
+        return
 
     def send_post(self, endpoint, params):
         url = self._mills_connection_config.get("header") + endpoint;
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
-        res = orjson.loads(session.post(url=url, json=orjson.loads(orjson.dumps(params,option=orjson.OPT_SERIALIZE_NUMPY,default=str))).text)
+        req_body = session.post(url=url,
+                     json=orjson.loads(orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str))).text
+        res = orjson.loads(req_body)
         if(res['code'] == 10000):
             return res['data']
         else:
