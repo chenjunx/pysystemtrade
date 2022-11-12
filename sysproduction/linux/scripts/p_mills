@@ -1,4 +1,6 @@
 #. ~/.profile
-PYTHONPATH=/home/software/pysystemtrade
+#PYTHONPATH=/home/software/pysystemtrade
+PYTHONPATH=/home/pysystemtrade
 export PYTHONPATH
-/home/software/anaconda3/envs/3.7/bin/python3 /home/software/pysystemtrade/sysproduction/linux/scripts/run.py $1
+#/home/software/anaconda3/envs/3.7/bin/python3 /home/software/pysystemtrade/sysproduction/linux/scripts/run.py $1
+/usr/local/bin/python3.7 /home/pysystemtrade/sysproduction/linux/scripts/run.py $1

@@ -1,0 +1,86 @@
+#YAML
+percentage_vol_target: 35
+notional_trading_capital: 30000
+base_currency: "USD"
+trading_rules:
+  ewmac5:
+     function: systems.provided.rules.ewmac.ewmac_calc_vol
+     data:
+         - "rawdata.get_cumulative_daily_vol_normalised_returns"
+     other_args:
+         Lfast: 5
+         Lslow: 10
+  ewmac10:
+     function: systems.provided.rules.ewmac.ewmac_calc_vol
+     data:
+         - "rawdata.get_cumulative_daily_vol_normalised_returns"
+     other_args:
+         Lfast: 10
+         Lslow: 20
+  ewmac15:
+    function: systems.provided.rules.ewmac.ewmac_calc_vol
+    data:
+         - "rawdata.get_cumulative_daily_vol_normalised_returns"
+    other_args:
+      Lfast: 15
+      Lslow: 30
+  ewmac16_64:
+    function: systems.provided.rules.ewmac.ewmac_calc_vol
+    data:
+         - "rawdata.get_cumulative_daily_vol_normalised_returns"
+    other_args: 
+      Lfast: 16
+      Lslow: 64
+  ewmac32_128:
+     function: systems.provided.rules.ewmac.ewmac_calc_vol
+     data:
+         - "rawdata.get_cumulative_daily_vol_normalised_returns"
+     other_args: 
+         Lfast: 32
+         Lslow: 128
+  breakout5:
+     function: systems.provided.rules.breakout.breakout
+     data:
+         - "rawdata.get_daily_prices"
+     other_args: 
+       lookback: 5
+  breakout10:
+     function: systems.provided.rules.breakout.breakout
+     data:
+         - "rawdata.get_daily_prices"
+     other_args:
+       lookback: 10
+  breakout20:
+     function: systems.provided.rules.breakout.breakout
+     data:
+         - "rawdata.get_daily_prices"
+     other_args:
+       lookback: 20
+  breakout40:
+     function: systems.provided.rules.breakout.breakout
+     data:
+         - "rawdata.get_daily_prices"
+     other_args:
+       lookback: 40
+use_forecast_scale_estimates: True
+#
+forecast_scalar_estimate:
+   pool_instruments: True
+
+forecast_correlation_estimate:
+   pool_instruments: True
+
+use_forecast_weight_estimates: True
+
+# rule_variations: ['ewmac5','ewmac10','ewmac15','breakout5','breakout10','breakout20','breakout40']
+
+forecast_div_multiplier: 1
+instrument_weights:
+#     SoybeanMeal: 1
+    BITCOIN_FTX: 0.5
+    ETHEREUM_FTX: 0.5
+
+# use_instrument_weight_estimates: True
+# instruments: ['BITCOIN_FTX']
+# instruments: ['BITCOIN_FTX','ETHEREUM_FTX']
+instrument_div_multiplier: 1

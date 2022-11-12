@@ -1,3 +1,4 @@
 #!/bin/bash
 #. ~/.profile
-/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_strategy_order_generator.run_strategy_order_generator
+/home/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_strategy_order_generator.run_strategy_order_generator
+#/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_strategy_order_generator.run_strategy_order_generator
