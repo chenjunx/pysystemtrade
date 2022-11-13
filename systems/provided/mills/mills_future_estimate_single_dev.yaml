@@ -679,23 +679,23 @@ forecast_weights:
          accel32: 0.05
          accel64: 0.05
          # .165
-         normmom16: 0.03
+         normmom16: 0.061
 #          normmom2: 0.025
-         normmom32: 0.03
-         normmom4: 0.025
+         normmom32: 0.066
+         normmom4: 0.06
 #          normmom64: 0.025
-         normmom8: 0.03
+         normmom8: 0.061
          # .15
          carry10: 0.05
          carry30: 0.05
          carry60: 0.05
          # .165
-         assettrend2: 0.031
+         # assettrend2: 0.031
 #          assettrend4: 0.0
-         assettrend8: 0.036
+         # assettrend8: 0.036
 #          assettrend16: 0.036
-         assettrend32: 0.035
-         assettrend64: 0.031
+         # assettrend32: 0.035
+         # assettrend64: 0.031
          relcarry: 0.05
 use_forecast_weight_estimates: False
 forecast_div_multiplier: 1.5
