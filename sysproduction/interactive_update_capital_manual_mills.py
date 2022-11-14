@@ -249,7 +249,7 @@ def delete_all_capital(data: dataBlob):
     )
     if ans == "YESyesYES":
         try:
-            data_capital.total_capital_calculator.delete_all_capital(
+            data_capital.total_capital_calculator.delete_all_global_capital(
                 are_you_really_sure=True
             )
 
