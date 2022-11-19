@@ -198,10 +198,11 @@ if __name__ == "__main__":
     csv_multiple_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/multiple_data"
 
     # only change if you have written the files elsewhere
-    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/GLD_FTX"
-    name = "苯乙烯"
-    code = "GLD_FTX"
-    # csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars"
+    name = "玉米淀粉"
+    code = "CORNSTARCH"
+    # csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/GLD_FTX"
+
+    csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars"
 
     #单个标的
     process_multiple_prices_single_instrument(instrument_code=code,
