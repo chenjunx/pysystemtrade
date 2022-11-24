@@ -63,7 +63,7 @@ def parse_trading_for_day(
         end_phrase
     )
 
-    return listOfTradingHours(start_dt, end_dt)
+    return tradingHours(start_dt, end_dt)
 
 def parse_phrase(phrase: str, adjustment_hours: int = 0, additional_adjust: int = 0)\
         -> datetime.datetime:
