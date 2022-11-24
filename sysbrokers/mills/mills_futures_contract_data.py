@@ -5,7 +5,9 @@ from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
 
 from syscore.objects import missing_contract
-from syscore.dateutils import adjust_trading_hours_conservatively, openingTimesAnyDay, openingTimes, listOfOpeningTimes
+from sysobjects.production.trading_hours.trading_hours import tradingHours, listOfTradingHours
+from syscore.exceptions import missingContract, missingData
+
 import datetime
 
 NO_ADJUSTMENTS = 0, 0
@@ -16,7 +18,7 @@ def parse_trading_hours_string(
         trading_hours_string: str,
         adjustment_hours: int = 0,
         one_off_adjustment: tuple = NO_ADJUSTMENTS,
-) -> listOfOpeningTimes:
+) -> listOfTradingHours:
     day_by_day = trading_hours_string.split(";")
     list_of_open_times = [
         parse_trading_for_day(
@@ -31,7 +33,7 @@ def parse_trading_hours_string(
         open_time for open_time in list_of_open_times if open_time is not CLOSED_ALL_DAY
     ]
 
-    list_of_open_times = listOfOpeningTimes(list_of_open_times)
+    list_of_open_times = listOfTradingHours(list_of_open_times)
 
     return list_of_open_times
 
@@ -39,7 +41,7 @@ def parse_trading_for_day(
         string_for_day: str,
         adjustment_hours: int = 0,
         one_off_adjustment: tuple = NO_ADJUSTMENTS,
-) -> openingTimes:
+) -> listOfTradingHours:
     start_and_end = string_for_day.split("-")
     if len(start_and_end) == 1:
         # closed
@@ -61,7 +63,7 @@ def parse_trading_for_day(
         end_phrase
     )
 
-    return openingTimes(start_dt, end_dt)
+    return listOfTradingHours(start_dt, end_dt)
 
 def parse_phrase(phrase: str, adjustment_hours: int = 0, additional_adjust: int = 0)\
         -> datetime.datetime:
@@ -91,11 +93,11 @@ class millsFuturesContractData(brokerFuturesContractData):
         log = futures_contract.specific_log(self.log)
         if futures_contract.is_spread_contract():
             log.warn("Can't find expiry for multiple leg contract here")
-            return missing_contract
+            raise missingContract
 
         contract_object_with_mills_data = self._connection_Mills.query_contract_info(futures_contract)
         if contract_object_with_mills_data == str(missing_contract):
-            return missing_contract
+            raise missingContract
         # return missing_contract
         # contract_object_with_ib_data = self.get_contract_object_with_mills_data(
         #     futures_contract
@@ -111,7 +113,7 @@ class millsFuturesContractData(brokerFuturesContractData):
         return float(self._connection_Mills.query_min_tick_size(contract_object))
 
     def get_trading_hours_for_contract(self, futures_contract: futuresContract) -> \
-            listOfOpeningTimes:
+            listOfTradingHours:
         """
 
          :param futures_contract:
