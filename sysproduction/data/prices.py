@@ -2,7 +2,7 @@ import datetime
 
 import numpy as np
 
-from syscore.objects import missing_contract, arg_not_supplied, missing_data
+from syscore.objects import arg_not_supplied, missing_data
 from syscore.dateutils import Frequency, from_config_frequency_to_frequency, n_days_ago
 
 from sysobjects.contracts import futuresContract
@@ -297,6 +297,9 @@ class updatePrices(productionDataLayerGeneric):
         self.db_spreads_for_instrument_data.add_spread_entry(
             instrument_code, spread=spread
         )
+
+    def delete_spreads(self, instrument_code: str, are_you_sure: bool = False):
+        self.db_spreads_for_instrument_data.delete_spreads(instrument_code, are_you_sure=are_you_sure)
 
     @property
     def db_futures_adjusted_prices_data(self) -> futuresAdjustedPricesData:

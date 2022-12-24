@@ -8,8 +8,7 @@ from sysbrokers.IB.ib_orders import ibExecutionStackData
 from sysbrokers.IB.ib_static_data import ibStaticData
 from sysbrokers.IB.ib_fx_handling import ibFxHandlingData
 from sysbrokers.mills.mills_execution_stack import millsExecutionStackData
-from syscore.objects import missing_data, resolve_function
-from sysdata.config.production_config import get_production_config
+from syscore.objects import resolve_function
 from sysdata.data_blob import dataBlob
 from sysbrokers.mills.mills_fx_handing import millsFxHandlingData
 from sysbrokers.mills.mills_fx_prices_data import millsFxPricesData
@@ -30,12 +29,9 @@ def get_broker_class_list(data: dataBlob):
     """
     config = data.config
 
-    broker_factory_func = config.get_element_or_missing_data('broker_factory_func')
+    broker_factory_func = config.get_element_or_default('broker_factory_func', get_ib_class_list)
 
-    if broker_factory_func is missing_data:
-        get_class_list = get_ib_class_list
-    else:
-        get_class_list = resolve_function(broker_factory_func)
+    get_class_list = resolve_function(broker_factory_func)
 
     broker_class_list = get_class_list()
 
