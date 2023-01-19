@@ -24,7 +24,7 @@ market_closed = named_object("market closed")
 
 fill_exceeds_trade = named_object("fill too big for trade")
 
-order_is_in_status_finished = named_object("order status is modification finished")
+order_is_in_status_finished = named_object("order status is modification close")
 order_is_in_status_modified = named_object("order status is being modified")
 order_is_in_status_not_modified = named_object("order status is not currently modified")
 order_is_in_status_reject_modification = named_object(
@@ -55,6 +55,7 @@ table = namedtuple("table", "Heading Body")
 header = namedtuple("header", "Heading")
 body_text = namedtuple("bodytext", "Text")
 figure = namedtuple("figure", "pdf_filename")
+
 
 def get_methods(a_stage_object) -> list:
     dir_list = dir(a_stage_object)

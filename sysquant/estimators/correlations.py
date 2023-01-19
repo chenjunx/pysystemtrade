@@ -76,14 +76,12 @@ class correlationEstimate(Estimate):
 
         return self.shrink(prior_corr, shrinkage_corr=shrinkage_corr)
 
-    def shrink_to_offdiag(self, offdiag = 0.0, shrinkage_corr: float = 1.0):
+    def shrink_to_offdiag(self, offdiag=0.0, shrinkage_corr: float = 1.0):
         prior_corr = self.boring_corr_matrix(offdiag=offdiag)
 
-        return self.shrink(prior_corr=prior_corr,
-                           shrinkage_corr=shrinkage_corr)
+        return self.shrink(prior_corr=prior_corr, shrinkage_corr=shrinkage_corr)
 
-    def shrink(self, prior_corr: "correlationEstimate",
-               shrinkage_corr: float = 1.0):
+    def shrink(self, prior_corr: "correlationEstimate", shrinkage_corr: float = 1.0):
 
         if shrinkage_corr == 1.0:
             return prior_corr
@@ -485,3 +483,11 @@ def average_correlation(corr_matrix: correlationEstimate) -> float:
     avg_corr = np.nanmean(new_corr_values)
 
     return avg_corr
+
+
+def get_near_psd(A: np.array):
+    C = (A + A.T) / 2
+    eigval, eigvec = np.linalg.eig(C)
+    eigval[eigval < 0] = 0
+
+    return np.array(eigvec.dot(np.diag(eigval)).dot(eigvec.T))

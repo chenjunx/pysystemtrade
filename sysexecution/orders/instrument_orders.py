@@ -1,7 +1,10 @@
 from enum import Enum
 import datetime
 
-from syscore.genutils import none_to_object, object_to_none
+from syscore.genutils import (
+    if_empty_string_return_object,
+    if_object_matches_return_empty_string,
+)
 
 from sysexecution.orders.base_orders import (
     Order,
@@ -57,7 +60,7 @@ class instrumentOrder(Order):
         generated_datetime: datetime.datetime = None,
         manual_trade: bool = False,
         roll_order: bool = False,
-        **kwargs_not_used
+        **kwargs_not_used,
     ):
         """
 
@@ -126,7 +129,7 @@ class instrumentOrder(Order):
             children=children,
             active=active,
             order_type=order_type,
-            **order_info
+            **order_info,
         )
 
     @classmethod
@@ -137,9 +140,13 @@ class instrumentOrder(Order):
         filled_price = order_as_dict.pop("filled_price")
         fill_datetime = order_as_dict.pop("fill_datetime")
         locked = order_as_dict.pop("locked")
-        order_id = none_to_object(order_as_dict.pop("order_id"), no_order_id)
-        parent = none_to_object(order_as_dict.pop("parent"), no_parent)
-        children = none_to_object(order_as_dict.pop("children"), no_children)
+        order_id = if_empty_string_return_object(
+            order_as_dict.pop("order_id"), no_order_id
+        )
+        parent = if_empty_string_return_object(order_as_dict.pop("parent"), no_parent)
+        children = if_empty_string_return_object(
+            order_as_dict.pop("children"), no_children
+        )
         active = order_as_dict.pop("active")
         order_type = instrumentOrderType(order_as_dict.pop("order_type", None))
 
@@ -157,7 +164,7 @@ class instrumentOrder(Order):
             filled_price=filled_price,
             active=active,
             order_type=order_type,
-            **order_info
+            **order_info,
         )
 
         return order
@@ -232,7 +239,9 @@ class instrumentOrder(Order):
         new_log = log.setup(
             strategy_name=self.strategy_name,
             instrument_code=self.instrument_code,
-            instrument_order_id=object_to_none(self.order_id, no_order_id),
+            instrument_order_id=if_object_matches_return_empty_string(
+                self.order_id, no_order_id
+            ),
         )
 
         return new_log

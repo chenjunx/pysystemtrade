@@ -43,7 +43,6 @@ class controlProcessData(baseData):
         control = self._control_store.get(process_name, missing_data)
         return control
 
-
     def _update_control_for_process_name(self, process_name, new_control_object):
         existing_control = self._get_control_for_process_name_without_default(
             process_name
@@ -113,7 +112,7 @@ class controlProcessData(baseData):
 
         if result is was_running_pid_notok_closed:
             self.log.critical(
-                "Process %s with PID %d appears to have crashed, marking as finished: you may want to restart"
+                "Process %s with PID %d appears to have crashed, marking as close: you may want to restart"
                 % (process_name, PID)
             )
             self._update_control_for_process_name(process_name, original_process)

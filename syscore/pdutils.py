@@ -1,8 +1,6 @@
 """
 Utilities to help with pandas
 """
-import numpy
-import pandas
 import pandas as pd
 import datetime
 import random
@@ -13,7 +11,7 @@ from copy import copy
 from syscore.genutils import flatten_list
 from syscore.dateutils import (
     BUSINESS_DAYS_IN_YEAR,
-    time_matches,
+    check_time_matches_closing_time_to_second,
     CALENDAR_DAYS_IN_YEAR,
     SECONDS_IN_YEAR,
     NOTIONAL_CLOSING_TIME_AS_PD_OFFSET,
@@ -24,27 +22,35 @@ from syscore.objects import arg_not_supplied, missing_data
 
 DEFAULT_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-def interpolate_data_during_day(data_series: pd.Series, resample_freq = "600S") -> pd.Series:
-    set_of_data_by_day = [group[1] for group in data_series.groupby(data_series.index.date)]
-    interpolate_data_by_day = [interpolate_for_a_single_day(data_series_for_day, resample_freq=resample_freq)
-                                for data_series_for_day in set_of_data_by_day]
 
-    interpolated_data_as_single_series = pd.concat(
-        interpolate_data_by_day,
-        axis=0)
+def interpolate_data_during_day(
+    data_series: pd.Series, resample_freq="600S"
+) -> pd.Series:
+    set_of_data_by_day = [
+        group[1] for group in data_series.groupby(data_series.index.date)
+    ]
+    interpolate_data_by_day = [
+        interpolate_for_a_single_day(data_series_for_day, resample_freq=resample_freq)
+        for data_series_for_day in set_of_data_by_day
+    ]
+
+    interpolated_data_as_single_series = pd.concat(interpolate_data_by_day, axis=0)
 
     return interpolated_data_as_single_series
 
-def interpolate_for_a_single_day(data_series_for_day: pd.Series, resample_freq = "600S"):
-    if len(data_series_for_day)<2:
+
+def interpolate_for_a_single_day(data_series_for_day: pd.Series, resample_freq="600S"):
+    if len(data_series_for_day) < 2:
         return data_series_for_day
 
     resampled_data = data_series_for_day.resample(resample_freq).interpolate()
 
     return resampled_data
 
+
 def top_and_tail(x: pd.DataFrame, rows=5):
     return pd.concat([x[:rows], x[-rows:]], axis=0)
+
 
 def prices_to_daily_prices(x):
     return x.resample("1B").last()
@@ -345,7 +351,8 @@ def reindex_last_monthly_include_first_date(x: pd.DataFrame) -> pd.DataFrame:
 
 def weights_sum_to_one(weights: pd.DataFrame):
     sum_weights = weights.sum(axis=1)
-    sum_weights[sum_weights == 0.0] = 0.0001
+    zero_rows = sum_weights == 0.0
+    sum_weights[zero_rows] = 0.0001
     weight_multiplier = 1.0 / sum_weights
     weight_multiplier_array = np.array([weight_multiplier] * len(weights.columns))
     weight_values = weights.values
@@ -372,7 +379,9 @@ def drawdown(x):
     return x - maxx
 
 
-def from_dict_of_values_to_df(data_dict: dict, ts_index, columns: list = None) -> pd.DataFrame:
+def from_dict_of_values_to_df(
+    data_dict: dict, ts_index, columns: list = None
+) -> pd.DataFrame:
     """
     Turn a set of fixed values into a pd.DataFrame that spans the long index
 
@@ -383,7 +392,7 @@ def from_dict_of_values_to_df(data_dict: dict, ts_index, columns: list = None) -
     """
 
     if columns is not None:
-        data_dict = { keyname: data_dict[keyname] for keyname in columns }
+        data_dict = {keyname: data_dict[keyname] for keyname in columns}
 
     pd_dataframe = pd.DataFrame(data_dict, ts_index)
 
@@ -509,7 +518,9 @@ def set_pd_print_options():
 def closing_date_rows_in_pd_object(pd_object):
     return pd_object[
         [
-            time_matches(index_entry, NOTIONAL_CLOSING_TIME_AS_PD_OFFSET)
+            check_time_matches_closing_time_to_second(
+                index_entry, NOTIONAL_CLOSING_TIME_AS_PD_OFFSET
+            )
             for index_entry in pd_object.index
         ]
     ]
@@ -518,10 +529,13 @@ def closing_date_rows_in_pd_object(pd_object):
 def intraday_date_rows_in_pd_object(pd_object):
     return pd_object[
         [
-            not time_matches(index_entry, NOTIONAL_CLOSING_TIME_AS_PD_OFFSET)
+            not check_time_matches_closing_time_to_second(
+                index_entry, NOTIONAL_CLOSING_TIME_AS_PD_OFFSET
+            )
             for index_entry in pd_object.index
         ]
     ]
+
 
 def get_intraday_df_at_frequency(df: pd.DataFrame, frequency="H"):
     intraday_only_df = intraday_date_rows_in_pd_object(df)
@@ -530,6 +544,7 @@ def get_intraday_df_at_frequency(df: pd.DataFrame, frequency="H"):
 
     return intraday_df_clean
 
+
 def merge_data_with_different_freq(list_of_data: list):
     list_as_concat_pd = pd.concat(list_of_data, axis=0)
     sorted_pd = list_as_concat_pd.sort_index()
@@ -537,11 +552,12 @@ def merge_data_with_different_freq(list_of_data: list):
 
     return unique_pd
 
+
 def sumup_business_days_over_pd_series_without_double_counting_of_closing_data(
     pd_series,
 ):
     intraday_data = intraday_date_rows_in_pd_object(pd_series)
-    if len(intraday_data)==0:
+    if len(intraday_data) == 0:
         return pd_series
 
     intraday_data_summed = intraday_data.resample("1B").sum()
@@ -603,7 +619,6 @@ if __name__ == "__main__":
     doctest.testmod()
 
 
-
 def get_row_of_df_aligned_to_weights_as_dict(
     df: pd.DataFrame, relevant_date: datetime.datetime = arg_not_supplied
 ) -> dict:
@@ -641,8 +656,7 @@ def get_row_of_series_before_data(
     if relevant_date is arg_not_supplied:
         data_at_date = series.values[-1]
     else:
-        index_point = get_max_index_before_datetime(series.index,
-                                                    relevant_date)
+        index_point = get_max_index_before_datetime(series.index, relevant_date)
         data_at_date = series.values[index_point]
 
     return data_at_date
@@ -697,3 +711,25 @@ def sort_df_ignoring_missing(df, column):
     valid = df[df[column] != missing_data]
     valid_sorted = valid.sort_values(column)
     return pd.concat([valid_sorted, missing])
+
+
+def apply_with_min_periods(xcol, my_func=np.nanmean, min_periods=0):
+    """
+    :param x: data
+    :type x: Tx1 pd.DataFrame or series
+
+    :param func: Function to apply, if min periods met
+    :type func: function
+
+    :param min_periods: The minimum number of observations
+    :type min_periods: int
+
+    :returns: output from function
+    """
+    not_nan = sum(~np.isnan(xcol))
+
+    if not_nan >= min_periods:
+
+        return my_func(xcol)
+    else:
+        return np.nan

@@ -19,6 +19,7 @@ from sysbrokers.mills.mills_capital_data import millsCapitalData
 from sysbrokers.mills.mills_static_data import millsStaticData
 from sysbrokers.mills.mills_contract_position_data import millsContractPositionData
 
+
 def get_broker_class_list(data: dataBlob):
     """
     Returns a list of classes that are specific to the broker being used.
@@ -29,7 +30,9 @@ def get_broker_class_list(data: dataBlob):
     """
     config = data.config
 
-    broker_factory_func = config.get_element_or_default('broker_factory_func', get_ib_class_list)
+    broker_factory_func = config.get_element_or_default(
+        "broker_factory_func", get_ib_class_list
+    )
 
     get_class_list = resolve_function(broker_factory_func)
 

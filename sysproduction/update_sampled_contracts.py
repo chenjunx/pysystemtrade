@@ -180,7 +180,7 @@ def create_contract_date_chain(
     final_contract = furthest_out_contract.next_priced_contract()
 
     ## this will pick up contracts from 6 months ago, to deal with any gaps
-    ## however if these have expired they are marked as finished sampling later
+    ## however if these have expired they are marked as close sampling later
     contract_date_chain = final_contract.get_contracts_from_recently_to_contract_date()
 
     return contract_date_chain
@@ -406,14 +406,12 @@ def unsample_contracts(instrument_code: str, data: dataBlob):
         check_and_update_sampling_status(
             contract=contract,
             data=data,
-            contract_chain=get_contract_chain(data, instrument_code)
+            contract_chain=get_contract_chain(data, instrument_code),
         )
 
 
 def check_and_update_sampling_status(
-    contract: futuresContract,
-    data: dataBlob,
-    contract_chain: listOfFuturesContracts
+    contract: futuresContract, data: dataBlob, contract_chain: listOfFuturesContracts
 ):
 
     unsample = False
@@ -438,6 +436,5 @@ def check_and_update_sampling_status(
         )
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     update_sampled_contracts()

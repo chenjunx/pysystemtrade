@@ -189,7 +189,7 @@ Note that the large contract prices will continue to be updated (best to keep do
 
 ## Version 0.51.0
 
-- Essentially 'finished' production.md (in as much as anything can be finished...)
+- Essentially 'close' production.md (in as much as anything can be close...)
 - Changed data Blobs so now take lists of objects rather than str, easier to see dependencies
 
 ## Version 0.50.0
@@ -260,7 +260,7 @@ Note that the large contract prices will continue to be updated (best to keep do
 
 ## Version 0.23.0
 
-- 'get_filename_for_package' can now take absolute as well as relative paths, and can cope with separate file names
+- 'resolve_path_and_filename_for_package' can now take absolute as well as relative paths, and can cope with separate file names
 - Updated legacy .csv files
 - Fixed a few bugs
 - Can now get unexpired contracts for a given instrument using 'contractDateWithRollParameters.get_unexpired_contracts_from_now_to_contract_date()'
@@ -481,7 +481,7 @@ Moved most examples except core to separate git [here](https://github.com/robcar
 
 * Added methods to accountCurveGroup.get_stats(): .mean(), .std(), .tstat(), .pvalue()
 * Added method to accountCurveGroup stack; stack object can also produce bootstrap
-* Added account_test(ac1, ac2) to produce a t-test statistic for any two account curve like objects.
+* Added account_t_test(ac1, ac2) to produce a t-test statistic for any two account curve like objects.
 
 ## Version 0.6.0
 

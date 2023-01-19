@@ -5,7 +5,7 @@ For a given process:
  - am I running?
  - when did I last finish running?
  - is my status NO-RUN, STOP or GO?
- - have I run today and finished running?
+ - have I run today and close running?
 """
 
 from copy import copy
@@ -14,8 +14,12 @@ import os
 import pandas as pd
 
 from syscontrol.list_running_pids import list_of_all_running_pids
-from syscore.fileutils import html_table
-from syscore.dateutils import SECONDS_PER_DAY, last_run_or_heartbeat_from_date_or_none
+from syscore.exceptions import missingData
+from syscore.fileutils import write_list_of_lists_as_html_table_in_file
+from syscore.dateutils import (
+    SECONDS_PER_DAY,
+    date_as_short_pattern_or_question_if_missing,
+)
 
 from syscore.objects import (
     success,
@@ -56,11 +60,14 @@ class dictOfRunningMethods(dict):
         self.set_entry(method_name, current_entry)
 
     def currently_running(self, method_name: str) -> bool:
-        last_start = self.when_last_start_run(method_name)
-        last_end = self.when_last_end_run(method_name)
-        if last_start is missing_data:
+        try:
+            last_start = self.when_last_start_run(method_name)
+        except missingData:
             return False
-        if last_end is missing_data:
+
+        try:
+            last_end = self.when_last_end_run(method_name)
+        except missingData:
             return True
 
         if last_start > last_end:
@@ -72,14 +79,14 @@ class dictOfRunningMethods(dict):
         current_entry = self.get_current_entry(method_name)
         start_run = current_entry[start_run_idx]
         if start_run == missing_date_str:
-            return missing_data
+            raise missingData("Last start not found: method has never run")
         return start_run
 
     def when_last_end_run(self, method_name: str) -> datetime.datetime:
         current_entry = self.get_current_entry(method_name)
         end_run = current_entry[end_run_idx]
         if end_run == missing_date_str:
-            return missing_data
+            raise missingData("Last end not found: method has never completed")
         return end_run
 
     def as_dict(self):
@@ -308,8 +315,9 @@ class controlProcess(object):
         process_id_string = f"{''+str(self.process_id):<8}"
         return [
             "Started %s"
-            % last_run_or_heartbeat_from_date_or_none(self.last_start_time),
-            "ended %s" % last_run_or_heartbeat_from_date_or_none(self.last_end_time),
+            % date_as_short_pattern_or_question_if_missing(self.last_start_time),
+            "ended %s"
+            % date_as_short_pattern_or_question_if_missing(self.last_end_time),
             "Status %s" % status_string,
             "PID %s" % process_id_string,
             run_string,
@@ -318,8 +326,8 @@ class controlProcess(object):
     def as_printable_dict(self) -> dict:
         run_string = self.running_mode_str
         return dict(
-            start=last_run_or_heartbeat_from_date_or_none(self.last_start_time),
-            end=last_run_or_heartbeat_from_date_or_none(self.last_end_time),
+            start=date_as_short_pattern_or_question_if_missing(self.last_start_time),
+            end=date_as_short_pattern_or_question_if_missing(self.last_end_time),
             status=self.status,
             PID=self.process_id,
             running=run_string,
@@ -346,7 +354,7 @@ class dictOfControlProcesses(dict):
         return lol
 
     def to_html_table_in_file(self, file):
-        html_table(file, self.list_of_printable_lists())
+        write_list_of_lists_as_html_table_in_file(file, self.list_of_printable_lists())
 
     def list_of_lists(self) -> list:
         lol = [value.as_printable_dict() for key, value in self.items()]

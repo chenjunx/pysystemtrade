@@ -1,8 +1,8 @@
+from syscore.exceptions import missingData
 from sysdata.production.new_capital import capitalData
 
 CAPITAL_COLLECTION = "arctic_capital"
 
-from syscore.objects import missing_data
 from sysdata.arctic.arctic_connection import arcticData
 from syslogdiag.log_to_screen import logtoscreen
 import pandas as pd
@@ -33,18 +33,17 @@ class arcticCapitalData(capitalData):
         try:
             pd_series = self.arctic.read(strategy_name)
         except:
-            return missing_data
+            raise missingData(
+                "Unable to get capital data from arctic for strategy %s" % strategy_name
+            )
 
         return pd_series
 
-    def _delete_all_capital_for_strategy_no_checking(
-        self, strategy_name: str
-    ):
+    def _delete_all_capital_for_strategy_no_checking(self, strategy_name: str):
 
         self.arctic.delete(strategy_name)
 
-
-    def update_capital_pd_df_for_strategy(self, strategy_name: str, updated_capital_df: pd.DataFrame):
+    def update_capital_pd_df_for_strategy(
+        self, strategy_name: str, updated_capital_df: pd.DataFrame
+    ):
         self.arctic.write(strategy_name, updated_capital_df)
-
-
