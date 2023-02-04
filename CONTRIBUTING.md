@@ -57,6 +57,7 @@ In general, we try and follow the original texts: [PEP 8](https://peps.python.or
 ### General
 
 - Unless there is a single parameter, passed parameters should be explicit.
+- It is almost always better to use `arg_not_supplied` (`from syscore.objects import arg_not_supplied`) as a default argument then resolve it to the appropriate value in the function. 
 - Type hints should be used, with Unions if required `from typing import Union` and Lists / Dicts ...`from typing import List, Dict`
 - Verbose doc strings specifying all the parameters are no longer required (superseded by type hints)
 
@@ -81,6 +82,6 @@ FIXME This is a bit of a mess - Update when a unified cache system setup
 ### Testing
 
 Doc tests should be removed from class methods, since they often require a lot of setup, and make the code harder to read. Unit tests are preferable.
-Doc tests make more sense for seperate, standalone, functions.
+Doc tests make more sense for seperate, standalone, functions. This is especially the case when they can be used to quickly demonstrate how a function works.
 
 Test coverage is extremely sparse. 

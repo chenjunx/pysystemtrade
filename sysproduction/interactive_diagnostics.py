@@ -3,24 +3,20 @@ from sysobjects.production.trading_hours.trading_hours import (
     tradingHours,
     listOfTradingHours,
 )
-from syscore.interactive_input import (
+from syscore.interactive.input import (
     get_input_from_user_and_convert_to_type,
     true_if_answer_is_yes,
 )
-from syscore.progress_bar import progressBar
-from syscore.interactive_date_input import get_report_dates
-from syscore.interactive_menus import (
+from syscore.interactive.progress_bar import progressBar
+from syscore.interactive.date_input import get_report_dates
+from syscore.interactive.menus import (
     interactiveMenu,
     print_menu_of_values_and_get_response,
     print_menu_and_get_desired_option_index,
 )
-from syscore.pdutils import set_pd_print_options
-from syscore.objects import (
-    user_exit,
-    arg_not_supplied,
-    ALL_ROLL_INSTRUMENTS,
-    missing_data,
-)
+from syscore.interactive.display import set_pd_print_options
+from syscore.constants import missing_data, arg_not_supplied, user_exit
+from sysobjects.production.roll_state import ALL_ROLL_INSTRUMENTS
 from syscore.exceptions import missingContract, missingData
 from sysexecution.orders.list_of_orders import listOfOrders
 
@@ -479,10 +475,14 @@ def optimal_positions(data):
     instrument_strategy = instrumentStrategy(
         instrument_code=instrument_code, strategy_name=strategy_name
     )
-    data_series = optimal_data.get_optimal_position_as_df_for_instrument_strategy(
-        instrument_strategy
-    )
-    print(data_series)
+    try:
+        data_series = optimal_data.get_optimal_position_as_df_for_instrument_strategy(
+            instrument_strategy
+        )
+    except missingData:
+        print("missing data")
+    else:
+        print(data_series)
 
     return None
 
@@ -518,10 +518,14 @@ def actual_instrument_position(data):
         strategy_name=strategy_name, instrument_code=instrument_code
     )
 
-    pos_series = diag_positions.get_position_df_for_instrument_strategy(
-        instrument_strategy
-    )
-    print(pos_series)
+    try:
+        pos_series = diag_positions.get_position_df_for_instrument_strategy(
+            instrument_strategy
+        )
+    except missingData:
+        print("missing data")
+    else:
+        print(pos_series)
     return None
 
 
@@ -544,8 +548,12 @@ def actual_contract_position(data):
     # ignore warnings can be str
     contract = futuresContract(instrument_code, contract_date_str)
 
-    pos_series = diag_positions.get_position_df_for_contract(contract)
-    print(pos_series)
+    try:
+        pos_series = diag_positions.get_position_df_for_contract(contract)
+    except missingData:
+        print("missing data")
+    else:
+        print(pos_series)
     return None
 
 

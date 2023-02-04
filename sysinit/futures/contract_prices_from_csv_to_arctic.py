@@ -1,6 +1,7 @@
-from syscore.objects import arg_not_supplied
-from sysdata.csv.csv_futures_contract_prices import ConfigCsvFuturesPrices
+from syscore.constants import arg_not_supplied
+
 from sysdata.csv.csv_futures_contract_prices import csvFuturesContractPriceData
+from sysdata.csv.csv_futures_contract_prices import ConfigCsvFuturesPrices
 from sysdata.arctic.arctic_futures_per_contract_prices import (
     arcticFuturesContractPriceData,
 )

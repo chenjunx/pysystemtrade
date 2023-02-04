@@ -1,5 +1,27 @@
 # Release notes
 
+## Version 1.50
+
+- Added optional code to run price collection throughout the day, see [announcement](https://github.com/robcarver17/pysystemtrade/discussions/961)
+- Added ability to pass arguments to methods through control_config.yaml
+- Added regions to instrument.csv configuration; use interactive_controls, option 5, option 52 to apply
+
+## Version 1.48
+
+- Added new run_ processes, breaking out FX, update sampled contracts, and update multiple/adjusted prices from daily price updates. You will need to update your crontab and control_config.yaml, see **discussion here**
+- Refactoring syscore
+- Changed handling of expensive instruments, [see this discussion](https://github.com/robcarver17/pysystemtrade/discussions/938)
+- Added requirement for BLACK [see this discussion](https://github.com/robcarver17/pysystemtrade/discussions/921)
+- Roll report clean up format [discussed here](https://github.com/robcarver17/pysystemtrade/discussions/864)
+- Gradual removal of missing_data, missing_contract type objects and replace with exceptions
+- Algos won't be allocated just before day end [discussed here](https://github.com/robcarver17/pysystemtrade/discussions/853)
+- Timezones can now be manually configured [discussed here](https://github.com/robcarver17/pysystemtrade/discussions/845)
+- Auto copying of instrument config data between db and csv
+- Utility to cross check IB configuration multipliers
+- Utility to delete instrument data
+- Custom private directory 
+- Utility to modify roll config 
+
 ## Version 1.47
 
 - fix for #729. Added hourly and daily per contract prices IMPORTANT YOU MUST RUN /sysinit/futures/create_hourly_and_daily.py from the command line to create hourly and daily data.
