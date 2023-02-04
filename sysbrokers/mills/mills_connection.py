@@ -1,6 +1,6 @@
 import logging
 
-from syscore.objects import missing_data, arg_not_supplied,missing_contract
+from syscore.constants import arg_not_supplied
 
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import mills_defaults

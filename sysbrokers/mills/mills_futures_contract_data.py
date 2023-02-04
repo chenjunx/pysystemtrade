@@ -3,16 +3,15 @@ from sysobjects.contract_dates_and_expiries import expiryDate
 from sysobjects.contracts import futuresContract
 from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
-
-from syscore.objects import missing_contract
 from sysobjects.production.trading_hours.trading_hours import tradingHours, listOfTradingHours
-from syscore.exceptions import missingContract, missingData
+from syscore.exceptions import missingContract
 
 import datetime
 
 NO_ADJUSTMENTS = 0, 0
 CLOSED_ALL_DAY = object()
 
+missing_contract = 'missing contract'
 
 def parse_trading_hours_string(
         trading_hours_string: str,
@@ -96,14 +95,14 @@ class millsFuturesContractData(brokerFuturesContractData):
             raise missingContract
 
         contract_object_with_mills_data = self._connection_Mills.query_contract_info(futures_contract)
-        if contract_object_with_mills_data == str(missing_contract):
+        if contract_object_with_mills_data == missing_contract:
             raise missingContract
-        # return missing_contract
+        # return missingContract
         # contract_object_with_ib_data = self.get_contract_object_with_mills_data(
         #     futures_contract
         # )
-        # if contract_object_with_ib_data is missing_contract:
-        #     return missing_contract
+        # if contract_object_with_ib_data is missingContract:
+        #     return missingContract
         #
         # expiry_date = contract_object_with_ib_data.expiry_date
         expiry_date = expiryDate.from_str(contract_object_with_mills_data)
@@ -122,12 +121,12 @@ class millsFuturesContractData(brokerFuturesContractData):
         new_log = futures_contract.log(self.log)
 
         contract_object_with_mills_data = self._connection_Mills.query_contract_info(futures_contract)
-        if contract_object_with_mills_data == str(missing_contract):
+        if contract_object_with_mills_data == missing_contract:
             new_log.msg("Can't resolve contract")
-            return missing_contract
+            return missingContract
         trading_hours = self._connection_Mills.query_trading_hours(futures_contract)
 
-        if trading_hours == str(missing_contract):
+        if trading_hours == missing_contract:
             new_log.msg("No mills expiry date found")
             trading_hours = []
 

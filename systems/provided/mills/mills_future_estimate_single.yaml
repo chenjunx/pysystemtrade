@@ -1,5 +1,5 @@
 #YAML
-percentage_vol_target: 35
+percentage_vol_target: 30
 notional_trading_capital: 250000
 base_currency: "CNH"
 capital_multiplier:
@@ -239,6 +239,14 @@ trading_rules:
      other_args:
          Lfast: 64
          Lslow: 256
+  mrwrings4:
+    function: systems.provided.rules.mr_wings.mr_wings
+    data:
+         - "rawdata.get_daily_prices"
+         - "rawdata.daily_returns_volatility"
+    other_args:
+         Lfast: 4
+
 use_forecast_scale_estimates: True
 forecast_scalar_estimate:
    pool_instruments: True
@@ -365,23 +373,24 @@ forecast_weights:
          accel32: 0.1
 #          accel64: 0.05
          # .2
-         normmom16: 0.04
+         normmom16: 0.03
 #          normmom2: 0.025
-         normmom32: 0.04
-         normmom4: 0.04
-         normmom64: 0.04
-         normmom8: 0.04
+         normmom32: 0.03
+         normmom4: 0.03
+         normmom64: 0.03
+         normmom8: 0.03
          # .1
-         carry10: 0.1
-#          carry30: 0.05
-#          carry60: 0.05
+         carry10: 0.05
+         carry30: 0.05
+         carry60: 0.05
+         relcarry: 0.05
          # .2
-         assettrend2: 0.04
+         assettrend2: 0.03
 #          assettrend4: 0.0
-         assettrend8: 0.04
-         assettrend16: 0.04
-         assettrend32: 0.04
-         assettrend64: 0.04
+         assettrend8: 0.03
+         assettrend16: 0.03
+         assettrend32: 0.03
+         assettrend64: 0.03
          relcarry: 0.1
     SPY_FTX:
         accel16: 0.02
@@ -654,9 +663,39 @@ forecast_weights:
          # assettrend32: 0.035
          # assettrend64: 0.031
          relcarry: 0.05
+    RM:
+         breakout10: 0.01
+         breakout20: 0.02
+         breakout40: 0.03
+         breakout80: 0.04
+         breakout160: 0.01
+         relmomentum10: 0.05
+         relmomentum20: 0.1
+         relmomentum40: 0.1
+         relmomentum80: 0.05
+         accel16: 0.04
+         accel32: 0.05
+         accel64: 0.05
+         normmom16: 0.02
+         normmom2: 0.01
+         normmom32: 0.02
+         normmom4: 0.01
+         normmom64: 0.03
+         normmom8: 0.01
+         carry10: 0.15
+         carry30: 0.15
+         carry60: 0.15
+         assettrend2:  0.00
+         assettrend4: 0.00
+         assettrend8:  0.00
+         assettrend16:  0.00
+         assettrend32:  0.00
+         assettrend64:  0.00
+
+
+
 use_forecast_weight_estimates: False
-forecast_div_multiplier: 1.4
-# use_forecast_weight_estimates: True
+forecast_div_multiplier: 1.3
 use_forecast_div_mult_estimates: False
 
 # rule_variations: ['ewmac2_8','ewmac4_16', 'ewmac8_32', 'ewmac16_64','ewmac32_128','breakout10','breakout20','breakout40','breakout80','breakout160','carry10','carry30','carry60']
@@ -680,9 +719,8 @@ use_instrument_weight_estimates: True
 #   TA: 0.05
 #   MA: 0.05
 #   SR: 0.05
-instrument_div_multiplier: 1.3
+instrument_div_multiplier: 2.0
 # instruments: ["POLYETHYLENE","HC","JD","RB","CORNSTARCH","PVC","PP","SoybeanMeal","MAIZE","FG","TA","MA","SR","FU"]
-instruments: ["FG","MAIZE","JD","PVC","CORNSTARCH","rr","a"]
+instruments: ["FG","MAIZE","JD","PVC","CORNSTARCH","MA","RM"]
 use_SR_costs: True
-# use_instrument_div_mult_estimates: True
-
+#use_instrument_div_mult_estimates: True

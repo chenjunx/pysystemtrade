@@ -3,7 +3,8 @@ from sysbrokers.broker_fx_handling import brokerFxHandlingData
 from sysbrokers.broker_trade import brokerTrade
 from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
-from syscore.objects import arg_not_supplied
+from syscore.constants import arg_not_supplied
+
 import json
 class millsFxHandlingData(brokerFxHandlingData):
     def __init__(self, connection_Mills: connectionMills, log=logtoscreen("ibFXHandlingData")):

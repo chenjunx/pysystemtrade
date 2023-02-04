@@ -5,7 +5,7 @@ from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
 from sysobjects.spot_fx_prices import currencyValue, listOfCurrencyValues
 
-from syscore.objects import arg_not_supplied
+from syscore.constants import arg_not_supplied
 import json
 class millsCapitalData(brokerCapitalData):
     def __init__(

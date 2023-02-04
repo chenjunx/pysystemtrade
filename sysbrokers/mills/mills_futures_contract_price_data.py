@@ -1,6 +1,5 @@
 from sysbrokers.broker_futures_contract_price_data import brokerFuturesContractPriceData
-from syscore.dateutils import Frequency
-from syscore.objects import missing_contract, missing_data, failure
+from syscore.constants import missing_data
 
 from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.orders.contract_orders import contractOrder
@@ -11,7 +10,7 @@ from sysobjects.dict_of_futures_per_contract_prices import dictFuturesContractPr
 from sysobjects.futures_per_contract_prices import futuresContractPrices
 from syscore.dateutils import Frequency, DAILY_PRICE_FREQ
 from sysbrokers.mills.mills_connection import connectionMills
-from syscore.objects import missing_contract
+from syscore.exceptions import missingContract
 
 from syslogdiag.log_to_screen import logtoscreen
 from syscore.dateutils import from_config_frequency_pandas_resample
@@ -21,7 +20,7 @@ from datetime import datetime
 VERY_BIG_NUMBER = 999999.0
 import json
 
-
+missing_contract = 'missing contract'
 def from_mills_bid_ask_tick_data_to_dataframe(tick_data) -> dataFrameOfRecentTicks:
     """
 
@@ -240,7 +239,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
             timestr = '%Y%m%d %H:%M:%S'
             price_data = self._connection_Mills.query_historical_futures_data_for_contract_hour(contract_object)
 
-        if price_data == str(missing_contract):
+        if price_data == missing_contract:
             new_log.warn(
                 "Something went wrong getting mills price data for %s"
                 % str(price_data)
@@ -272,7 +271,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
     ## 判断期货是否存在
     def has_data_for_contract(self, contract_object: futuresContract) -> bool:
         contract_object_with_mills_data = self._connection_Mills.query_contract_info(contract_object)
-        if contract_object_with_mills_data == str(missing_contract):
+        if contract_object_with_mills_data == missing_contract:
             return False
         else:
             return True

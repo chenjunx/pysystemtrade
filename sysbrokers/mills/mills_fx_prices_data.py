@@ -3,15 +3,14 @@ from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.broker_fx_prices_data import brokerFxPricesData
 from sysobjects.spot_fx_prices import fxPrices
 from collections import namedtuple
-from syscore.fileutils import get_filename_for_package
-from syscore.objects import missing_instrument, missing_file, missing_data
+from syscore.fileutils import resolve_path_and_filename_for_package
 import pandas as pd
 from sysbrokers.mills.mills_connection import connectionMills
 from datetime import datetime
-from syscore.pdutils import  DEFAULT_DATE_FORMAT
 
+from syscore.constants import  missing_file
 
-Mills_CCY_CONFIG_FILE = get_filename_for_package("sysbrokers.mills.mills_config_spot_FX.csv")
+Mills_CCY_CONFIG_FILE = resolve_path_and_filename_for_package("sysbrokers.mills.mills_config_spot_FX.csv")
 
 millsFXConfig = namedtuple("ibFXConfig", ["ccy1", "ccy2", "invert"])
 

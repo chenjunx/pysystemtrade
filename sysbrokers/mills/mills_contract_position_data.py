@@ -2,11 +2,12 @@
 from sysbrokers.broker_contract_position_data import brokerContractPositionData
 from sysobjects.production.positions import listOfContractPositions
 
-from syscore.objects import arg_not_supplied, missing_contract
+from syscore.constants import arg_not_supplied
 from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
 from sysobjects.production.positions import contractPosition, listOfContractPositions
 from sysobjects.contracts import futuresContract
+
 import json
 class millsContractPositionData(brokerContractPositionData):
     def __init__(self, millsconnection: connectionMills, log=logtoscreen("millsContractPositionData")):
