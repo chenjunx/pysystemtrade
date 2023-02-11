@@ -250,8 +250,8 @@ class tickerObject(object):
         if tick is arg_not_supplied:
             tick = self.current_tick()
 
-        if tick is missing_data or qty is arg_not_supplied:
-            return missing_data
+        if qty is arg_not_supplied:
+            raise missingData("Quantity must be specified")
 
         results = analyse_tick(tick, qty, replace_qty_nans=replace_qty_nans)
 
@@ -275,7 +275,7 @@ class tickerObject(object):
         timer = quickTimer(wait_time_seconds)
         while waiting:
             if timer.finished:
-                return missing_data
+                raise missingData
             self.refresh()
             last_bid = self.bid()
             last_ask = self.ask()
