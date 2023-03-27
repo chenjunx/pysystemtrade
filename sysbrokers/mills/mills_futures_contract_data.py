@@ -72,14 +72,15 @@ def parse_phrase(phrase: str, adjustment_hours: int = 0, additional_adjust: int 
     adjustment = datetime.timedelta(hours=total_adjustment)
 
     return original_time + adjustment
+from sysdata.data_blob import dataBlob
 
 class millsFuturesContractData(brokerFuturesContractData):
 
 
     def __init__(
-            self, connection_Mills: connectionMills, log=logtoscreen("millsFuturesContractData")
+            self, connection_Mills: connectionMills, data:dataBlob,log=logtoscreen("millsFuturesContractData")
     ):
-        super().__init__(log=log)
+        super().__init__(log=log,data=data)
         self._connection_Mills = connection_Mills
 
     def get_actual_expiry_date_for_single_contract(self, futures_contract: futuresContract) -> expiryDate:
@@ -109,7 +110,13 @@ class millsFuturesContractData(brokerFuturesContractData):
         return expiry_date
 
     def get_min_tick_size_for_contract(self, contract_object: futuresContract) -> float:
-        return float(self._connection_Mills.query_min_tick_size(contract_object))
+        retData = self._connection_Mills.query_min_tick_size(contract_object)
+        if retData == missing_contract:
+            raise missingContract
+        else:
+            return float(retData)
+
+
 
     def get_trading_hours_for_contract(self, futures_contract: futuresContract) -> \
             listOfTradingHours:

@@ -4,10 +4,12 @@ from sysbrokers.broker_trade import brokerTrade
 from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
 from syscore.constants import arg_not_supplied
+from sysdata.data_blob import dataBlob
 
 import json
 class millsFxHandlingData(brokerFxHandlingData):
-    def __init__(self, connection_Mills: connectionMills, log=logtoscreen("ibFXHandlingData")):
+    def __init__(self, connection_Mills: connectionMills,data:dataBlob, log=logtoscreen("ibFXHandlingData")):
+        super().__init__(log=log, data=data)
         self._connection_Mills = connection_Mills
 
     def broker_fx_balances(self, account_id: str = arg_not_supplied) -> dict:

@@ -7,6 +7,7 @@ from syscore.fileutils import resolve_path_and_filename_for_package
 import pandas as pd
 from sysbrokers.mills.mills_connection import connectionMills
 from datetime import datetime
+from sysdata.data_blob import dataBlob
 
 from syscore.constants import  missing_file
 
@@ -15,9 +16,9 @@ Mills_CCY_CONFIG_FILE = resolve_path_and_filename_for_package("sysbrokers.mills.
 millsFXConfig = namedtuple("ibFXConfig", ["ccy1", "ccy2", "invert"])
 
 class millsFxPricesData(brokerFxPricesData):
-    def __init__(self, millsconnection: connectionMills, log=logtoscreen("millsFxPricesData")):
+    def __init__(self, millsconnection: connectionMills, data:dataBlob,log=logtoscreen("millsFxPricesData")):
+        super().__init__(log=log,data=data)
         self._millsconnection = millsconnection
-        super().__init__(log=log)
 
     #从配置中读取外汇配置
     def get_list_of_fxcodes(self) -> list:

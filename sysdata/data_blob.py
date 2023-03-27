@@ -145,7 +145,7 @@ class dataBlob(object):
     def _add_mills_class(self, class_object):
         log = self._get_specific_logger(class_object)
         try:
-            resolved_instance = class_object(self.mills_conn, log=log)
+            resolved_instance = class_object(self.mills_conn,self, log=log)
         except Exception as e:
             class_name = get_class_name(class_object)
             msg = (

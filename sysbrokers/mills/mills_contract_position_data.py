@@ -7,12 +7,13 @@ from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
 from sysobjects.production.positions import contractPosition, listOfContractPositions
 from sysobjects.contracts import futuresContract
+from sysdata.data_blob import dataBlob
 
 import json
 class millsContractPositionData(brokerContractPositionData):
-    def __init__(self, millsconnection: connectionMills, log=logtoscreen("millsContractPositionData")):
+    def __init__(self, millsconnection: connectionMills,data:dataBlob, log=logtoscreen("millsContractPositionData")):
+        super().__init__(log=log,data=data)
         self._millsconnection = millsconnection
-        super().__init__(log=log)
 
     def get_all_current_positions_as_list_with_contract_objects(self,
                                                                 account_id=arg_not_supplied) -> listOfContractPositions:

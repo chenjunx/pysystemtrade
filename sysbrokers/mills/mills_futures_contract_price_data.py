@@ -10,7 +10,7 @@ from sysobjects.dict_of_futures_per_contract_prices import dictFuturesContractPr
 from sysobjects.futures_per_contract_prices import futuresContractPrices
 from syscore.dateutils import Frequency, DAILY_PRICE_FREQ
 from sysbrokers.mills.mills_connection import connectionMills
-from syscore.exceptions import missingContract
+from sysdata.data_blob import dataBlob
 
 from syslogdiag.log_to_screen import logtoscreen
 from syscore.dateutils import from_config_frequency_pandas_resample
@@ -70,9 +70,9 @@ class millsTickerObject(tickerObject):
         return self.ticker['askSize']
 
 class millsFuturesContractPriceData(brokerFuturesContractPriceData):
-    def __init__(self, connection_Mills: connectionMills, log=logtoscreen("millsFuturesContractPriceData")):
+    def __init__(self, connection_Mills: connectionMills,data: dataBlob, log=logtoscreen("millsFuturesContractPriceData")):
         self._connection_Mills = connection_Mills
-        super().__init__(log=log)
+        super().__init__(log=log,data=data)
 
     def get_list_of_instrument_codes_with_merged_price_data(self) -> list:
         return super().get_list_of_instrument_codes_with_merged_price_data()

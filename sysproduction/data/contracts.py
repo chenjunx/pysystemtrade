@@ -160,6 +160,8 @@ class dataContracts(productionDataLayerGeneric):
         return ans_as_dict
 
     def get_current_contract_dict(self, instrument_code) -> setOfNamedContracts:
+        #有仓位的带*,导致找不到对应的多重价格
+        instrument_code = instrument_code.replace("*","")
         multiple_prices = self.db_multiple_prices_data.get_multiple_prices(
             instrument_code
         )

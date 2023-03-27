@@ -24,12 +24,11 @@ def match_control_order_from_dict(
     )
 
     return matched_control_order_from_dict
-
-
+from sysdata.data_blob import dataBlob
 
 class millsExecutionStackData(brokerExecutionStackData):
-    def __init__(self,connection_Mills: connectionMills, log=logtoscreen("millsExecutionStackData")):
-        super().__init__(log=log)
+    def __init__(self,connection_Mills: connectionMills,data:dataBlob, log=logtoscreen("millsExecutionStackData")):
+        super().__init__(log=log,data=data)
         self._connection_Mills = connection_Mills
 
     def put_order_on_stack(self, new_order: Order):

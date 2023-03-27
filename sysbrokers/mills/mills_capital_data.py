@@ -4,14 +4,15 @@ from sysbrokers.broker_capital_data import brokerCapitalData
 from sysbrokers.mills.mills_connection import connectionMills
 from syslogdiag.log_to_screen import logtoscreen
 from sysobjects.spot_fx_prices import currencyValue, listOfCurrencyValues
+from sysdata.data_blob import dataBlob
 
 from syscore.constants import arg_not_supplied
 import json
 class millsCapitalData(brokerCapitalData):
     def __init__(
-            self, connection_Mills: connectionMills, log=logtoscreen("millsCapitalData")
+            self, connection_Mills: connectionMills, data: dataBlob, log=logtoscreen("millsCapitalData")
     ):
-        super().__init__(log=log)
+        super().__init__(log=log,data=data)
         self._connection_Mills = connection_Mills
 
     def get_account_value_across_currency(self, account_id: str = arg_not_supplied) -> listOfCurrencyValues:
