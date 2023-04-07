@@ -67,7 +67,6 @@ def parse_trading_for_day(
 def parse_phrase(phrase: str, adjustment_hours: int = 0, additional_adjust: int = 0)\
         -> datetime.datetime:
     total_adjustment = adjustment_hours + additional_adjust
-    print('phrase:'+str(phrase))
     original_time = datetime.datetime.strptime(phrase, "%Y%m%d:%H%M")
     adjustment = datetime.timedelta(hours=total_adjustment)
 
