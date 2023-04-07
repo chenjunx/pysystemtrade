@@ -124,6 +124,18 @@ class Algo(object):
         # 测试下单方法的,针对bnb价格
         # limit_price = 260.00
         # limit_price = 299.00
+        log.msg(
+            "collected_prices.side_price %s"
+            % str(collected_prices.side_price)
+        )
+        log.msg(
+            "collected_prices.mid_price %s"
+            % str(collected_prices.mid_price)
+        )
+        log.msg(
+            "collected_prices.offside_price %s"
+            % str(collected_prices.offside_price)
+        )
         broker_order = create_new_broker_order_from_contract_order(
             contract_order,
             order_type=order_type,
