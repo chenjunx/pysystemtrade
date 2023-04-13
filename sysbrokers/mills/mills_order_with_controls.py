@@ -148,7 +148,8 @@ def extract_contract_info(contract, legs=None):
 class millsBrokerOrder(brokerOrder):
     @classmethod
     def from_broker_trade_object(
-        trade_info, extracted_trade_data, instrument_code=arg_not_supplied,strategy_name="",parent=no_parent,
+        trade_info, extracted_trade_data, instrument_code=arg_not_supplied,strategy_name="",parent=no_parent,side_price=arg_not_supplied,
+            mid_price=arg_not_supplied,offside_price=arg_not_supplied
     ):
         sec_type = extracted_trade_data.contract.mills_sectype
 
@@ -206,8 +207,10 @@ class millsBrokerOrder(brokerOrder):
             broker_permid=broker_permid,
             broker_tempid=broker_tempid,
             broker_clientid=broker_clientid,
-            submit_datetime=submit_datetime
-
+            submit_datetime=submit_datetime,
+            side_price=side_price,
+            mid_price=mid_price,
+            offside_price=offside_price
         )
 
         broker_order.broker_objects = broker_objects
@@ -249,15 +252,13 @@ class millsOrderWithControls(orderWithControls):
             strategy_name = broker_order.key.split("/")[0]
             parent = broker_order.parent
         mills_broker_order = millsBrokerOrder.from_broker_trade_object(
-                trade_info, instrument_code=instrument_code,strategy_name=strategy_name,parent=parent
+                trade_info, instrument_code=instrument_code,strategy_name=strategy_name,parent=parent,side_price=broker_order.side_price,
+            mid_price=broker_order.mid_price,offside_price=broker_order.offside_price
         )
         if mills_broker_order is missing_order:
             raise millsOrderCouldntCreateException()
         self._connectionMills=connectionMills
         self._orgin_broker_order = broker_order
-        mills_broker_order.side_price= broker_order.side_price
-        mills_broker_order.mid_price= broker_order.mid_price
-        mills_broker_order.offside_price = broker_order.offside_price
         super().__init__(broker_order=mills_broker_order, control_object=order, ticker_object=ticker_object)
 
 
