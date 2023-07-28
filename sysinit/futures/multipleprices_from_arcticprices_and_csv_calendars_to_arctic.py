@@ -200,8 +200,8 @@ if __name__ == "__main__":
     csv_multiple_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/multiple_data"
 
     # only change if you have written the files elsewhere
-    name = "玉米淀粉"
-    code = "CORNSTARCH"
+    name = "花生"
+    code = "PK"
     # csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/GLD_FTX"
 
     csv_roll_data_path = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/rollcalendars"

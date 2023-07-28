@@ -248,12 +248,19 @@ class millsOrderWithControls(orderWithControls):
         # and stage two
         strategy_name = ''
         parent = no_parent
+        side_price = None;
+        mid_price = None;
+        offside_price = None;
+
         if broker_order is not None:
             strategy_name = broker_order.key.split("/")[0]
             parent = broker_order.parent
+            side_price = broker_order.side_price
+            mid_price = broker_order.mid_price
+            offside_price = broker_order.offside_price
         mills_broker_order = millsBrokerOrder.from_broker_trade_object(
-                trade_info, instrument_code=instrument_code,strategy_name=strategy_name,parent=parent,side_price=broker_order.side_price,
-            mid_price=broker_order.mid_price,offside_price=broker_order.offside_price
+                trade_info, instrument_code=instrument_code,strategy_name=strategy_name,parent=parent,side_price=side_price,
+            mid_price=mid_price,offside_price=offside_price
         )
         if mills_broker_order is missing_order:
             raise millsOrderCouldntCreateException()

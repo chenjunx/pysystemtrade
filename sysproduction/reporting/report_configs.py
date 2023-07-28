@@ -61,7 +61,7 @@ daily_pandl_report_config = reportConfig(
 month_pandl_report_config = reportConfig(
     title="Month P&L report",
     function="sysproduction.reporting.pandl_report.pandl_report",
-    calendar_days_back=30,
+    calendar_days_back=31,
     output="email"
 )
 

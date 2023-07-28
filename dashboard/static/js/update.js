@@ -363,7 +363,7 @@ function update_rolls() {
           <td>${details['price_expiry']}</td>
           <td>${details['contract_priced']}</td>
           <td>${details['contract_fwd']}</td>
-          <td>${parseFloat(details['volume_fwd']).toFixed(3)}</td>
+          <td>${parseFloat(details['relative_volume_fwd']).toFixed(3)}</td>
           <td>${details['position_priced']}</td>
           <td>${buttons}</td>
           </tr>`);

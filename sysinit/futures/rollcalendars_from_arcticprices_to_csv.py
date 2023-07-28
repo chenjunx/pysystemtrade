@@ -143,4 +143,4 @@ if __name__ == "__main__":
     # build_and_write_roll_calendar("BNB_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/BNB_FTX")
     # build_and_write_roll_calendar("LINK_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/LINK_FTX")
     # build_and_write_roll_calendar("LTC_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/LTC_FTX")
-    build_and_write_roll_calendar("GLD_FTX", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/barchart/rollcalendars/GLD_FTX")
+    build_and_write_roll_calendar("PK", output_datapath="/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/花生/rollcalendars/")

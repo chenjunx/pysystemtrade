@@ -19,7 +19,7 @@ def get_list_of_timer_functions_for_stack_handler():
         # ("spawn_children_from_new_instrument_orders", stack_handler),
         # ("generate_force_roll_orders", stack_handler),
         # ("create_broker_orders_from_contract_orders", stack_handler),
-        ("process_fills_stack", stack_handler),
+        # ("process_fills_stack", stack_handler),
         ("handle_completed_orders", stack_handler),
         ("safe_stack_removal", stack_handler),
         ("refresh_additional_sampling_all_instruments", stack_handler),
