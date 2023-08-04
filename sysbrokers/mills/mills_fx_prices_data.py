@@ -9,7 +9,9 @@ from sysbrokers.mills.mills_connection import connectionMills
 from datetime import datetime
 from sysdata.data_blob import dataBlob
 
-from syscore.constants import  missing_file
+
+from syscore.exceptions import missingContract, missingData,missingFile
+
 
 Mills_CCY_CONFIG_FILE = resolve_path_and_filename_for_package("sysbrokers.mills.mills_config_spot_FX.csv")
 
@@ -22,8 +24,9 @@ class millsFxPricesData(brokerFxPricesData):
 
     #从配置中读取外汇配置
     def get_list_of_fxcodes(self) -> list:
-        config_data = self._get_mills_fx_config()
-        if config_data is missing_file:
+        try:
+            config_data = self._get_mills_fx_config()
+        except missingFile:
             self.log.warn("Can't get list of fxcodes for mills as config file missing")
             return []
         list_of_codes = list(config_data.CODE)
@@ -65,9 +68,9 @@ class millsFxPricesData(brokerFxPricesData):
 
         try:
             config_data = pd.read_csv(Mills_CCY_CONFIG_FILE)
-        except BaseException:
+        except Exception as e:
             self.log.warn("Can't read file %s" % Mills_CCY_CONFIG_FILE)
-            config_data = missing_file
+            raise missingFile from e
 
         self._config = config_data
 

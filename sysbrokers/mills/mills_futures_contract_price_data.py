@@ -1,5 +1,5 @@
 from sysbrokers.broker_futures_contract_price_data import brokerFuturesContractPriceData
-from syscore.constants import missing_data
+from syscore.exceptions import missingContract, missingData
 
 from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.orders.contract_orders import contractOrder
@@ -49,6 +49,7 @@ class millsTickerObject(tickerObject):
         super().__init__(ticker, qty=qty)
 
     def refresh(self):
+
         tick_data = self._connection_Mills.query_ask_bid_data(self._order.futures_contract)
         tick_data = tick_data[0]
         self.ticker['bid'] = tick_data['priceBid']
@@ -112,17 +113,21 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
 
     def get_prices_at_frequency_for_contract_object(self, contract_object: futuresContract, frequency: Frequency,
                                                     return_empty: bool = True):
-        prices = self._get_prices_at_frequency_for_contract_object_no_checking(
-            contract_object=contract_object,
-            freq=frequency
-        )
-        if prices is missing_data:
+        try:
+            prices = self._get_prices_at_frequency_for_contract_object_no_checking(
+                contract_object=contract_object, freq=frequency
+            )
+        except missingData:
             if return_empty:
                 return futuresContractPrices.create_empty()
             else:
-                return missing_data
+                raise
 
         return prices
+
+
+
+
 
     def write_merged_prices_for_contract_object(self, futures_contract_object: futuresContract,
                                                 futures_price_data: futuresContractPrices, ignore_duplication=False):
@@ -194,8 +199,29 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
         ticker_object = millsTickerObject(tick_object,qty,self._connection_Mills,order)
         return ticker_object
 
+    def get_ticker_object_for_contract(self, contract: futuresContract) -> tickerObject:
+        tick_data = self._connection_Mills.query_ask_bid_data(contract)
+        tick_data = tick_data[0]
+        tick_object = {}
+        order = {}
+        tick_object['time'] = tick_data['time']
+        tick_object['bid'] = tick_data['priceBid']
+        tick_object['bidSize'] = tick_data['sizeBid']
+        tick_object['ask'] = tick_data['priceAsk']
+        tick_object['askSize'] = tick_data['sizeAsk']
+        from types import SimpleNamespace
+        order['futures_contract'] = contract
+        obj = SimpleNamespace(**order)
+        ticker_object = millsTickerObject(tick_object,qty= 1, _connection_Mills=self._connection_Mills, order=obj)
+        return ticker_object
+
     def cancel_market_data_for_order(self, order: brokerOrder):
+        # self.log.warn('没必要取消订阅!')
         pass
+
+    def cancel_market_data_for_contract(self, contract: futuresContract):
+        self.log.warn('没必要取消订阅!')
+        # pass
 
 
     def get_recent_bid_ask_tick_data_for_contract_object(self,
@@ -251,6 +277,7 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
                 % str(price_data)
             )
             price_data = futuresContractPrices.create_empty()
+            raise missingData
         else:
             df = pd.read_json(price_data, encoding = "utf-8", orient = 'records')
 
