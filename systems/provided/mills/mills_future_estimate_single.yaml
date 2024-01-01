@@ -712,25 +712,25 @@ forecast_weights:
     RM:
          breakout10: 0.00
          breakout20: 0.0
-         breakout40: 0.03
-         breakout80: 0.04
-         breakout160: 0.01
-         relmomentum10: 0.05
-         relmomentum20: 0.05
-         relmomentum40: 0.05
-         relmomentum80: 0.05
-         accel16: 0.04
-         accel32: 0.05
-         accel64: 0.05
-         normmom16: 0.04
+         breakout40: 0.04
+         breakout80: 0.05
+         breakout160: 0.02
+         relmomentum10: 0.06
+         relmomentum20: 0.06
+         relmomentum40: 0.06
+         relmomentum80: 0.06
+         accel16: 0.05
+         accel32: 0.06
+         accel64: 0.06
+         normmom16: 0.05
          normmom2: 0.0
-         normmom32: 0.04
+         normmom32: 0.05
          normmom4: 0.0
-         normmom64: 0.04
-         normmom8: 0.01
-         carry10: 0.15
-         carry30: 0.15
-         carry60: 0.15
+         normmom64: 0.05
+         normmom8: 0.03
+         carry10: 0.10
+         carry30: 0.10
+         carry60: 0.10
          assettrend2:  0.00
          assettrend4: 0.00
          assettrend8:  0.00
@@ -778,39 +778,48 @@ forecast_weights:
       skewrv180: 0.05
     AP:
       # .16
-      breakout10: 0.01
-      breakout20: 0.04
-      breakout40: 0.04
-      breakout80: 0.02
-      breakout160: 0.027
+      breakout10: 0.025
+      breakout20: 0.025
+      breakout40: 0.025
+      breakout80: 0.025
+      breakout160: 0.025
       # .15
-      relmomentum10: 0.03
-      relmomentum20: 0.05
-      relmomentum40: 0.05
-      relmomentum80: 0.02
+      # relmomentum10: 0.03
+      # relmomentum20: 0.05
+      # relmomentum40: 0.05
+      # relmomentum80: 0.02
       # .16
-      accel16: 0.06
-      accel32: 0.05
-      accel64: 0.05
+      accel16: 0.025
+      accel32: 0.025
+      accel64: 0.025
       # .165
-      normmom16: 0.03
+      normmom16: 0.025
       normmom2: 0.025
-      normmom32: 0.027
+      normmom32: 0.025
       normmom4: 0.025
-      normmom64: 0.027
-      normmom8: 0.03
+      normmom64: 0.025
+      normmom8: 0.025
       # .15
-      carry10: 0.027
-      carry30: 0.027
-      carry60: 0.027
+      carry10: 0.06
+      carry30: 0.07
+      carry60: 0.07
       # .165
-      assettrend2: 0.022
-      assettrend4: 0.0
-      assettrend8: 0.022
-      assettrend16: 0.036
-      assettrend32: 0.035
-      assettrend64: 0.031
-      relcarry: 0.05
+      # assettrend2: 0.031
+      # assettrend4: 0.0
+      # assettrend8: 0.036
+      # assettrend16: 0.036
+      # assettrend32: 0.035
+      # assettrend64: 0.031
+      # relcarry: 0.05
+      skewabs14: 0.07
+      skewabs365: 0.025
+      skewabs180: 0.05
+      skewabs30: 0.07
+      skewabs90: 0.05
+      skewrv365: 0.025
+      skewrv180: 0.05
+      skewrv90: 0.05
+      skewrv30: 0.06
     p:
       # .16
       breakout10: 0.022
@@ -850,6 +859,82 @@ forecast_weights:
       skewrv365: 0.0625
       skewabs365: 0.0625
       skewrv180: 0.0625
+    FU:
+         breakout10: 0.0
+         breakout20: 0.0
+         breakout40: 0.0
+         breakout80: 0.06
+         breakout160: 0.07
+         relmomentum10: 0.0
+         relmomentum20: 0.0
+         relmomentum40: 0.0
+         relmomentum80: 0.0
+         accel16: 0.0
+         accel32: 0.0
+         accel64: 0.06
+         normmom16: 0.0
+         normmom2: 0.0
+         normmom32: 0.0
+         normmom4: 0.0
+         normmom64: 0.06
+         normmom8: 0.06
+         carry10: 0.0
+         carry30: 0.0
+         carry60: 0.06
+         assettrend2:  0.0
+         assettrend4: 0.0
+         assettrend8:  0.0
+         assettrend16:  0.0
+         assettrend32:  0.0
+         assettrend64:  0.0
+         relcarry:  0
+         skewabs14: 0.07
+         skewabs365: 0.07
+         skewabs180: 0.07
+         skewabs30: 0.07
+         skewabs90: 0.07
+         skewrv365: 0.07
+         skewrv180: 0.07
+         skewrv90: 0.07
+         skewrv30: 0.07
+    UR:
+         breakout10: 0.027
+         breakout20: 0.027
+         breakout40: 0.027
+         breakout80: 0.025
+         breakout160: 0.025
+         # relmomentum10: 0.03
+         # relmomentum20: 0.03
+         # relmomentum40: 0.075
+         # relmomentum80: 0.02
+         accel16: 0.027
+         accel32: 0.025
+         accel64: 0.025
+         normmom16: 0.025
+         normmom2: 0.027
+         normmom32: 0.025
+         normmom4: 0.027
+         normmom64: 0.025
+         normmom8: 0.0277
+         carry10: 0.04
+         carry30: 0.04
+         carry60: 0.04
+         assettrend2: 0.027
+#          assettrend4: 0.0
+         assettrend8: 0.027
+         assettrend16: 0.025
+         assettrend32: 0.025
+         assettrend64: 0.025
+         relcarry: 0.05
+         skewabs14: 0.04
+         skewabs365: 0.04
+         skewabs180: 0.025
+         skewabs30: 0.04
+         skewabs90: 0.04
+         skewrv365: 0.04
+         skewrv180: 0.025
+         skewrv90: 0.04
+         skewrv30: 0.04
 use_forecast_weight_estimates: False
 forecast_div_multiplier: 1.4
 use_forecast_div_mult_estimates: False
@@ -877,7 +962,7 @@ use_instrument_weight_estimates: True
 #   SR: 0.05
 instrument_div_multiplier: 2.0
 # instruments: ["POLYETHYLENE","HC","JD","RB","CORNSTARCH","PVC","PP","SoybeanMeal","MAIZE","FG","TA","MA","SR","FU"]
-instruments: ["FG","RB","JD","p","CORNSTARCH","MA","RM","SR"]
+instruments: ["FG","AP","JD","p","CORNSTARCH","MA","RM","SR","UR"]
 use_SR_costs: True
 #use_instrument_div_mult_estimates: True
 start_date: 2014-01-01

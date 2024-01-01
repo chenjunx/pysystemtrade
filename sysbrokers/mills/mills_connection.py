@@ -32,10 +32,8 @@ class connectionMills(object):
 
     #获取汇率数据
     def query_fx_Data(self):
-        url = "https://v6.exchangerate-api.com/v6/25c26574f2eac4a80b0def3c/latest/CNY"
-        res = requests.get(url)
-        print(res.text)
-        jsonData = orjson.loads(res.text)
+        res = self.send_get("/api/allforexinfo?base_code=CNY")
+        jsonData = orjson.loads(res)
         return jsonData
 
     #查询期货信息

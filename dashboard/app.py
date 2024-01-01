@@ -118,12 +118,35 @@ def pandl():
 
     data_capital = dataCapital()
 
-    all_calcs = data_capital.get_series_of_all_global_capital().tail(10)
+    all_calcs = data_capital.get_series_of_all_global_capital()
     all_calcs['time'] = all_calcs.index
+    daily_percentage_change = all_calcs['Accumulated'].pct_change() * 100
+    all_calcs['daily_percentage_change'] = daily_percentage_change
+    all_calcs['cumulative'] = all_calcs['daily_percentage_change'].cumsum()
     pandl_data[
         "captials_pandl"
     ] = all_calcs.to_dict(orient="records")
     return pandl_data
+
+
+@app.route("/pl")
+def pl():
+    pandl_data = {}
+    data_capital = dataCapital()
+
+    # This is for 'non compounding' p&l
+    total_pandl_series = data_capital.get_series_of_accumulated_capital()
+    daily_pandl_series = total_pandl_series.ffill().diff()
+
+    all_capital = data_capital.get_series_of_maximum_capital()
+
+    perc_pandl_series = daily_pandl_series / all_capital * 100
+    df = perc_pandl_series.to_frame()
+    daily_df = df.resample("1B").sum()
+    # pandl_data[
+    #     "captials_pandl"
+    # ] = perc_pandl_series.to_dict(orient="records")
+    return daily_df.ffill().cumsum().to_json()
 
 
 @app.route("/processes")

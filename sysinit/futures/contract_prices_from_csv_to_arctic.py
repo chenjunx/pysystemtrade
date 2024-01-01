@@ -56,7 +56,7 @@ if __name__ == "__main__":
     # input("Will overwrite existing prices are you sure?! CTL-C to abort")
     # modify flags as required
     # datapath = "*** NEED TO DEFINE A DATAPATH***"
-    name = "PK"
+    name = "IM"
     csv_config=  ConfigCsvFuturesPrices(input_date_index_name="Time",input_date_format='%Y%m%d',
                            input_column_mapping=dict(OPEN='OPEN',
                                                      HIGH='HIGH',
@@ -64,6 +64,6 @@ if __name__ == "__main__":
                                                      FINAL='FINAL',
                                                      VOLUME='VOLUME'
                                                      ))
-    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/花生/"
+    datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/IM/"
     # datapath = "/Users/xiachenjun/workfile/trade/mills/millstrader_data/国内期货/"+name+"/temp"
     init_arctic_with_csv_futures_contract_prices(datapath,csv_config=csv_config)
