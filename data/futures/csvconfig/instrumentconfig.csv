@@ -585,14 +585,14 @@ YENEUR,YENEUR currency,125000,JPY,FX,85,0,0,US
 YENEUR-ICE,EUR.JPY,125000,JPY,FX,0,0,0,US
 ZAR,South African Rand,500000,USD,FX,2.5,0,0,US
 ZINC_LME,Zinc - LME,25,USD,Metals,0,0,0,EMEA
-AP,郑商所苹果,10,CNH,Ags,16,0,0,ASIA
-B,大商所豆二,10,CNH,Ags,11.1,0,0,ASIA
-CF,郑商所棉花,5,CNH,Ags,30,0,0,ASIA
-CJ,郑商所红枣,5,CNH,Ags,28,0,0,ASIA
-CORNSTARCH,大商所玉米淀粉,10,CNH,Ags,11.65,0,0,ASIA
-CY,郑商所棉纱,5,CNH,Ags,30,0,0,ASIA
-FG,郑商所玻璃,20,CNH,Chemical,20.6,0,0,ASIA
-FU,上期所燃油,10,CNH,OilGas,23,0,0,ASIA
+AP,郑商所苹果,10,CNH,Ags,0,0,25,ASIA
+B,大商所豆二,10,CNH,Ags,0,0,2,ASIA
+CF,郑商所棉花,5,CNH,Ags,0,0,4.3,ASIA
+CJ,郑商所红枣,5,CNH,Ags,0,0,20,ASIA
+CORNSTARCH,大商所玉米淀粉,10,CNH,Ags,0,0,3,ASIA
+CY,郑商所棉纱,5,CNH,Ags,0,0,4,ASIA
+FG,郑商所玻璃,20,CNH,Chemical,0,0,12,ASIA
+FU,上期所燃油,10,CNH,OilGas,0,0.0011,0,ASIA
 HC,上期所热卷,10,CNH,Black,50,0,0,ASIA
 JD,大商所鸡蛋,10,CNH,Ags,11.7,0,0,ASIA
 MA,郑商所甲醇,10,CNH,Chemical,12.1,0,0,ASIA
