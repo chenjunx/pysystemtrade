@@ -1,2 +1,2 @@
 . ~/.profile
-python3 $SCRIPT_PATH/run.py $1
+/usr/local/bin/python3 $SCRIPT_PATH/run.py $1
