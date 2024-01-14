@@ -327,7 +327,13 @@ trading_rules:
       _factor_name: 'neg_skew'
       _demean_method: 'average_factor_value_in_asset_class_for_instrument'
       _lookback_days: 90
-
+  mrinasset1000:
+     function: systems.provided.rules.cs_mr.cross_sectional_mean_reversion
+     data:
+         - "rawdata.get_cumulative_daily_vol_normalised_returns"
+         - "rawdata.normalised_price_for_asset_class"
+     other_args:
+       horizon: 1000
 use_forecast_scale_estimates: True
 forecast_scalar_estimate:
    pool_instruments: True
@@ -406,65 +412,72 @@ forecast_weights:
 #      carry60: 0.1
     MA:
         # .25
-         breakout10: 0.0
-         breakout20: 0.04
-         breakout40: 0.06
-         breakout80: 0.07
-         breakout160: 0.05
+         breakout10: 0.05
+         breakout20: 0.025
+         breakout40: 0.025
+         breakout80: 0.05
+         breakout160: 0.033
          # .15
 #          relmomentum10: 0.05
 #          relmomentum20: 0.05
 #          relmomentum40: 0.05
 #          relmomentum80: 0
          # .25
-         accel16: 0.155
-         accel32: 0.165
+         accel16: 0.05
+         accel32: 0.025
 #          accel64: 0.05
          # .25
-         normmom16: 0.08
+         normmom16: 0.05
 #          normmom2: 0.025
-         normmom32: 0.07
-         normmom4: 0.0
-         normmom64: 0.06
-         normmom8: 0.0
+         normmom32: 0.033
+         normmom4: 0.025
+         normmom64: 0.034
+         normmom8: 0.025
          # .15
 #          carry10: 0.0
 #          carry30: 0.0
 #          carry60: 0.0
          # .25
-         assettrend2: 0.0
-         assettrend4: 0.0
+         assettrend2: 0.05
+         assettrend4: 0.05
          assettrend8: 0.06
-         assettrend16: 0.09
-         assettrend32: 0.1
+         assettrend16: 0.05
+         assettrend32: 0.033
+         momentum32: 0.033
+         momentum64: 0.033
+         momentum4: 0.025
+         momentum8: 0.025
+         momentum16: 0.05
+         skewabs30: 0.1
+         skewrv30: 0.1
     JD:
         # .2
 #          breakout10: 0
-         breakout20: 0.05
-         breakout40: 0.05
-         breakout80: 0.05
-         breakout160: 0.05
+         breakout20: 0.028
+         breakout40: 0.04
+         breakout80: 0.028
+         breakout160: 0.022
          # .15
-#          relmomentum10: 0.05
-#          relmomentum20: 0.05
-#          relmomentum40: 0.05
-#          relmomentum80: 0
+         relmomentum10: 0.028
+         relmomentum20: 0.028
+         relmomentum40: 0.04
+         relmomentum80: 0.022
          # .2
-         accel16: 0.1
-         accel32: 0.1
+         accel16: 0.028
+         accel32: 0.04
 #          accel64: 0.05
          # .2
-         normmom16: 0.03
+         normmom16: 0.022
 #          normmom2: 0.025
-         normmom32: 0.04
+         normmom32: 0.022
          normmom4: 0.01
-         normmom64: 0.04
-         normmom8: 0.03
+         normmom64: 0.06
+         normmom8: 0.04
          # .1
-         carry10: 0.05
-         carry30: 0.05
-         carry60: 0.05
-         relcarry: 0.05
+         carry10: 0.066
+         carry30: 0.066
+         carry60: 0.067
+         relcarry: 0.067
          # .2
          assettrend2: 0.0
 #          assettrend4: 0.0
@@ -473,6 +486,14 @@ forecast_weights:
          assettrend32: 0.03
          assettrend64: 0.03
          relcarry: 0.13
+         momentum8: 0.04
+         momentum16: 0.022
+         momentum32: 0.022
+         momentum64: 0.06
+         skewabs365: 0.022
+         skewrv365: 0.023
+         skewrv180: 0.029
+         skewabs180: 0.029
     SPY_FTX:
         accel16: 0.02
         accel32: 0.02
@@ -510,39 +531,47 @@ forecast_weights:
         relmomentum80: 0.04
     FG:
         # .16
-         breakout10: 0
-         breakout20: 0.08
-         breakout40: 0.08
-         breakout80: 0
-         breakout160: 0
+         breakout10: 0.028
+         breakout20: 0.028
+         breakout40: 0.028
+         breakout80: 0.033
+         breakout160: 0.033
          # .15
-         relmomentum10: 0.05
-         relmomentum20: 0.05
-         relmomentum40: 0.05
-         relmomentum80: 0
+         relmomentum10: 0.025
+         relmomentum20: 0.025
+         relmomentum40: 0.025
+         relmomentum80: 0.025
          # .16
-         accel16: 0.06
-         accel32: 0.05
-         accel64: 0.05
+         accel16: 0.028
+         accel32: 0.028
+         accel64: 0.033
          # .165
-         normmom16: 0.03
-         normmom2: 0.025
-         normmom32: 0.03
-         normmom4: 0.025
+         normmom16: 0.028
+         normmom2: 0.028
+         normmom32: 0.033
+         normmom4: 0.028
          normmom64: 0.025
-         normmom8: 0.03
+         normmom8: 0.028
          # .15
-         carry10: 0.05
-         carry30: 0.05
-         carry60: 0.05
+         carry10: 0.025
+         carry30: 0.025
+         carry60: 0.025
          # .165
-         assettrend2: 0.0
-         assettrend4: 0.0
-         assettrend8: 0.03
-         assettrend16: 0.05
-         assettrend32: 0.045
-         assettrend64: 0.03
-         relcarry: 0.06
+         assettrend2: 0.028
+         assettrend4: 0.028
+         assettrend8: 0.028
+         assettrend16: 0.033
+         assettrend32: 0.025
+         assettrend64: 0.025
+         relcarry: 0.025
+         momentum8: 0.028
+         momentum16: 0.028
+         momentum32: 0.033
+         momentum64: 0.025
+         skewabs30: 0.025
+         skewabs90: 0.025
+         skewrv30: 0.025
+         skewrv90: 0.025
     CORNSTARCH:
          breakout10: 0.0
          breakout20: 0.045
@@ -740,30 +769,30 @@ forecast_weights:
     SR:
       # .16
       #          breakout10: 0.00
-      breakout20: 0.0
-      breakout40: 0.04
-      breakout80: 0.06
-      breakout160: 0.02
+      # breakout20: 0.0
+      breakout40: 0.033
+      breakout80: 0.033
+      breakout160: 0.033
       # .15
       relmomentum10: 0.06
       relmomentum20: 0.06
-      relmomentum40: 0.07
-      relmomentum80: 0.07
+      relmomentum40: 0.034
+      relmomentum80: 0.034
       # .16
       #          accel16: 0.06
-      accel32: 0.05
-      accel64: 0.05
+      accel32: 0.1
+      accel64: 0.033
       # .165
-      normmom16: 0.03
+      normmom16: 0.033
       #          normmom2: 0.025
-      normmom32: 0.04
-      normmom4: 0.0
-      normmom64: 0.03
-      normmom8: 0.02
+      normmom32: 0.033
+      # normmom4: 0.0
+      normmom64: 0.034
+      # normmom8: 0.02
       # .15
-      carry10: 0.03
-      carry30: 0.03
-      carry60: 0.04
+      carry10: 0.066
+      carry30: 0.066
+      carry60: 0.067
       # .165
       # assettrend2: 0.031
       #          assettrend4: 0.0
@@ -772,93 +801,102 @@ forecast_weights:
       # assettrend32: 0.035
       # assettrend64: 0.031
       #         relcarry: 0.05
-      skewabs180: 0.05
       skewrv365: 0.1
       skewabs365: 0.1
-      skewrv180: 0.05
+      momentum32: 0.033
+      momentum64: 0.033
+      mrinasset1000: 0.1
+      momentum16: 0.033
     AP:
       # .16
-      breakout10: 0.025
-      breakout20: 0.025
-      breakout40: 0.025
-      breakout80: 0.025
-      breakout160: 0.025
+      breakout10: 0.022
+      breakout20: 0.022
+      breakout40: 0.022
+      breakout80: 0.022
+      breakout160: 0.022
       # .15
       # relmomentum10: 0.03
       # relmomentum20: 0.05
       # relmomentum40: 0.05
       # relmomentum80: 0.02
       # .16
-      accel16: 0.025
-      accel32: 0.025
-      accel64: 0.025
-      # .165
-      normmom16: 0.025
-      normmom2: 0.025
-      normmom32: 0.025
-      normmom4: 0.025
-      normmom64: 0.025
-      normmom8: 0.025
-      # .15
-      carry10: 0.06
-      carry30: 0.07
-      carry60: 0.07
-      # .165
-      # assettrend2: 0.031
-      # assettrend4: 0.0
-      # assettrend8: 0.036
-      # assettrend16: 0.036
-      # assettrend32: 0.035
-      # assettrend64: 0.031
-      # relcarry: 0.05
-      skewabs14: 0.07
-      skewabs365: 0.025
-      skewabs180: 0.05
-      skewabs30: 0.07
-      skewabs90: 0.05
-      skewrv365: 0.025
-      skewrv180: 0.05
-      skewrv90: 0.05
-      skewrv30: 0.06
-    p:
-      # .16
-      breakout10: 0.022
-      breakout20: 0.022
-      breakout40: 0.035
-      breakout80: 0.035
-      breakout160: 0.027
-      # .15
-      relmomentum10: 0.022
-      relmomentum20: 0.022
-      relmomentum40: 0.035
-      relmomentum80: 0.035
-      # .16
       accel16: 0.022
       accel32: 0.022
-      accel64: 0.035
+      accel64: 0.023
       # .165
-      normmom16: 0.035
+      normmom16: 0.022
       normmom2: 0.022
-      normmom32: 0.027
+      normmom32: 0.022
       normmom4: 0.022
-      normmom64: 0.027
+      normmom64: 0.04
       normmom8: 0.022
       # .15
-      carry10: 0.027
-      carry30: 0.027
-      carry60: 0.027
+      carry10: 0.04
+      carry30: 0.04
+      carry60: 0.04
       # .165
-      assettrend2: 0.022
-      assettrend4: 0.022
-      assettrend8: 0.036
-      assettrend16: 0.035
-      assettrend32: 0.027
-      assettrend64: 0.027
-      relcarry: 0.027
-      skewabs180: 0.0625
-      skewrv365: 0.0625
-      skewabs365: 0.0625
-      skewrv180: 0.0625
+      assettrend2: 0.05
+      assettrend4: 0.05
+      assettrend8: 0.05
+      assettrend16: 0.05
+      assettrend32: 0.022
+      assettrend64: 0.022
+      # relcarry: 0.05
+      skewabs14: 0.022
+      skewabs365: 0.022
+      skewabs180: 0.022
+      skewabs30: 0.022
+      skewabs90: 0.022
+      skewrv365: 0.022
+      skewrv180: 0.022
+      skewrv90: 0.022
+      skewrv30: 0.023
+      momentum8: 0.022
+      momentum16: 0.022
+      momentum32: 0.022
+      momentum64: 0.04
+    p:
+      breakout10: 0.025
+      breakout20: 0.025
+      breakout40: 0.016
+      breakout80: 0.016
+      breakout160: 0.016
+      relmomentum10: 0.025
+      relmomentum20: 0.025
+      relmomentum40: 0.016
+      relmomentum80: 0.017
+      accel16: 0.025
+      accel32: 0.025
+      accel64: 0.016
+      normmom16: 0.016
+      normmom2: 0.025
+      normmom32: 0.016
+      normmom4: 0.025
+      normmom64: 0.033
+      normmom8: 0.016
+      carry10: 0.033
+      carry30: 0.033
+      carry60: 0.033
+      assettrend2: 0.033
+      assettrend4: 0.033
+      assettrend8: 0.033
+      assettrend16: 0.033
+      assettrend32: 0.033
+      assettrend64: 0.034
+      relcarry: 0.034
+      skewabs14: 0.022
+      skewabs180: 0.022
+      skewabs30: 0.022
+      skewrv365: 0.022
+      skewabs365: 0.022
+      skewabs90: 0.022
+      skewabs90: 0.023
+      skewrv90: 0.022
+      skewrv180: 0.022
+      momentum16: 0.016
+      momentum32: 0.016
+      momentum8: 0.016
+      momentum64: 0.033
     FU:
          breakout10: 0.0
          breakout20: 0.0
@@ -898,43 +936,85 @@ forecast_weights:
          skewrv90: 0.07
          skewrv30: 0.07
     UR:
-         breakout10: 0.027
-         breakout20: 0.027
-         breakout40: 0.027
-         breakout80: 0.025
-         breakout160: 0.025
+         breakout10: 0.04
+         breakout20: 0.04
+         breakout40: 0.028
+         breakout80: 0.02
+         breakout160: 0.02
          # relmomentum10: 0.03
          # relmomentum20: 0.03
          # relmomentum40: 0.075
          # relmomentum80: 0.02
-         accel16: 0.027
-         accel32: 0.025
-         accel64: 0.025
-         normmom16: 0.025
-         normmom2: 0.027
-         normmom32: 0.025
-         normmom4: 0.027
-         normmom64: 0.025
-         normmom8: 0.0277
-         carry10: 0.04
-         carry30: 0.04
-         carry60: 0.04
-         assettrend2: 0.027
+         accel16: 0.028
+         accel32: 0.028
+         accel64: 0.02
+         normmom16: 0.028
+         normmom2: 0.04
+         normmom32: 0.02
+         normmom4: 0.04
+         normmom64: 0.02
+         normmom8: 0.028
+         carry10: 0.033
+         carry30: 0.033
+         carry60: 0.033
+         assettrend2: 0.04
 #          assettrend4: 0.0
-         assettrend8: 0.027
-         assettrend16: 0.025
-         assettrend32: 0.025
-         assettrend64: 0.025
-         relcarry: 0.05
+         assettrend8: 0.028
+         assettrend16: 0.028
+         assettrend32: 0.02
+         assettrend64: 0.02
+         relcarry: 0.033
          skewabs14: 0.04
-         skewabs365: 0.04
-         skewabs180: 0.025
+         skewabs365: 0.033
+         skewabs180: 0.01
          skewabs30: 0.04
          skewabs90: 0.04
-         skewrv365: 0.04
-         skewrv180: 0.025
+         skewrv365: 0.033
+         skewrv180: 0.01
          skewrv90: 0.04
          skewrv30: 0.04
+         momentum8: 0.028
+         momentum16: 0.028
+         momentum32: 0.02
+         momentum64: 0.02
+    CF:
+        accel16: 0.025
+        assettrend2: 0.025
+        breakout10: 0.025
+        breakout20: 0.025
+        normmom2: 0.025
+        normmom4: 0.025
+        relmomentum10: 0.025
+        relmomentum20: 0.025
+        accel64: 0.025
+        breakout160: 0.025
+        momentum32: 0.025
+        momentum64: 0.025
+        normmom32: 0.025
+        normmom64: 0.025
+        relmomentum40: 0.025
+        relmomentum80: 0.025
+        skewabs180: 0.028
+        skewabs365: 0.029
+        skewrv180: 0.028
+        skewrv30: 0.028
+        skewabs30: 0.028
+        skewrv365: 0.029
+        skewabs90: 0.028
+        accel32: 0.022
+        assettrend16: 0.022
+        assettrend8: 0.022
+        breakout40: 0.022
+        breakout80: 0.023
+        momentum16: 0.022
+        momentum8: 0.022
+        normmom16: 0.022
+        normmom8: 0.022
+        assettrend32: 0.04
+        assettrend64: 0.04
+        carry10: 0.04
+        carry30: 0.04
+        carry60: 0.04
 use_forecast_weight_estimates: False
 forecast_div_multiplier: 1.4
 use_forecast_div_mult_estimates: False
