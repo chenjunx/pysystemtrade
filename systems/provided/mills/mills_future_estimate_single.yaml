@@ -1040,9 +1040,9 @@ use_instrument_weight_estimates: True
 #   TA: 0.05
 #   MA: 0.05
 #   SR: 0.05
-instrument_div_multiplier: 2.0
+# instrument_div_multiplier: 2.0
 # instruments: ["POLYETHYLENE","HC","JD","RB","CORNSTARCH","PVC","PP","SoybeanMeal","MAIZE","FG","TA","MA","SR","FU"]
 instruments: ["FG","AP","JD","p","CORNSTARCH","MA","RM","SR","UR"]
 use_SR_costs: True
-#use_instrument_div_mult_estimates: True
+use_instrument_div_mult_estimates: True
 start_date: 2014-01-01
