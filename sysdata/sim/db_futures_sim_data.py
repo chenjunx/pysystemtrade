@@ -9,11 +9,11 @@ from sysdata.parquet.parquet_adjusted_prices import parquetFuturesAdjustedPrices
 from sysdata.parquet.parquet_multiple_prices import parquetFuturesMultiplePricesData
 from sysdata.parquet.parquet_spotfx_prices import parquetFxPricesData
 
-"""
+
 from sysdata.arctic.arctic_adjusted_prices import arcticFuturesAdjustedPricesData
 from sysdata.arctic.arctic_multiple_prices import arcticFuturesMultiplePricesData
 from sysdata.arctic.arctic_spotfx_prices import arcticFxPricesData
-"""
+
 
 from sysdata.csv.csv_instrument_data import csvFuturesInstrumentData
 from sysdata.csv.csv_roll_parameters import csvRollParametersData
@@ -67,11 +67,11 @@ def get_class_for_data_type(data_type: str):
 
 
 use_sim_classes = {
-    FX_DATA: parquetFxPricesData,
+    FX_DATA: arcticFxPricesData,
     ROLL_PARAMETERS_DATA: csvRollParametersData,
     FUTURES_INSTRUMENT_DATA: csvFuturesInstrumentData,
-    FUTURES_MULTIPLE_PRICE_DATA: parquetFuturesMultiplePricesData,
-    FUTURES_ADJUSTED_PRICE_DATA: parquetFuturesAdjustedPricesData,
+    FUTURES_MULTIPLE_PRICE_DATA: arcticFuturesMultiplePricesData,
+    FUTURES_ADJUSTED_PRICE_DATA: arcticFuturesAdjustedPricesData,
     STORED_SPREAD_DATA: mongoSpreadCostData,
 }
 
