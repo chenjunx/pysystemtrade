@@ -14,6 +14,7 @@ from sysdata.data_blob import dataBlob
 
 from syslogdiag.log_to_screen import logtoscreen
 from syscore.dateutils import from_config_frequency_pandas_resample
+from syslogging.logger import *
 
 import pandas as pd
 from datetime import datetime
@@ -71,7 +72,7 @@ class millsTickerObject(tickerObject):
         return self.ticker['askSize']
 
 class millsFuturesContractPriceData(brokerFuturesContractPriceData):
-    def __init__(self, connection_Mills: connectionMills,data: dataBlob, log=logtoscreen("millsFuturesContractPriceData")):
+    def __init__(self, connection_Mills: connectionMills,data: dataBlob, log=get_logger("millsFuturesContractPriceData")):
         self._connection_Mills = connection_Mills
         super().__init__(log=log,data=data)
 
@@ -251,9 +252,8 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
 
     def _get_prices_at_frequency_for_contract_object_no_checking(self, contract_object: futuresContract,
                                                                  freq: Frequency) -> futuresContractPrices:
-        new_log = contract_object.log(self.log)
         if not self.has_data_for_contract(contract_object):
-            new_log.warn("Can't get data for %s" % str(contract_object))
+            self.log.warn("Can't get data for %s" % str(contract_object))
             return futuresContractPrices.create_empty()
         resample_freq = from_config_frequency_pandas_resample(freq)
         timestr = ''
@@ -266,13 +266,13 @@ class millsFuturesContractPriceData(brokerFuturesContractPriceData):
             price_data = self._connection_Mills.query_historical_futures_data_for_contract_hour(contract_object)
 
         if price_data == missing_contract:
-            new_log.warn(
+            self.log.warn(
                 "Something went wrong getting mills price data for %s"
                 % str(price_data)
             )
             price_data = futuresContractPrices.create_empty()
         elif price_data == '':
-            new_log.warn(
+            self.log.warn(
                 "No mills price data found for %s"
                 % str(price_data)
             )
