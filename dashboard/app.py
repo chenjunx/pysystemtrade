@@ -332,7 +332,6 @@ def trades():
 
 @app.route("/strategy")
 def strategy():
-
     return {}
 
 
