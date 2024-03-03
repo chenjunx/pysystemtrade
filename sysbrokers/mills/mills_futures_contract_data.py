@@ -13,6 +13,9 @@ CLOSED_ALL_DAY = object()
 
 missing_contract = 'missing contract'
 
+from syslogging.logger import *
+
+
 def parse_trading_hours_string(
         trading_hours_string: str,
         adjustment_hours: int = 0,
@@ -77,7 +80,7 @@ class millsFuturesContractData(brokerFuturesContractData):
 
 
     def __init__(
-            self, connection_Mills: connectionMills, data:dataBlob,log=logtoscreen("millsFuturesContractData")
+            self, connection_Mills: connectionMills, data:dataBlob,log=get_logger("millsFuturesContractData")
     ):
         super().__init__(log=log,data=data)
         self._connection_Mills = connection_Mills
@@ -89,9 +92,8 @@ class millsFuturesContractData(brokerFuturesContractData):
                :param futures_contract: type futuresContract
                :return: YYYYMMDD or None
                """
-        log = futures_contract.specific_log(self.log)
         if futures_contract.is_spread_contract():
-            log.warn("Can't find expiry for multiple leg contract here")
+            self.log.warn("Can't find expiry for multiple leg contract here")
             raise missingContract
 
         contract_object_with_mills_data = self._connection_Mills.query_contract_info(futures_contract)
@@ -124,16 +126,15 @@ class millsFuturesContractData(brokerFuturesContractData):
          :param futures_contract:
          :return: list of paired date times
          """
-        new_log = futures_contract.log(self.log)
 
         contract_object_with_mills_data = self._connection_Mills.query_contract_info(futures_contract)
         if contract_object_with_mills_data == missing_contract:
-            new_log.msg("Can't resolve contract")
+            self.log.msg("Can't resolve contract")
             return missingContract
         trading_hours = self._connection_Mills.query_trading_hours(futures_contract)
 
         if trading_hours == missing_contract:
-            new_log.msg("No mills expiry date found")
+            self.log.msg("No mills expiry date found")
             trading_hours = []
 
         trading_hours =parse_trading_hours_string(trading_hours)
