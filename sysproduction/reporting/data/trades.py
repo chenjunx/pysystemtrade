@@ -123,7 +123,8 @@ def raw_slippage_row(order_row):
     ) = price_calculations_for_order_row(order_row)
     new_order_row = copy(order_row)
     new_order_row = new_order_row[NEW_ORDER_ROW_COLS]
-    new_order_row = new_order_row._append(
+    new_order_row = new_order_row.append(
+    # new_order_row = new_order_row._append(
         pd.Series(
             [
                 delay,
