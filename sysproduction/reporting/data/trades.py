@@ -226,7 +226,8 @@ def cash_slippage_row(slippage_row, data):
             "trade",
         ]
     ]
-    new_slippage_row = new_slippage_row._append(
+    # new_slippage_row = new_slippage_row._append(
+    new_slippage_row = new_slippage_row.append(
         pd.Series(
             [
                 value_of_price_point,
@@ -308,7 +309,8 @@ def vol_slippage_row(slippage_row, data):
             "trade",
         ]
     ]
-    new_slippage_row = new_slippage_row._append(
+    # new_slippage_row = new_slippage_row._append(
+    new_slippage_row = new_slippage_row.append(
         pd.Series(
             [
                 last_annual_vol,
@@ -402,7 +404,8 @@ def delay_row(order_row):
             "fill_datetime",
         ]
     ]
-    new_order_row = new_order_row._append(
+    # new_order_row = new_order_row._append(
+    new_order_row = new_order_row.append(
         pd.Series(
             [submit_minus_generated, filled_minus_submit],
             index=["submit_minus_generated", "filled_minus_submit"],
