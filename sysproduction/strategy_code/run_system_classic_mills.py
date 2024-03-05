@@ -9,7 +9,7 @@ this:
 
 """
 import datetime
-from syscore.constants import  arg_not_supplied
+from syscore.constants import arg_not_supplied
 from syscore.exceptions import missingData
 
 from sysdata.config.configdata import Config
@@ -28,9 +28,9 @@ from sysproduction.data.sim_data import get_sim_data_object_for_production
 
 from sysproduction.data.backtest import store_backtest_state
 
-from syslogdiag.log_to_screen import logtoscreen
+from syslogging.logger import *
 
-# from systems.provided.futures_chapter15.basesystem import futures_system
+from systems.provided.futures_chapter15.basesystem import futures_system
 from systems.basesystem import System
 
 
@@ -41,7 +41,6 @@ class runSystemClassic(object):
         strategy_name: str,
         backtest_config_filename=arg_not_supplied,
     ):
-
         if backtest_config_filename is arg_not_supplied:
             raise Exception("Need to supply config filename")
 
@@ -124,12 +123,10 @@ class runSystemClassic(object):
 def production_classic_futures_system(
     data: dataBlob,
     config_filename: str,
-    log=logtoscreen("futures_system"),
+    log=get_logger("futures_system"),
     notional_trading_capital: float = arg_not_supplied,
     base_currency: str = arg_not_supplied,
 ) -> System:
-
-
     sim_data = get_sim_data_object_for_production(data)
     config = Config(config_filename)
 
@@ -142,7 +139,6 @@ def production_classic_futures_system(
 
     system = futures_system(data=sim_data, config=config)
     system._log = log
-
 
     return system
 
@@ -194,7 +190,6 @@ def construct_position_entry(
     lower_position: float,
     upper_position: float,
 ) -> bufferedOptimalPositions:
-
     diag_contracts = dataContracts(data)
     reference_price = system.rawdata.get_daily_prices(instrument_code).iloc[-1]
     reference_contract = diag_contracts.get_priced_contract_id(instrument_code)
@@ -207,79 +202,3 @@ def construct_position_entry(
     )
 
     return position_entry
-
-
-from systems.forecasting import Rules
-from systems.forecast_combine import ForecastCombine
-from systems.forecast_scale_cap import ForecastScaleCap
-# from systems.rawdata import RawData
-from systems.positionsizing import PositionSizing
-from systems.portfolio import Portfolios
-from systems.accounts.accounts_stage import Account
-from sysdata.sim.csv_futures_sim_data import csvFuturesSimData
-from systems.provided.rob_system.rawdata import myFuturesRawData
-def futures_system(
-    data=arg_not_supplied,
-    config=arg_not_supplied,
-    trading_rules=arg_not_supplied,
-    log_level="on",
-):
-    """
-
-    :param data: data object (defaults to reading from csv files)
-    :type data: sysdata.data.simData, or anything that inherits from it
-
-    :param config: Configuration object (defaults to futuresconfig.yaml in this directory)
-    :type config: sysdata.configdata.Config
-
-    :param trading_rules: Set of trading rules to use (defaults to set specified in config object)
-    :type trading_rules: list or dict of TradingRules, or something that can be parsed to that
-
-    :param log_level: How much logging to do
-    :type log_level: str
-
-
-    >>> system=futures_system(log_level="off")
-    >>> system
-    System with stages: accounts, portfolio, positionSize, rawdata, combForecast, forecastScaleCap, rules
-    >>> system.rules.get_raw_forecast("EDOLLAR", "ewmac2_8").dropna().head(2)
-                ewmac2_8
-    1983-10-10  0.695929
-    1983-10-11 -0.604704
-
-                ewmac2_8
-    2015-04-21  0.172416
-    2015-04-22 -0.477559
-    >>> system.rules.get_raw_forecast("EDOLLAR", "carry").dropna().head(2)
-                   carry
-    1983-10-10  0.952297
-    1983-10-11  0.854075
-
-                   carry
-    2015-04-21  0.350892
-    2015-04-22  0.350892
-    """
-
-    if data is arg_not_supplied:
-        data = csvFuturesSimData()
-
-    if config is arg_not_supplied:
-        config = Config("systems.provided.futures_chapter15.futuresconfig.yaml")
-
-    rules = Rules(trading_rules)
-
-    system = System(
-        [
-            Account(),
-            Portfolios(),
-            PositionSizing(),
-            myFuturesRawData(),
-            ForecastCombine(),
-            ForecastScaleCap(),
-            rules,
-        ],
-        data,
-        config,
-    )
-
-    return system
