@@ -1040,7 +1040,7 @@ use_instrument_weight_estimates: True
 #   SR: 0.05
 # instrument_div_multiplier: 2.0
 # instruments: ["POLYETHYLENE","HC","JD","RB","CORNSTARCH","PVC","PP","SoybeanMeal","MAIZE","FG","TA","MA","SR","FU"]
-instruments: ["FG","AP","JD","p","CORNSTARCH","MA","RM","SR","UR","PVC"]
+instruments: ["FG","AP","JD","p","CORNSTARCH","MA","RM","SR","UR","i"]
 #instruments: ["FG","JD","RB","CORNSTARCH","POLYETHYLENE","PVC","PP","SoybeanMeal","MAIZE","a","AP","SR"
 #,"RM","rr","MA","TA","B","CF","CJ","CY","FU","HC","OI","SA","SF","SM","UR","ag","au","bc","cu","eb",
 #"eg",'i','j','jm','lh','lu','nr','p','pg','ru','sc','sp','ss','y',"pb","al","zn","sn","ni","IH","IF",
