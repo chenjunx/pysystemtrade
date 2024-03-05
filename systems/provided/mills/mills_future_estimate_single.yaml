@@ -335,8 +335,6 @@ trading_rules:
      other_args:
        horizon: 1000
 use_forecast_scale_estimates: True
-forecast_scalar_estimate:
-   pool_instruments: True
 forecast_weights:
     RB:
          breakout10: 0.0
@@ -1015,11 +1013,11 @@ forecast_weights:
         carry10: 0.04
         carry30: 0.04
         carry60: 0.04
-use_forecast_weight_estimates: False
+use_forecast_weight_estimates: True
 # forecast_div_multiplier: 1.4
 use_forecast_div_mult_estimates: True
-forecast_correlation_estimate:
-   pool_instruments: True
+# forecast_correlation_estimate:
+#    pool_instruments: True
 # rule_variations: ['ewmac2_8','ewmac4_16', 'ewmac8_32', 'ewmac16_64','ewmac32_128','breakout10','breakout20','breakout40','breakout80','breakout160','carry10','carry30','carry60']
 
 
