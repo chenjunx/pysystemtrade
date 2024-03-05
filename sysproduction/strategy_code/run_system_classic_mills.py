@@ -30,8 +30,9 @@ from sysproduction.data.backtest import store_backtest_state
 
 from syslogging.logger import *
 
-from systems.provided.futures_chapter15.basesystem import futures_system
+# from systems.provided.futures_chapter15.basesystem import futures_system
 from systems.basesystem import System
+from systems.provided.rob_system.rawdata import myFuturesRawData
 
 
 from systems.forecasting import Rules
@@ -49,7 +50,7 @@ def futures_system(data, config):
             Account(),
             Portfolios(),
             PositionSizing(),
-            RawData(),
+            myFuturesRawData(),
             ForecastCombine(),
             ForecastScaleCap(),
             Rules(),
