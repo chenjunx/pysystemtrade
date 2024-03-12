@@ -1,6 +1,6 @@
 #YAML
 percentage_vol_target: 30
-notional_trading_capital: 250000
+notional_trading_capital: 1000000
 base_currency: "CNH"
 capital_multiplier:
    func: syscore.capital.full_compounding
@@ -1040,11 +1040,11 @@ use_instrument_weight_estimates: True
 #   SR: 0.05
 # instrument_div_multiplier: 2.0
 # instruments: ["POLYETHYLENE","HC","JD","RB","CORNSTARCH","PVC","PP","SoybeanMeal","MAIZE","FG","TA","MA","SR","FU"]
-instruments: ["FG","AP","JD","p","CORNSTARCH","MA","RM","SR","UR"]
-#instruments: ["FG","JD","RB","CORNSTARCH","POLYETHYLENE","PVC","PP","SoybeanMeal","MAIZE","a","AP","SR"
-#,"RM","rr","MA","TA","B","CF","CJ","CY","FU","HC","OI","SA","SF","SM","UR","ag","au","bc","cu","eb",
-#"eg",'i','j','jm','lh','lu','nr','p','pg','ru','sc','sp','ss','y',"pb","al","zn","sn","ni","IH","IF",
-#'IC','TS','TF',"T","IM"]
+# instruments: ["FG","AP","JD","p","CORNSTARCH","MA","RM","SR","UR"]
+instruments: ["FG","JD","RB","CORNSTARCH","POLYETHYLENE","PVC","PP","SoybeanMeal","MAIZE","a","AP","SR"
+,"RM","rr","MA","TA","B","CF","CY","FU","HC","OI","SA","SF","SM","UR","ag","au","bc","cu","eb",
+"eg",'i','j','jm','lh','lu','nr','p','pg','ru','sc','sp','ss','y',"pb","al","zn","sn","ni","IH","IF",
+'IC','TS','TF',"T","IM",'CJ','BU','br','PF']
 use_SR_costs: True
 use_instrument_div_mult_estimates: True
 start_date: 2014-01-01
