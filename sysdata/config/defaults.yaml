@@ -20,7 +20,8 @@ strategy_capital_allocation:
   strategy_weights:
 #    bitcoin: 100.0
 #    bitcoin: 28
-    mills_future: 100
+    mills_future: 0
+    mills_future_do: 100
 #
 ## Where do we save backtests
 backtest_store_directory: 'private.backtests'
