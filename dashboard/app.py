@@ -69,7 +69,7 @@ def index():
     return render_template("index.html")
 
 @app.route("/mills")
-def index():
+def index_mills():
     return render_template("mills/index.html")
 
 @app.route("/capital")
