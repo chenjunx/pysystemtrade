@@ -72,20 +72,6 @@ def index():
 def index_mills():
     return render_template("mills/index.html")
 
-import requests
-import json
-@app.route("/api/wenhua")
-def wenhua_mills():
-    response = requests.get('http://192.168.50.178:7777/api/wenhua')
-    # 检查请求是否成功
-    if response.status_code == 200:
-        # 输出响应内容
-        print(response.text)
-        return json.loads(response.text)
-    else:
-        # 输出错误信息
-        print('Error:', response.status_code)
-
 @app.route("/capital")
 def capital():
     capital_data = dataCapital(data)
