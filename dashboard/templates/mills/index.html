@@ -1291,7 +1291,10 @@
       // @formatter:on
     </script>
 
-    <script>
+    <script  type="text/javascript">
+        function jsonpcallback(data){
+            console.log(data);
+        };
               $(function() {
               console.log(1)
             // 在文档加载完成后执行的代码
@@ -1301,7 +1304,7 @@
                 jsonp: "jsonpcallback",
                 dataType: "jsonp",
                 success: function(data) {
-                    console.log(data);
+                    jsonpcallback(data)
                 }
               }
           )
