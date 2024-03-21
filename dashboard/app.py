@@ -74,7 +74,7 @@ def index_mills():
 
 import requests
 @app.route("/api/wenhua")
-def index_mills():
+def wenhua_mills():
     response = requests.get('http://192.168.50.178:7777/api/wenhua')
     # 检查请求是否成功
     if response.status_code == 200:
