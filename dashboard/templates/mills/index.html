@@ -1295,10 +1295,8 @@
               $(function() {
               console.log(1)
             // 在文档加载完成后执行的代码
-               $.ajax(
-                {
-                url:"http://192.168.50.178:7777/api/wenhua",
-                dataType: 'jsonp',
+               $.ajax({
+                url: 'http://192.168.50.178:7777/api/wenhua',
                 success: function(data) {
                     console.log(data);
                 }
