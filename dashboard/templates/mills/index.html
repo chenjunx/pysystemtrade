@@ -1139,7 +1139,7 @@
 <!-- Tabler Core -->
 <script src="static/js/tabler.min.js?1684106062" defer></script>
 <script src="static/js/demo.min.js?1684106062" defer></script>
-<script src="static/js/jquery-3.7.1.min.js?1684106062" defer></script>
+<script src="static/js/jquery-3.7.1.min.js?1684106062"></script>
 <script>
               // @formatter:off
       document.addEventListener("DOMContentLoaded", function () {
@@ -1289,16 +1289,20 @@
       	})).render();
       });
       // @formatter:on
-      $(function() {
-    // 在文档加载完成后执行的代码
-           $.ajax(
-            {
-            url:"http://192.168.50.178:7777/api/wenhua",
-            dataType: 'jsonp',
-            success: function(data) {
-                console.log(data);
-            }
-          }
+    </script>
+
+    <script>
+              $(function() {
+              console.log(1)
+            // 在文档加载完成后执行的代码
+               $.ajax(
+                {
+                url:"http://192.168.50.178:7777/api/wenhua",
+                dataType: 'jsonp',
+                success: function(data) {
+                    console.log(data);
+                }
+              }
           )
        });
     </script>
