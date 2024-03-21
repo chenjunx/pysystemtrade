@@ -1296,15 +1296,11 @@
               console.log(1)
             // 在文档加载完成后执行的代码
                $.ajax({
-                url: 'http://192.168.50.178:7777/api/wenhua',
+                url: '/api/wenhua',
                 type: "GET",
                 dataType: "jsonp",
                 success: function(data) {
-                    console.log(2)
                     console.log(data)
-                },
-                error: function(){
-                    console.log(3)
                 }
               }
           )
