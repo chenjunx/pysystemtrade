@@ -646,3 +646,6 @@ IM,中证1000,200,CNH,Equity,0,0.000023,0,ASIA
 br,合成橡胶,5,CNH,Chemical,0,5,0,ASIA
 BU,沥青,10,CNH,OilGas,0,0,8,ASIA
 PF,短纤,5,CNH,Chemical,0,0,6,ASIA
+PK,花生,5,CNH,Ags,0,0,8,ASIA
+ao,氧化铝,20,CNH,Metail,0,0,8,ASIA
+ec,欧线集运,50,CNH,Transportation,0,0,200,ASIA
