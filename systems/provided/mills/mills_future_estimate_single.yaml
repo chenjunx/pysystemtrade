@@ -1044,7 +1044,7 @@ use_instrument_weight_estimates: True
 instruments: ["FG","JD","RB","CORNSTARCH","POLYETHYLENE","PVC","PP","SoybeanMeal","MAIZE","a","AP","SR"
 ,"RM","rr","MA","TA","B","CF","CY","FU","HC","OI","SA","SF","SM","UR","ag","au","bc","cu","eb",
 "eg",'i','j','jm','lh','lu','nr','p','pg','ru','sc','sp','ss','y',"pb","al","zn","sn","ni","IH","IF",
-'IC','TS','TF',"T","IM",'CJ','BU','br','PF','ao']
+'IC','TS','TF',"T","IM",'CJ','BU','br','PF','ao','PK']
 use_SR_costs: True
 use_instrument_div_mult_estimates: True
 start_date: 2014-01-01
