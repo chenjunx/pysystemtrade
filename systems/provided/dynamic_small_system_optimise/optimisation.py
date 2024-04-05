@@ -239,7 +239,7 @@ class objectiveFunctionForGreedy:
         )
         np.set_printoptions(threshold=np.inf)
         np.set_printoptions(suppress=True)
-        print(self.covariance_matrix_as_np)
+        print(self.covariance_matrix_as_np.tolist())
         self.log.debug("track_error_var:"+str(track_error_var))
         if track_error_var < 0:
             ## can happen in some corner cases due to way covar estimated
