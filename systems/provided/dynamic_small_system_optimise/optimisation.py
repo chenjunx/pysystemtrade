@@ -237,6 +237,7 @@ class objectiveFunctionForGreedy:
         track_error_var = solution_gap.dot(self.covariance_matrix_as_np).dot(
             solution_gap
         )
+        np.set_printoptions(threshold=np.inf)
         print(self.covariance_matrix_as_np)
         self.log.debug("track_error_var:"+str(track_error_var))
         if track_error_var < 0:
