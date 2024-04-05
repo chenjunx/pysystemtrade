@@ -265,10 +265,13 @@ def get_data_for_objective_instance(
         data, strategy_name=strategy_name, list_of_instruments=list_of_instruments
     )
 
-    covariance_matrix = get_covariance_matrix_for_instrument_returns_for_optimisation(
+    # covariance_matrix = get_covariance_matrix_for_instrument_returns_for_optimisation(
+    #     data, list_of_instruments=list_of_instruments
+    # )
+
+    covariance_matrix = get_correlation_matrix_with_shrinkage(
         data, list_of_instruments=list_of_instruments
     )
-
     speed_control = get_speed_control(data)
 
     data_for_objective = dataForObjectiveInstance(
