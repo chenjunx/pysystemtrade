@@ -242,7 +242,6 @@ class objectiveFunctionForGreedy:
         self, weights: np.array, optimal_weights: np.array
     ) -> float:
         solution_gap = weights - optimal_weights
-        print(solution_gap)
         track_error_var = solution_gap.dot(self.covariance_matrix_as_np).dot(
             solution_gap
         )
