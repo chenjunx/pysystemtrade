@@ -246,8 +246,6 @@ class objectiveFunctionForGreedy:
         track_error_var = solution_gap.dot(self.covariance_matrix_as_np).dot(
             solution_gap
         )
-        np.set_printoptions(threshold=np.inf)
-        np.set_printoptions(suppress=True)
 
         array_2d =  self.covariance_matrix_as_np.tolist()
         # 创建一个pprint.PrettyPrinter对象，设置其格式化函数为上面定义的函数
@@ -255,7 +253,9 @@ class objectiveFunctionForGreedy:
         pp._dispatch[float.__repr__] = float_formatter
 
         # 使用pprint模块打印数组
+        pp.pprint(solution_gap.tolist())
         pp.pprint(array_2d)
+
 
         self.log.debug("track_error_var:"+str(track_error_var))
 
