@@ -467,7 +467,7 @@ def get_covariance_matrix_for_instrument_returns_for_optimisation(
     #     data, list_of_instruments
     # )
 
-    covariance_matrix = get_correlation_matrix_with_shrinkage(
+    corr_matrix = get_correlation_matrix_with_shrinkage(
         data, list_of_instruments=list_of_instruments
     )
 
