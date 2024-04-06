@@ -265,11 +265,7 @@ def get_data_for_objective_instance(
         data, strategy_name=strategy_name, list_of_instruments=list_of_instruments
     )
 
-    # covariance_matrix = get_covariance_matrix_for_instrument_returns_for_optimisation(
-    #     data, list_of_instruments=list_of_instruments
-    # )
-
-    covariance_matrix = get_correlation_matrix_with_shrinkage(
+    covariance_matrix = get_covariance_matrix_for_instrument_returns_for_optimisation(
         data, list_of_instruments=list_of_instruments
     )
 
@@ -470,11 +466,6 @@ def get_covariance_matrix_for_instrument_returns_for_optimisation(
     corr_matrix = get_correlation_matrix_for_instrument_returns(
         data, list_of_instruments
     )
-
-    # corr_matrix = get_correlation_matrix_with_shrinkage(
-    #     data, list_of_instruments=list_of_instruments
-    # )
-
     stdev_estimate = get_annualised_stdev_perc_of_instruments(
         data, instrument_list=list_of_instruments
     )
