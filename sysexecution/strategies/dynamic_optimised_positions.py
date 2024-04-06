@@ -463,8 +463,12 @@ def get_override_for_instrument_strategy(
 def get_covariance_matrix_for_instrument_returns_for_optimisation(
     data: dataBlob, list_of_instruments: list
 ) -> covarianceEstimate:
-    corr_matrix = get_correlation_matrix_for_instrument_returns(
-        data, list_of_instruments
+    # corr_matrix = get_correlation_matrix_for_instrument_returns(
+    #     data, list_of_instruments
+    # )
+
+    covariance_matrix = get_correlation_matrix_with_shrinkage(
+        data, list_of_instruments=list_of_instruments
     )
 
     stdev_estimate = get_annualised_stdev_perc_of_instruments(

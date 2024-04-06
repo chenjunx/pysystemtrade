@@ -246,17 +246,17 @@ class objectiveFunctionForGreedy:
             solution_gap
         )
 
-        array_2d =  self.covariance_matrix_as_np.tolist()
+        # array_2d =  self.covariance_matrix_as_np.tolist()
         # 创建一个pprint.PrettyPrinter对象，设置其格式化函数为上面定义的函数
-        pp = pprint.PrettyPrinter(indent=1, depth=None, stream=None, compact=True)
-        pp._dispatch[float.__repr__] = float_formatter
+        # pp = pprint.PrettyPrinter(indent=1, depth=None, stream=None, compact=True)
+        # pp._dispatch[float.__repr__] = float_formatter
 
         # 使用pprint模块打印数组
-        pp.pprint(solution_gap.tolist())
-        pp.pprint(array_2d)
+        # pp.pprint(solution_gap.tolist())
+        # pp.pprint(array_2d)
 
 
-        self.log.debug("track_error_var:"+str(track_error_var))
+        # self.log.debug("track_error_var:"+str(track_error_var))
 
         if track_error_var < 0:
             ## can happen in some corner cases due to way covar estimated
