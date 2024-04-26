@@ -9,7 +9,9 @@ from sysexecution.orders.base_orders import Order
 
 import requests
 import orjson
-import pandas as pd
+import websocket
+from websocket import WebSocketApp
+
 class connectionMills(object):
     def __init__(
             self,
@@ -24,8 +26,22 @@ class connectionMills(object):
         self._mills_connection_config = dict(
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
+        self._ws_connection =WebSocketApp(url = "ws://"+mills_ipaddress+":"+mills_port+"/websocket",
+                                          on_open=self.on_open,
+                                          on_close=self.on_close,
+                                          on_error=self.on_error
+                                          )
+        self._ws_connection.o
         pass
 
+    def on_error(self,error):
+        self.log.error(error)
+
+    def on_open(self):
+        self.log.info("ws连接成功!")
+
+    def on_close(self):
+        self.log.info("ws连接失败!")
     @property
     def log(self):
         return self._log
