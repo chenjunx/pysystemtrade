@@ -9,8 +9,7 @@ from sysexecution.orders.base_orders import Order
 
 import requests
 import orjson
-import websocket
-from websocket import WebSocketApp
+from websocket import create_connection
 
 class connectionMills(object):
     def __init__(
@@ -26,12 +25,7 @@ class connectionMills(object):
         self._mills_connection_config = dict(
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
-        self._ws_connection =WebSocketApp(url = "ws://"+mills_ipaddress+":"+mills_port+"/websocket",
-                                          on_open=self.on_open,
-                                          on_close=self.on_close,
-                                          on_error=self.on_error
-                                          )
-        self._ws_connection.o
+        self._ws_connection = create_connection(url = "ws://"+mills_ipaddress+":"+mills_port+"/websocket")
         pass
 
     def on_error(self,error):
@@ -54,26 +48,37 @@ class connectionMills(object):
 
     #查询期货信息
     def query_contract_info(self,futures_contract: futuresContract):
-        res = self.send_post("/quote?action=contract_info",futures_contract.as_dict())
+        # res = self.send_post("/quote?action=contract_info",futures_contract.as_dict())
+        req = {"url":"/quote","action":"contract_info","data":futures_contract.as_dict()}
+        self._ws_connection.send(req)
+        res =self._ws_connection.recv()
         return res
 
     #查询指定的合同的历史价格
     def query_historical_futures_data_for_contract(self, contract_object: futuresContract):
         # res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
-        res = self.send_post("/klines?action=day",contract_object.as_dict())
+        # res = self.send_post("/klines?action=day",contract_object.as_dict())
+        req = {"url": "/klines", "action": "day", "data": contract_object.as_dict()}
+        self._ws_connection.send(req)
+        res = self._ws_connection.recv()
         return res
 
     # 查询指定的合同的历史价格
     def query_historical_futures_data_for_contract_hour(self, contract_object: futuresContract):
         # res = self.send_post("/gateway/historical_futures_data_hour", contract_object.as_dict())
-        res = self.send_post("/klines?action=hour",contract_object.as_dict())
-
+        # res = self.send_post("/klines?action=hour",contract_object.as_dict())
+        req = {"url": "/klines", "action": "hour", "data": contract_object.as_dict()}
+        self._ws_connection.send(req)
+        res = self._ws_connection.recv()
         return res
 
     #查询指定的合同的交易时间段
     def query_trading_hours(self,contract_object: futuresContract):
         # res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
-        res = self.send_post("/quote?action=trading_hours",contract_object.as_dict())
+        # res = self.send_post("/quote?action=trading_hours",contract_object.as_dict())
+        req = {"url": "/quote", "action": "trading_hours", "data": contract_object.as_dict()}
+        self._ws_connection.send(req)
+        res = self._ws_connection.recv()
         return res
 
     #查询账户有多少价值
@@ -140,3 +145,14 @@ class connectionMills(object):
     def cancel_order(self, order):
         res = self.send_post("/order?action=cancel",order.as_dict())
         return res
+
+    def close_connection(self):
+        self.log.debug("Terminating %s" % str(self._mills_connection_config))
+        try:
+            #关闭连接
+            if self._ws_connection:
+                self._ws_connection.close()
+        except BaseException:
+            self.log.warning(
+                "Trying to disconnect mills client failed... ensure process is killed"
+            )

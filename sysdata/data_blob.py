@@ -299,6 +299,8 @@ class dataBlob(object):
             self.ib_conn.close_connection()
             self.db_ib_broker_client_id.release_clientid(self.ib_conn.client_id())
 
+        if self._connection_mills:
+            self._connection_mills.close_connection()
         # No need to explicitly close Mongo connections; handled by Python garbage collection
 
     @property
