@@ -6,6 +6,7 @@ from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import mills_defaults
 from sysobjects.contracts import futuresContract
 from sysexecution.orders.base_orders import Order
+import json
 
 import requests
 import orjson
@@ -20,12 +21,11 @@ class connectionMills(object):
             log=logtoscreen("connectionMills"),
     ):
         ipaddress, port,username,password = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
-
         log.label(broker="mills")
         self._mills_connection_config = dict(
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
-        self._ws_connection = create_connection(url = "ws://"+mills_ipaddress+":"+mills_port+"/websocket")
+        self._ws_connection = create_connection(url = "ws://"+str(ipaddress)+":"+str(port)+"/websocket")
         pass
 
     def on_error(self,error):
@@ -49,8 +49,9 @@ class connectionMills(object):
     #查询期货信息
     def query_contract_info(self,futures_contract: futuresContract):
         # res = self.send_post("/quote?action=contract_info",futures_contract.as_dict())
-        req = {"url":"/quote","action":"contract_info","data":futures_contract.as_dict()}
-        self._ws_connection.send(req)
+        params = {"url":"/quote","action":"contract_info","data":futures_contract.as_dict()}
+        # req = orjson.dumps([orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str)])
+        self._ws_connection.send(json.dumps(json.dumps(params)))
         res =self._ws_connection.recv()
         return res
 
@@ -58,8 +59,8 @@ class connectionMills(object):
     def query_historical_futures_data_for_contract(self, contract_object: futuresContract):
         # res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
         # res = self.send_post("/klines?action=day",contract_object.as_dict())
-        req = {"url": "/klines", "action": "day", "data": contract_object.as_dict()}
-        self._ws_connection.send(req)
+        params = {"url": "/klines", "action": "day", "data": contract_object.as_dict()}
+        self._ws_connection.send(json.dumps(json.dumps(params)))
         res = self._ws_connection.recv()
         return res
 
@@ -67,8 +68,8 @@ class connectionMills(object):
     def query_historical_futures_data_for_contract_hour(self, contract_object: futuresContract):
         # res = self.send_post("/gateway/historical_futures_data_hour", contract_object.as_dict())
         # res = self.send_post("/klines?action=hour",contract_object.as_dict())
-        req = {"url": "/klines", "action": "hour", "data": contract_object.as_dict()}
-        self._ws_connection.send(req)
+        params = {"url": "/klines", "action": "hour", "data": contract_object.as_dict()}
+        self._ws_connection.send(json.dumps(json.dumps(params)))
         res = self._ws_connection.recv()
         return res
 
@@ -76,8 +77,8 @@ class connectionMills(object):
     def query_trading_hours(self,contract_object: futuresContract):
         # res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
         # res = self.send_post("/quote?action=trading_hours",contract_object.as_dict())
-        req = {"url": "/quote", "action": "trading_hours", "data": contract_object.as_dict()}
-        self._ws_connection.send(req)
+        params = {"url": "/quote", "action": "trading_hours", "data": contract_object.as_dict()}
+        self._ws_connection.send(json.dumps(json.dumps(params)))
         res = self._ws_connection.recv()
         return res
 
