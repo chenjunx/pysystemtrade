@@ -49,37 +49,28 @@ class connectionMills(object):
     #查询期货信息
     def query_contract_info(self,futures_contract: futuresContract):
         # res = self.send_post("/quote?action=contract_info",futures_contract.as_dict())
-        params = {"url":"/quote","action":"contract_info","data":futures_contract.as_dict()}
-        # req = orjson.dumps([orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str)])
-        self._ws_connection.send(json.dumps(json.dumps(params)))
-        res =self._ws_connection.recv()
+        res = self.send_ws("/quote","contract_info",futures_contract.as_dict())
         return res
 
     #查询指定的合同的历史价格
     def query_historical_futures_data_for_contract(self, contract_object: futuresContract):
         # res = self.send_post("/gateway/historical_futures_data",contract_object.as_dict())
         # res = self.send_post("/klines?action=day",contract_object.as_dict())
-        params = {"url": "/klines", "action": "day", "data": contract_object.as_dict()}
-        self._ws_connection.send(json.dumps(json.dumps(params)))
-        res = self._ws_connection.recv()
+        res = self.send_ws("/klines","day",contract_object.as_dict())
         return res
 
     # 查询指定的合同的历史价格
     def query_historical_futures_data_for_contract_hour(self, contract_object: futuresContract):
         # res = self.send_post("/gateway/historical_futures_data_hour", contract_object.as_dict())
         # res = self.send_post("/klines?action=hour",contract_object.as_dict())
-        params = {"url": "/klines", "action": "hour", "data": contract_object.as_dict()}
-        self._ws_connection.send(json.dumps(json.dumps(params)))
-        res = self._ws_connection.recv()
+        res = self.send_ws("/klines","hour",contract_object.as_dict())
         return res
 
     #查询指定的合同的交易时间段
     def query_trading_hours(self,contract_object: futuresContract):
         # res = self.send_post("/gateway/contract_info_tradingHours",contract_object.as_dict())
         # res = self.send_post("/quote?action=trading_hours",contract_object.as_dict())
-        params = {"url": "/quote", "action": "trading_hours", "data": contract_object.as_dict()}
-        self._ws_connection.send(json.dumps(json.dumps(params)))
-        res = self._ws_connection.recv()
+        res = self.send_ws("/quote","trading_hours",contract_object.as_dict())
         return res
 
     #查询账户有多少价值
@@ -121,6 +112,12 @@ class connectionMills(object):
         else:
             raise Exception("请求异常", res['msg'])
 
+    def send_ws(self,url,action,data):
+        params = {"url": url, "action": action, "data": data}
+        self._ws_connection.send(json.dumps(json.dumps(params)))
+        res = self._ws_connection.recv()
+        return res
+
     def query_posistions(self):
         res = self.send_get("/position")
         return res
@@ -148,7 +145,7 @@ class connectionMills(object):
         return res
 
     def close_connection(self):
-        self.log.debug("Terminating %s" % str(self._mills_connection_config))
+        # self.log.debug("Terminating %s" % str(self._mills_connection_config))
         try:
             #关闭连接
             if self._ws_connection:

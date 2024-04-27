@@ -70,8 +70,10 @@ use_sim_classes = {
     FX_DATA: arcticFxPricesData,
     ROLL_PARAMETERS_DATA: csvRollParametersData,
     FUTURES_INSTRUMENT_DATA: csvFuturesInstrumentData,
-    FUTURES_MULTIPLE_PRICE_DATA: arcticFuturesMultiplePricesData,
-    FUTURES_ADJUSTED_PRICE_DATA: arcticFuturesAdjustedPricesData,
+    # FUTURES_MULTIPLE_PRICE_DATA: arcticFuturesMultiplePricesData,
+    # FUTURES_ADJUSTED_PRICE_DATA: arcticFuturesAdjustedPricesData,
+    FUTURES_MULTIPLE_PRICE_DATA: parquetFuturesMultiplePricesData,
+    FUTURES_ADJUSTED_PRICE_DATA: parquetFuturesAdjustedPricesData,
     STORED_SPREAD_DATA: mongoSpreadCostData,
 }
 
