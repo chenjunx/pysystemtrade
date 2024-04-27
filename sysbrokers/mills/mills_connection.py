@@ -1,6 +1,7 @@
 import logging
 
 from syscore.constants import arg_not_supplied
+import time
 
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import mills_defaults
@@ -114,8 +115,15 @@ class connectionMills(object):
 
     def send_ws(self,url,action,data):
         params = {"url": url, "action": action, "data": data}
+        # 记录开始时间
+        start_time = time.time()
         self._ws_connection.send(json.dumps(json.dumps(params)))
         res = self._ws_connection.recv()
+        # 记录结束时间
+        end_time = time.time()
+        # 计算并打印运行时间
+        run_time = end_time - start_time
+        logging.debug(f"get data from mills server for {run_time} seconds.")
         return res
 
     def query_posistions(self):
