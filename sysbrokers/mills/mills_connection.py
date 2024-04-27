@@ -123,7 +123,7 @@ class connectionMills(object):
         end_time = time.time()
         # 计算并打印运行时间
         run_time = end_time - start_time
-        logging.debug(f"get data from mills server for {run_time} seconds.")
+        logging.debug(f"get data from mills server by {url} {action} for {run_time} seconds.")
         return res
 
     def query_posistions(self):
