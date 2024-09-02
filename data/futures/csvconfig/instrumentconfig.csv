@@ -634,8 +634,8 @@ y,大商所豆油,10,CNH,Ags,0,0,2.5,ASIA
 pb,上期所铅,5,CNH,Metail,0,0.000041,0,ASIA
 al,上期所铝,5,CNH,Metail,0,0,3,ASIA
 zn,上期所锌,5,CNH,Metail,0,0,3,ASIA
-sn,上期所锡,1,CNH,Metail,0,0,3,ASIA
-ni,上期所镍,1,CNH,Metail,0,0,3,ASIA
+sn,上期所锡,10,CNH,Metail,0,0,3,ASIA
+ni,上期所镍,10,CNH,Metail,0,0,3,ASIA
 IH,上证50,300,CNH,Equity,0,0.000023,0,ASIA
 IF,沪深300,300,CNH,Equity,0,0.000023,0,ASIA
 IC,中证500,200,CNH,Equity,0,0.000023,0,ASIA
