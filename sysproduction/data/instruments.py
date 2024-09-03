@@ -68,10 +68,6 @@ class diagInstruments(productionDataLayerGeneric):
 
     def get_point_size_base_currency(self, instrument_code: str) -> float:
         point_size_instrument_currency = self.get_point_size(instrument_code)
-        self.log.debug(
-            "point_size_instrument_currency %s %f"
-            % (instrument_code, point_size_instrument_currency)
-        )
         instrument_currency = self.get_currency(instrument_code)
 
         currency_data = dataCurrency(self.data)
