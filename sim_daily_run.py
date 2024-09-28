@@ -29,4 +29,4 @@ my_system = System(stage_list=[Risk(),
                 data=data,
                 config=Config("/home/xiachenjun/pysystemtrade/systems/provided/mills/mills_future_estimate_single.yaml")
                )
-my_system.accounts.optimised_portfolio().percent.daily.to_csv("/home/xiachenjun/sim.csv")
+my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim.csv")
