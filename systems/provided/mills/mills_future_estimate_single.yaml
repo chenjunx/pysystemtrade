@@ -2206,46 +2206,51 @@ forecast_weights:
     skewrv180: 0.032
     skewrv365: 0.032
   ao:
-    accel16: 0.0
-    accel32: 0.0
+    accel16: 0.024
+    accel32: 0.042
     accel64: 0.038
-    assettrend16: 0.025
-    assettrend2: 0.0
-    assettrend32: 0.025
-    assettrend4: 0.0
-    assettrend64: 0.025
+    assettrend16: 0.013000000000000001
+    assettrend2: 0.022
+    assettrend32: 0.023
+    assettrend4: 0.018
+    assettrend64: 0.036
     assettrend8: 0.025
-    breakout10: 0.0
-    breakout160: 0.063
-    breakout20: 0.0
-    breakout320: 0.063
-    breakout40: 0.0
-    breakout80: 0.051
+    breakout10: 0.022000000000000002
+    breakout160: 0.06
+    breakout20: 0.013
+    breakout40: 0.013
+    breakout80: 0.012
+    breakout320: 0.06
     carry10: 0.032
-    carry125: 0.038
-    carry30: 0.032
-    carry60: 0.038
-    momentum16: 0.025
-    momentum32: 0.038
-    momentum4: 0.0
-    momentum64: 0.038
-    momentum8: 0.0
-    mrinasset1000: 0.063
-    normmom16: 0.025
-    normmom2: 0.0
-    normmom32: 0.025
-    normmom4: 0.0
-    normmom64: 0.025
-    normmom8: 0.025
-    relcarry: 0.063
-    relmomentum10: 0.0
-    relmomentum20: 0.0
-    relmomentum40: 0.038
-    relmomentum80: 0.051
-    skewabs180: 0.032
-    skewabs365: 0.032
-    skewrv180: 0.032
-    skewrv365: 0.032
+    carry30: 0.026
+    carry60: 0.023
+    carry125: 0.03
+    momentum16: 0.012
+    momentum32: 0.021
+    momentum4: 0.003
+    momentum64: 0.031000000000000001
+    momentum8: 0.003
+    mrinasset1000: 0.054000000000000006
+    mrwrings4: 0.018
+    normmom16: 0.024
+    normmom2: 0.022000000000000002
+    normmom32: 0.029
+    normmom4: 0.006999999999999999
+    normmom64: 0.031000000000000001
+    normmom8: 0.006999999999999999
+    relcarry: 0.016
+    relmomentum10: 0.017
+    relmomentum20: 0.02
+    relmomentum40: 0.031
+    relmomentum80: 0.04
+    skewabs180: 0.016
+    skewabs30: 0.006
+    skewabs365: 0.013
+    skewabs90: 0.006
+    skewrv180: 0.024000000000000006
+    skewrv30: 0.002
+    skewrv365: 0.023
+    skewrv90: 0.002
   au:
     accel16: 0.03
     accel32: 0.03
@@ -3529,43 +3534,48 @@ forecast_weights:
     skewrv180: 0.025
     skewrv365: 0.025
   al:
-    accel16: 0.0
-    accel32: 0.0
+    accel16: 0.024
+    accel32: 0.042
     accel64: 0.038
-    assettrend16: 0.025
-    assettrend2: 0.0
-    assettrend32: 0.025
-    assettrend4: 0.0
-    assettrend64: 0.025
+    assettrend16: 0.013000000000000001
+    assettrend2: 0.022
+    assettrend32: 0.023
+    assettrend4: 0.018
+    assettrend64: 0.036
     assettrend8: 0.025
-    breakout10: 0.0
-    breakout160: 0.063
-    breakout20: 0.0
-    breakout320: 0.063
-    breakout40: 0.0
-    breakout80: 0.051
+    breakout10: 0.022000000000000002
+    breakout160: 0.06
+    breakout20: 0.013
+    breakout40: 0.013
+    breakout80: 0.012
+    breakout320: 0.06
     carry10: 0.032
-    carry125: 0.038
-    carry30: 0.032
-    carry60: 0.038
-    momentum16: 0.025
-    momentum32: 0.038
-    momentum4: 0.0
-    momentum64: 0.038
-    momentum8: 0.0
-    mrinasset1000: 0.063
-    normmom16: 0.025
-    normmom2: 0.0
-    normmom32: 0.025
-    normmom4: 0.0
-    normmom64: 0.025
-    normmom8: 0.025
-    relcarry: 0.063
-    relmomentum10: 0.0
-    relmomentum20: 0.0
-    relmomentum40: 0.038
-    relmomentum80: 0.051
-    skewabs180: 0.032
-    skewabs365: 0.032
-    skewrv180: 0.032
-    skewrv365: 0.032
+    carry30: 0.026
+    carry60: 0.023
+    carry125: 0.03
+    momentum16: 0.012
+    momentum32: 0.021
+    momentum4: 0.003
+    momentum64: 0.031000000000000001
+    momentum8: 0.003
+    mrinasset1000: 0.054000000000000006
+    mrwrings4: 0.018
+    normmom16: 0.024
+    normmom2: 0.022000000000000002
+    normmom32: 0.029
+    normmom4: 0.006999999999999999
+    normmom64: 0.031000000000000001
+    normmom8: 0.006999999999999999
+    relcarry: 0.016
+    relmomentum10: 0.017
+    relmomentum20: 0.02
+    relmomentum40: 0.031
+    relmomentum80: 0.04
+    skewabs180: 0.016
+    skewabs30: 0.006
+    skewabs365: 0.013
+    skewabs90: 0.006
+    skewrv180: 0.024000000000000006
+    skewrv30: 0.002
+    skewrv365: 0.023
+    skewrv90: 0.002
