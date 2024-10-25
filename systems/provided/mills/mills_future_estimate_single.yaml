@@ -1,6 +1,6 @@
 #YAML
 percentage_vol_target: 30
-notional_trading_capital: 1000000
+notional_trading_capital: 400000
 base_currency: "CNH"
 capital_multiplier:
    func: syscore.capital.full_compounding
@@ -422,11 +422,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.02
+    breakout160: 0.04
     breakout20: 0.018
     breakout40: 0.033
     breakout80: 0.032
-    breakout320: 0.05
+    breakout320: 0.07
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -452,9 +452,9 @@ forecast_weights:
     skewabs30: 0.004
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.034000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.033
     skewrv90: 0.002
   B:
     accel16: 0.024
@@ -467,15 +467,15 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.015
     breakout10: 0.013
-    breakout160: 0.05
+    breakout160: 0.06
     breakout20: 0.003
     breakout40: 0.003
     breakout80: 0.022
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.021
     carry30: 0.027
     carry60: 0.021
-    carry125: 0.02
+    carry125: 0.04
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -498,9 +498,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.033
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.033
     skewrv90: 0.002
   BU:
     accel16: 0.027000000000000003
@@ -517,10 +517,10 @@ forecast_weights:
     breakout20: 0.004
     breakout40: 0.004
     breakout80: 0.013000000000000001
-    breakout320: 0.04
-    carry10: 0.022
-    carry30: 0.022
-    carry60: 0.024
+    breakout320: 0.06
+    carry10: 0.032
+    carry30: 0.032
+    carry60: 0.034
     carry125: 0.03
     momentum16: 0.013000000000000001
     momentum32: 0.024
@@ -545,9 +545,9 @@ forecast_weights:
     skewabs30: 0.027999999999999997
     skewabs365: 0.012
     skewabs90: 0.013999999999999999
-    skewrv180: 0.063
+    skewrv180: 0.033
     skewrv30: 0.004
-    skewrv365: 0.062
+    skewrv365: 0.032
     skewrv90: 0.002
   CF:
     accel16: 0.024
@@ -560,11 +560,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.04
+    breakout320: 0.06
     carry10: 0.036
     carry30: 0.036
     carry60: 0.036
@@ -591,9 +591,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.033
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.033
     skewrv90: 0.002
   CJ:
     accel16: 0.025
@@ -606,15 +606,15 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.022000000000000002
-    breakout160: 0.041
+    breakout160: 0.061
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.033
     carry30: 0.033
     carry60: 0.033
-    carry125: 0.01
+    carry125: 0.02
     momentum16: 0.012
     momentum32: 0.022000000000000002
     momentum4: 0.003
@@ -637,9 +637,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.055
+    skewrv180: 0.035
     skewrv30: 0.002
-    skewrv365: 0.055
+    skewrv365: 0.035
     skewrv90: 0.002
   CORNSTARCH:
     accel16: 0.024
@@ -652,11 +652,11 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.022000000000000002
-    breakout160: 0.02
+    breakout160: 0.05
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.022
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -683,9 +683,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.023
     skewabs90: 0.013
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.034000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.034000000000000006
     skewrv90: 0.002
   CY:
     accel16: 0.025
@@ -743,11 +743,11 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.031
+    breakout160: 0.061
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.033
     carry30: 0.033
     carry60: 0.033
@@ -774,9 +774,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.033
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.034000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.034000000000000006
     skewrv90: 0.002
   FU:
     accel16: 0.024
@@ -835,11 +835,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.06
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -866,9 +866,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.023
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.034000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.034000000000000006
     skewrv90: 0.002
   IC:
     accel16: 0.024
@@ -881,11 +881,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.06
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.022
     carry30: 0.022
     carry60: 0.016
@@ -912,9 +912,9 @@ forecast_weights:
     skewabs30: 0.012
     skewabs365: 0.032
     skewabs90: 0.016
-    skewrv180: 0.053
+    skewrv180: 0.033
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.033
     skewrv90: 0.022
   IF:
     accel16: 0.025
@@ -927,10 +927,10 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.021
+    breakout160: 0.051
     breakout20: 0.013
     breakout40: 0.013
-    breakout320: 0.02
+    breakout320: 0.05
     breakout80: 0.012
     carry10: 0.026
     carry30: 0.026
@@ -959,9 +959,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.016
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   IH:
     accel16: 0.024
@@ -974,15 +974,15 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
     breakout320: 0.05
     carry10: 0.016
-    carry30: 0.016
+    carry30: 0.026
     carry60: 0.026
-    carry125: 0.02
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -1006,9 +1006,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.026
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.033
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.033
     skewrv90: 0.002
   IM:
     accel16: 0.025
@@ -1025,11 +1025,11 @@ forecast_weights:
     breakout20: 0.014
     breakout40: 0.014
     breakout80: 0.012
-    breakout320: 0.042
+    breakout320: 0.052
     carry10: 0.034
-    carry30: 0.026
-    carry60: 0.026
-    carry125: 0.026
+    carry30: 0.036
+    carry60: 0.036
+    carry125: 0.036
     momentum16: 0.012
     momentum32: 0.022000000000000002
     momentum4: 0.004
@@ -1053,9 +1053,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.026
     skewabs90: 0.006
-    skewrv180: 0.055
+    skewrv180: 0.035
     skewrv30: 0.002
-    skewrv365: 0.055
+    skewrv365: 0.035
     skewrv90: 0.002
   ec:
     accel16: 0.025
@@ -1072,11 +1072,11 @@ forecast_weights:
     breakout20: 0.014
     breakout40: 0.014
     breakout80: 0.012
-    breakout320: 0.042
+    breakout320: 0.052
     carry10: 0.034
-    carry30: 0.026
-    carry60: 0.026
-    carry125: 0.026
+    carry30: 0.036
+    carry60: 0.036
+    carry125: 0.036
     momentum16: 0.012
     momentum32: 0.022000000000000002
     momentum4: 0.004
@@ -1100,9 +1100,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.026
     skewabs90: 0.006
-    skewrv180: 0.055
+    skewrv180: 0.035
     skewrv30: 0.002
-    skewrv365: 0.055
+    skewrv365: 0.035
     skewrv90: 0.002
   JD:
     accel16: 0.024
@@ -1115,14 +1115,14 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.021
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.023
     carry30: 0.023
-    carry60: 0.023
+    carry60: 0.033
     carry125: 0.023
     momentum16: 0.012
     momentum32: 0.021
@@ -1146,9 +1146,9 @@ forecast_weights:
     skewabs30: 0.025
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.055
+    skewrv180: 0.035
     skewrv30: 0.003
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.034000000000000006
     skewrv90: 0.002
   MA:
     accel16: 0.024
@@ -1161,11 +1161,11 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.04
+    breakout320: 0.06
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -1192,9 +1192,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.023
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.034000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.034000000000000006
     skewrv90: 0.002
   MAIZE:
     accel16: 0.024
@@ -1207,10 +1207,10 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.02
+    breakout160: 0.06
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
+    breakout40: 0.023
+    breakout80: 0.022
     breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
@@ -1238,9 +1238,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   OI:
     accel16: 0.024
@@ -1253,15 +1253,15 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.06
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
+    breakout40: 0.023
+    breakout80: 0.022
     breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
-    carry125: 0.02
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -1284,9 +1284,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   PF:
     accel16: 0.024
@@ -1299,14 +1299,14 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.027000000000000003
     breakout10: 0.021
-    breakout160: 0.031
+    breakout160: 0.061
     breakout20: 0.013
-    breakout40: 0.014
-    breakout80: 0.012
+    breakout40: 0.024
+    breakout80: 0.022
     breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
-    carry60: 0.026999999999999999
+    carry60: 0.036999999999999999
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -1330,9 +1330,9 @@ forecast_weights:
     skewabs30: 0.026000000000000002
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.057
+    skewrv180: 0.027
     skewrv30: 0.003
-    skewrv365: 0.057
+    skewrv365: 0.027
     skewrv90: 0.002
   PK:
     accel16: 0.027999999999999997
@@ -1345,10 +1345,10 @@ forecast_weights:
     assettrend64: 0.008
     assettrend8: 0.031
     breakout10: 0.024
-    breakout160: 0.024
-    breakout20: 0.004
-    breakout40: 0.004
-    breakout80: 0.013999999999999999
+    breakout160: 0.064
+    breakout20: 0.014
+    breakout40: 0.024
+    breakout80: 0.023999999999999999
     breakout320: 0.05
     carry10: 0.022
     carry30: 0.022
@@ -1377,9 +1377,9 @@ forecast_weights:
     skewabs30: 0.03
     skewabs365: 0.015
     skewabs90: 0.002
-    skewrv180: 0.066
+    skewrv180: 0.026
     skewrv30: 0.004
-    skewrv365: 0.066
+    skewrv365: 0.026
     skewrv90: 0.002
   POLYETHYLENE:
     accel16: 0.024
@@ -1392,14 +1392,14 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
-    carry60: 0.026
+    carry60: 0.036
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -1423,9 +1423,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   PP:
     accel16: 0.024
@@ -1438,11 +1438,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.06
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -1469,9 +1469,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   PVC:
     accel16: 0.024
@@ -1484,15 +1484,15 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
-    carry125: 0.02
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -1515,9 +1515,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   RB:
     accel16: 0.024
@@ -1530,11 +1530,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.03
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -1561,9 +1561,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   RM:
     accel16: 0.024
@@ -1573,14 +1573,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -1607,9 +1607,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   SA:
     accel16: 0.025
@@ -1619,14 +1619,14 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.022
     assettrend4: 0.01
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.022000000000000002
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.032
     carry30: 0.022
     carry60: 0.022
@@ -1653,9 +1653,9 @@ forecast_weights:
     skewabs30: 0.025
     skewabs365: 0.022
     skewabs90: 0.002
-    skewrv180: 0.055999999999999994
+    skewrv180: 0.025999999999999994
     skewrv30: 0.003
-    skewrv365: 0.055
+    skewrv365: 0.025
     skewrv90: 0.002
   SH:
     accel16: 0.025
@@ -1665,14 +1665,14 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.022
     assettrend4: 0.01
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.022000000000000002
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.032
     carry30: 0.022
     carry60: 0.022
@@ -1699,9 +1699,9 @@ forecast_weights:
     skewabs30: 0.025
     skewabs365: 0.022
     skewabs90: 0.002
-    skewrv180: 0.055999999999999994
+    skewrv180: 0.025999999999999994
     skewrv30: 0.003
-    skewrv365: 0.055
+    skewrv365: 0.025
     skewrv90: 0.002
   SF:
     accel16: 0.024
@@ -1711,14 +1711,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -1745,9 +1745,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   SM:
     accel16: 0.024
@@ -1757,14 +1757,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -1791,9 +1791,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   SR:
     accel16: 0.024
@@ -1803,14 +1803,14 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -1837,9 +1837,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   SoybeanMeal:
     accel16: 0.024
@@ -1849,14 +1849,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -1883,9 +1883,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   T:
     accel16: 0.024
@@ -1895,14 +1895,14 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.02
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.016
     carry30: 0.016
     carry60: 0.016
@@ -1930,9 +1930,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   TA:
     accel16: 0.024
@@ -1942,14 +1942,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.025
     breakout10: 0.021
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -1976,9 +1976,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   TF:
     accel16: 0.025
@@ -1988,14 +1988,14 @@ forecast_weights:
     assettrend2: 0.026
     assettrend32: 0.023
     assettrend4: 0.01
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.023
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.018
@@ -2022,9 +2022,9 @@ forecast_weights:
     skewabs30: 0.003
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.055
+    skewrv180: 0.025
     skewrv30: 0.002
-    skewrv365: 0.055
+    skewrv365: 0.025
     skewrv90: 0.002
   TS:
     accel16: 0.024
@@ -2037,11 +2037,11 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.02
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -2068,9 +2068,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   UR:
     accel16: 0.025
@@ -2080,14 +2080,14 @@ forecast_weights:
     assettrend2: 0.02300000000000001
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.023
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
     breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -2114,9 +2114,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   a:
     accel16: 0.024
@@ -2126,14 +2126,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -2160,196 +2160,133 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   ag:
     accel16: 0.024
     accel32: 0.043
     accel64: 0.038
-    assettrend16: 0.013000000000000001
-    assettrend2: 0.022
-    assettrend32: 0.023
-    assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend16: 0.025
+    assettrend2: 0.0
+    assettrend32: 0.025
+    assettrend4: 0.0
+    assettrend64: 0.025
     assettrend8: 0.025
-    breakout10: 0.022000000000000002
-    breakout160: 0.04
-    breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
-    carry10: 0.013
-    carry30: 0.016
-    carry60: 0.016
-    carry125: 0.02
-    momentum16: 0.012
-    momentum32: 0.021
-    momentum4: 0.003
-    momentum64: 0.031000000000000001
-    momentum8: 0.003
-    mrinasset1000: 0.054000000000000006
-    mrwrings4: 0.017
-    normmom16: 0.024
-    normmom2: 0.022000000000000002
-    normmom32: 0.021
-    normmom4: 0.006999999999999999
-    normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
-    relcarry: 0.047
-    relmomentum10: 0.015999999999999994
-    relmomentum20: 0.04
-    relmomentum40: 0.031
-    relmomentum80: 0.04
-    skewabs14: 0.006
-    skewabs180: 0.016
-    skewabs30: 0.003
-    skewabs365: 0.012
-    skewabs90: 0.006
-    skewrv180: 0.054000000000000006
-    skewrv30: 0.002
-    skewrv365: 0.053
-    skewrv90: 0.002
-  al:
-    accel16: 0.024
-    accel32: 0.042
-    accel64: 0.038
-    assettrend16: 0.013000000000000001
-    assettrend2: 0.022
-    assettrend32: 0.023
-    assettrend4: 0.018
-    assettrend64: 0.026
-    assettrend8: 0.025
-    breakout10: 0.022000000000000002
-    breakout160: 0.03
-    breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout10: 0.0
+    breakout160: 0.063
+    breakout20: 0.0
+    breakout320: 0.063
+    breakout40: 0.0
+    breakout80: 0.051
     carry10: 0.032
-    carry30: 0.026
-    carry60: 0.023
-    carry125: 0.02
-    momentum16: 0.012
-    momentum32: 0.021
-    momentum4: 0.003
-    momentum64: 0.031000000000000001
-    momentum8: 0.003
-    mrinasset1000: 0.054000000000000006
-    mrwrings4: 0.018
-    normmom16: 0.024
-    normmom2: 0.022000000000000002
-    normmom32: 0.029
-    normmom4: 0.006999999999999999
-    normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
-    relcarry: 0.016
-    relmomentum10: 0.017
-    relmomentum20: 0.02
-    relmomentum40: 0.031
-    relmomentum80: 0.04
-    skewabs180: 0.016
-    skewabs30: 0.006
-    skewabs365: 0.013
-    skewabs90: 0.006
-    skewrv180: 0.054000000000000006
-    skewrv30: 0.002
-    skewrv365: 0.053
-    skewrv90: 0.002
-  ao:
-    accel16: 0.025
-    accel32: 0.042
-    accel64: 0.031
-    assettrend16: 0.013999999999999999
-    assettrend2: 0.02199999999999999
-    assettrend32: 0.024
-    assettrend4: 0.013
-    assettrend64: 0.026999999999999999
-    assettrend8: 0.027999999999999997
-    breakout10: 0.024
-    breakout160: 0.025
-    breakout20: 0.014
-    breakout40: 0.014
-    breakout80: 0.012
-    breakout320: 0.04
-    carry10: 0.023
-    carry30: 0.023
-    carry60: 0.023
-    carry125: 0.03
-    momentum16: 0.013000000000000001
-    momentum32: 0.022000000000000002
-    momentum4: 0.004
-    momentum64: 0.031000000000000001
-    momentum8: 0.004
-    mrinasset1000: 0.0
-    mrwrings4: 0.012
+    carry125: 0.038
+    carry30: 0.032
+    carry60: 0.038
+    momentum16: 0.025
+    momentum32: 0.038
+    momentum4: 0.0
+    momentum64: 0.038
+    momentum8: 0.0
+    mrinasset1000: 0.063
     normmom16: 0.025
-    normmom2: 0.023
-    normmom32: 0.032000000000000002
-    normmom4: 0.006999999999999999
-    normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
-    relcarry: 0.036999999999999999
-    relmomentum10: 0.011
-    relmomentum20: 0.023
-    relmomentum40: 0.03
-    relmomentum80: 0.047
-    skewabs180: 0.013
-    skewabs30: 0.026000000000000002
-    skewabs365: 0.013
-    skewabs90: 0.003
-    skewrv180: 0.057999999999999996
-    skewrv30: 0.002
-    skewrv365: 0.057999999999999996
-    skewrv90: 0.002
-  au:
-    accel16: 0.024
-    accel32: 0.043
+    normmom2: 0.0
+    normmom32: 0.025
+    normmom4: 0.0
+    normmom64: 0.025
+    normmom8: 0.025
+    relcarry: 0.063
+    relmomentum10: 0.0
+    relmomentum20: 0.0
+    relmomentum40: 0.038
+    relmomentum80: 0.051
+    skewabs180: 0.032
+    skewabs365: 0.032
+    skewrv180: 0.032
+    skewrv365: 0.032
+  ao:
+    accel16: 0.0
+    accel32: 0.0
     accel64: 0.038
-    assettrend16: 0.013000000000000001
-    assettrend2: 0.02099999999999999
-    assettrend32: 0.023
-    assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend16: 0.025
+    assettrend2: 0.0
+    assettrend32: 0.025
+    assettrend4: 0.0
+    assettrend64: 0.025
     assettrend8: 0.025
-    breakout10: 0.022000000000000002
-    breakout160: 0.03
-    breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
-    carry10: 0.013
-    carry30: 0.013
-    carry60: 0.013
-    carry125: 0.02
-    momentum16: 0.012
-    momentum32: 0.021
-    momentum4: 0.003
-    momentum64: 0.031000000000000001
-    momentum8: 0.003
-    mrinasset1000: 0.054000000000000006
-    mrwrings4: 0.018
-    normmom16: 0.024
-    normmom2: 0.022000000000000002
-    normmom32: 0.021
-    normmom4: 0.006999999999999999
-    normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
-    relcarry: 0.047
-    relmomentum10: 0.015999999999999994
+    breakout10: 0.0
+    breakout160: 0.063
+    breakout20: 0.0
+    breakout320: 0.063
+    breakout40: 0.0
+    breakout80: 0.051
+    carry10: 0.032
+    carry125: 0.038
+    carry30: 0.032
+    carry60: 0.038
+    momentum16: 0.025
+    momentum32: 0.038
+    momentum4: 0.0
+    momentum64: 0.038
+    momentum8: 0.0
+    mrinasset1000: 0.063
+    normmom16: 0.025
+    normmom2: 0.0
+    normmom32: 0.025
+    normmom4: 0.0
+    normmom64: 0.025
+    normmom8: 0.025
+    relcarry: 0.063
+    relmomentum10: 0.0
+    relmomentum20: 0.0
+    relmomentum40: 0.038
+    relmomentum80: 0.051
+    skewabs180: 0.032
+    skewabs365: 0.032
+    skewrv180: 0.032
+    skewrv365: 0.032
+  au:
+    accel16: 0.03
+    accel32: 0.03
+    accel64: 0.03
+    assettrend16: 0.02
+    assettrend2: 0.01
+    assettrend32: 0.02
+    assettrend4: 0.01
+    assettrend64: 0.02
+    assettrend8: 0.02
+    breakout10: 0.0
+    breakout160: 0.051
+    breakout20: 0.01
+    breakout320: 0.051
+    breakout40: 0.04
+    breakout80: 0.04
+    carry10: 0.025
+    carry125: 0.03
+    carry30: 0.025
+    carry60: 0.03
+    momentum16: 0.02
+    momentum32: 0.03
+    momentum4: 0.005
+    momentum64: 0.03
+    momentum8: 0.015
+    mrinasset1000: 0.051
+    normmom16: 0.02
+    normmom2: 0.01
+    normmom32: 0.02
+    normmom4: 0.01
+    normmom64: 0.02
+    normmom8: 0.02
+    relcarry: 0.051
+    relmomentum10: 0.01
     relmomentum20: 0.02
-    relmomentum40: 0.031
+    relmomentum40: 0.03
     relmomentum80: 0.04
-    skewabs14: 0.024
-    skewabs180: 0.013
-    skewabs30: 0.003
-    skewabs365: 0.016
-    skewabs90: 0.003
-    skewrv180: 0.054000000000000006
-    skewrv30: 0.002
-    skewrv365: 0.053
-    skewrv90: 0.002
+    skewabs180: 0.025
+    skewabs365: 0.025
+    skewrv180: 0.025
+    skewrv365: 0.025
   bc:
     accel16: 0.025
     accel32: 0.044000000000000004
@@ -2358,18 +2295,18 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.023
-    breakout160: 0.041
+    breakout160: 0.051
     breakout20: 0.014
-    breakout40: 0.014
+    breakout40: 0.034
     breakout80: 0.032
-    breakout320: 0.05
+    breakout320: 0.06
     carry10: 0.016
-    carry30: 0.022
+    carry30: 0.032
     carry60: 0.047
-    carry125: 0.02
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.022000000000000002
     momentum4: 0.004
@@ -2393,9 +2330,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.026
     skewabs90: 0.003
-    skewrv180: 0.055
+    skewrv180: 0.025
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   br:
     accel16: 0.0
@@ -2450,14 +2387,14 @@ forecast_weights:
     assettrend2: 0.02300000000000001
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.034
     carry30: 0.022
     carry60: 0.022
@@ -2485,9 +2422,9 @@ forecast_weights:
     skewabs30: 0.012
     skewabs365: 0.016
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   eb:
     accel16: 0.025
@@ -2497,14 +2434,14 @@ forecast_weights:
     assettrend2: 0.02300000000000001
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.022000000000000002
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -2531,9 +2468,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   eg:
     accel16: 0.024
@@ -2543,14 +2480,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.032
     carry30: 0.026
     carry60: 0.023
@@ -2577,9 +2514,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.013
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   i:
     accel16: 0.024
@@ -2589,14 +2526,14 @@ forecast_weights:
     assettrend2: 0.02
     assettrend32: 0.022
     assettrend4: 0.018
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.025
     breakout10: 0.021
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
@@ -2623,9 +2560,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.003
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   j:
     accel16: 0.024
@@ -2638,15 +2575,15 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
-    carry125: 0.02
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -2669,9 +2606,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   jm:
     accel16: 0.024
@@ -2684,15 +2621,15 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.025
     breakout10: 0.021
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
     carry60: 0.023
-    carry125: 0.02
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -2715,9 +2652,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   lh:
     accel16: 0.032
@@ -2824,14 +2761,14 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.016
     carry30: 0.022
-    carry60: 0.022
+    carry60: 0.032
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -2856,9 +2793,9 @@ forecast_weights:
     skewabs30: 0.012
     skewabs365: 0.012
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   nr:
     accel16: 0.025
@@ -2871,14 +2808,14 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
+    breakout40: 0.023
+    breakout80: 0.022
     breakout320: 0.05
     carry10: 0.016
     carry30: 0.022
-    carry60: 0.022
+    carry60: 0.032
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -2903,9 +2840,9 @@ forecast_weights:
     skewabs30: 0.012
     skewabs365: 0.012
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   p:
     accel16: 0.024
@@ -2915,14 +2852,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -2949,9 +2886,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   pb:
     accel16: 0.024
@@ -2961,14 +2898,14 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.023
     carry30: 0.026
     carry60: 0.026
@@ -2995,9 +2932,9 @@ forecast_weights:
     skewabs30: 0.003
     skewabs365: 0.022
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   pg:
     accel16: 0.025
@@ -3007,17 +2944,17 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026999999999999999
+    assettrend64: 0.036999999999999999
     assettrend8: 0.026000000000000002
     breakout10: 0.023
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.014
     breakout40: 0.014
     breakout80: 0.022
     breakout320: 0.05
     carry10: 0.023
     carry30: 0.023
-    carry60: 0.023
+    carry60: 0.033
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.022000000000000002
@@ -3041,9 +2978,9 @@ forecast_weights:
     skewabs30: 0.024
     skewabs365: 0.013
     skewabs90: 0.003
-    skewrv180: 0.055
+    skewrv180: 0.025
     skewrv30: 0.002
-    skewrv365: 0.055
+    skewrv365: 0.025
     skewrv90: 0.002
   rr:
     accel16: 0.025
@@ -3148,14 +3085,14 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.021
+    breakout160: 0.051
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.022
-    breakout320: 0.04
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
-    carry60: 0.026
+    carry60: 0.036
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -3179,9 +3116,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   sn:
     accel16: 0.025
@@ -3191,14 +3128,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.019
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.031
+    breakout160: 0.051
     breakout20: 0.014
-    breakout40: 0.013
+    breakout40: 0.023
     breakout80: 0.022
-    breakout320: 0.04
+    breakout320: 0.05
     carry10: 0.016
     carry30: 0.022
     carry60: 0.022
@@ -3226,9 +3163,9 @@ forecast_weights:
     skewabs30: 0.012
     skewabs365: 0.012
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.054000000000000006
+    skewrv365: 0.024000000000000006
     skewrv90: 0.002
   sp:
     accel16: 0.024
@@ -3238,14 +3175,14 @@ forecast_weights:
     assettrend2: 0.02099999999999999
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
     carry60: 0.026
@@ -3272,9 +3209,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   ss:
     accel16: 0.023
@@ -3287,14 +3224,14 @@ forecast_weights:
     assettrend64: 0.026999999999999999
     assettrend8: 0.03
     breakout10: 0.021
-    breakout160: 0.019
+    breakout160: 0.049
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.011000000000000001
-    breakout320: 0.03
-    carry10: 0.028
-    carry30: 0.028
-    carry60: 0.028
+    breakout320: 0.05
+    carry10: 0.038
+    carry30: 0.038
+    carry60: 0.038
     carry125: 0.02
     momentum16: 0.011000000000000001
     momentum32: 0.02
@@ -3318,9 +3255,9 @@ forecast_weights:
     skewabs30: 0.008
     skewabs365: 0.018
     skewabs90: 0.008
-    skewrv180: 0.06
+    skewrv180: 0.02
     skewrv30: 0.002
-    skewrv365: 0.06
+    skewrv365: 0.02
     skewrv90: 0.002
   y:
     accel16: 0.024
@@ -3333,14 +3270,14 @@ forecast_weights:
     assettrend64: 0.026
     assettrend8: 0.025
     breakout10: 0.023
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
-    breakout80: 0.012
-    breakout320: 0.04
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
     carry10: 0.026
     carry30: 0.026
-    carry60: 0.026
+    carry60: 0.036
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -3364,9 +3301,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.053
+    skewrv180: 0.023
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   zn:
     accel16: 0.024
@@ -3376,17 +3313,17 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
+    breakout40: 0.023
     breakout80: 0.022
     breakout320: 0.05
-    carry10: 0.016
-    carry30: 0.016
-    carry60: 0.022
+    carry10: 0.026
+    carry30: 0.026
+    carry60: 0.032
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -3411,9 +3348,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.024
     skewabs90: 0.012
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   si:
     accel16: 0.024
@@ -3423,16 +3360,16 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
+    breakout40: 0.023
     breakout80: 0.022
     breakout320: 0.05
-    carry10: 0.016
-    carry30: 0.016
+    carry10: 0.026
+    carry30: 0.026
     carry60: 0.022
     carry125: 0.02
     momentum16: 0.012
@@ -3458,9 +3395,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.024
     skewabs90: 0.012
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   lc:
     accel16: 0.024
@@ -3470,17 +3407,17 @@ forecast_weights:
     assettrend2: 0.022
     assettrend32: 0.023
     assettrend4: 0.018
-    assettrend64: 0.026
+    assettrend64: 0.036
     assettrend8: 0.025
     breakout10: 0.022000000000000002
-    breakout160: 0.03
+    breakout160: 0.05
     breakout20: 0.013
-    breakout40: 0.013
+    breakout40: 0.023
     breakout80: 0.022
     breakout320: 0.05
-    carry10: 0.016
-    carry30: 0.016
-    carry60: 0.022
+    carry10: 0.026
+    carry30: 0.026
+    carry60: 0.032
     carry125: 0.02
     momentum16: 0.012
     momentum32: 0.021
@@ -3505,9 +3442,9 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.024
     skewabs90: 0.012
-    skewrv180: 0.054000000000000006
+    skewrv180: 0.024000000000000006
     skewrv30: 0.002
-    skewrv365: 0.053
+    skewrv365: 0.023
     skewrv90: 0.002
   BITCOIN_BINANCE:
     accel16: 0.0
@@ -3591,3 +3528,44 @@ forecast_weights:
     skewabs365: 0.025
     skewrv180: 0.025
     skewrv365: 0.025
+  al:
+    accel16: 0.0
+    accel32: 0.0
+    accel64: 0.038
+    assettrend16: 0.025
+    assettrend2: 0.0
+    assettrend32: 0.025
+    assettrend4: 0.0
+    assettrend64: 0.025
+    assettrend8: 0.025
+    breakout10: 0.0
+    breakout160: 0.063
+    breakout20: 0.0
+    breakout320: 0.063
+    breakout40: 0.0
+    breakout80: 0.051
+    carry10: 0.032
+    carry125: 0.038
+    carry30: 0.032
+    carry60: 0.038
+    momentum16: 0.025
+    momentum32: 0.038
+    momentum4: 0.0
+    momentum64: 0.038
+    momentum8: 0.0
+    mrinasset1000: 0.063
+    normmom16: 0.025
+    normmom2: 0.0
+    normmom32: 0.025
+    normmom4: 0.0
+    normmom64: 0.025
+    normmom8: 0.025
+    relcarry: 0.063
+    relmomentum10: 0.0
+    relmomentum20: 0.0
+    relmomentum40: 0.038
+    relmomentum80: 0.051
+    skewabs180: 0.032
+    skewabs365: 0.032
+    skewrv180: 0.032
+    skewrv365: 0.032
