@@ -1,3 +1,5 @@
+
+
 #YAML
 percentage_vol_target: 30
 notional_trading_capital: 400000
@@ -25,7 +27,7 @@ volatility_calculation:
   slow_vol_years: 20
   proportion_of_slow_vol: 0.35
   backfill: True
-
+#
 use_attenuation:
    - 'breakout10'
    - 'breakout20'
@@ -186,6 +188,13 @@ trading_rules:
          Lfast: 64
          Lslow: 256
 
+  mrwrings4:
+    function: systems.provided.rules.mr_wings.mr_wings
+    data:
+         - "rawdata.get_daily_prices"
+         - "rawdata.daily_returns_volatility"
+    other_args:
+         Lfast: 4
   carry10:
      function: systems.provided.rules.carry.carry
      data:
@@ -395,7 +404,7 @@ trading_rules:
 #
 forecast_cap: 20.0
 
-instrument_div_multiplier: 2.4
+instrument_div_multiplier: 2.85
 
 risk_overlay:
   max_risk_fraction_normal_risk: 1.75
@@ -3572,52 +3581,3 @@ forecast_weights:
     skewrv30: 0.002
     skewrv365: 0.023
     skewrv90: 0.002
-instruments: [
-  'AP',
-  'B',
-  'BU',
-  'CF',
-  'CJ',
- 'CORNSTARCH',
- 'FG',
- 'FU',
- 'HC',
- 'JD',
- 'MA',
- 'MAIZE',
-  'PF',
-  'PK',
- 'OI',
- 'POLYETHYLENE',
- 'PP',
- 'PVC',
- 'RB',
- 'RM',
- 'SA',
- 'SF',
- 'SM',
- 'SR',
- 'SoybeanMeal',
- 'TA',
-  'UR',
- 'a',
-  'al',
-  'ao',
- 'ag',
- 'eb',
- 'eg',
- 'p',
- 'sp',
- 'ss',
-'lu',
-  'ni',
-  'p',
-  'pb',
-  'pg',
-  'sn',
-  'sp',
-  'ss',
-  'zn',
- 'y',
-  'ETH_BINANCE','lc','si','i'
-]
