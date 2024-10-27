@@ -30,6 +30,6 @@ my_system = System(stage_list=[Risk(),
                 config=Config("/home/xiachenjun/pysystemtrade/systems/provided/mills/mills_future_estimate_single.yaml")
                )
 #动态系统
-my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim_daynamic.csv")
+my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim_dynamic.csv")
 #静态系统
 my_system.accounts.portfolio().percent.curve().to_csv("/home/xiachenjun/sim.csv")
