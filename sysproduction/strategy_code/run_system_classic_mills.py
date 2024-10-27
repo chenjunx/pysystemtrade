@@ -43,10 +43,15 @@ from systems.provided.rob_system.rawdata import RawData
 from systems.positionsizing import PositionSizing
 from systems.portfolio import Portfolios
 from systems.accounts.accounts_stage import Account
+from systems.risk import Risk
+from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
+    volAttenForecastScaleCap,
+)
 
 def futures_system(data, config):
     system = System(
         [
+            Risk(),
             Account(),
             Portfolios(),
             PositionSizing(),
@@ -54,6 +59,7 @@ def futures_system(data, config):
             ForecastCombine(),
             ForecastScaleCap(),
             Rules(),
+            volAttenForecastScaleCap()
         ],
         data,
         config,
