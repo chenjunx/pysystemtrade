@@ -14,7 +14,9 @@ from systems.forecasting import Rules
 from systems.forecast_scale_cap import ForecastScaleCap
 from sysdata.sim.db_futures_sim_data import dbFuturesSimData
 from sysdata.config.configdata import Config
-
+from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
+    volAttenForecastScaleCap,
+)
 data = dbFuturesSimData()
 
 my_system = System(stage_list=[Risk(),
@@ -24,7 +26,7 @@ my_system = System(stage_list=[Risk(),
             PositionSizing(),
             myFuturesRawData(),
             ForecastCombine(),
-            ForecastScaleCap(),
+            volAttenForecastScaleCap(),
             Rules()],
                 data=data,
                 config=Config("/home/xiachenjun/pysystemtrade/systems/provided/mills/mills_future_estimate_single.yaml")
