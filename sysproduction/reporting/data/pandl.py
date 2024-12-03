@@ -228,7 +228,7 @@ class pandlCalculateAndStore(object):
             print("----"+str(self.start_date))
             print("----"+str(self.end_date))
 
-        pandl_df = pandl_df_all_data.sort_index().ix[self.start_date : self.end_date]
+        pandl_df = pandl_df_all_data.sort_index().loc[self.start_date : self.end_date]
 
         return pandl_df
 
