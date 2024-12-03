@@ -219,10 +219,15 @@ class pandlCalculateAndStore(object):
             self.data, instrument_code, self.start_date, self.end_date
         )
 
+        print("----"+instrument_code + str(pandl_df_all_data.tail(50)))
+        print("----"+instrument_code + str(self.start_date))
+        print("----"+instrument_code + str(self.end_date))
+
         if instrument_code == 'ETH_BINANCE':
             print("----"+str(pandl_df_all_data.tail(50)))
             print("----"+str(self.start_date))
             print("----"+str(self.end_date))
+
         pandl_df = pandl_df_all_data[self.start_date : self.end_date]
 
         return pandl_df
