@@ -19,7 +19,6 @@ class LogRecordSocketReceiver(socketserver.ThreadingTCPServer):
     """
 
     allow_reuse_address = True
-    logname = None
 
     def __init__(
         self,
@@ -31,7 +30,7 @@ class LogRecordSocketReceiver(socketserver.ThreadingTCPServer):
         socketserver.ThreadingTCPServer.__init__(self, (host, port),handler)
         self.abort = 0
         self.timeout = 1
-        self.logname = None
+        self.logname = "pysystemtrade-logger"
 
     def __repr__(self) -> str:
         return f"{self.server_address[0]}:{self.server_address[1]}"
