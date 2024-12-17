@@ -82,6 +82,8 @@ def logging_server():
             )
             url = "http://localhost:3100/loki/api/v1/push"
 
+        logging_loki.emitter.LokiEmitter.level_tag = "level"
+
         handler = logging_loki.LokiHandler(
             url=url,
             version="1",
@@ -94,7 +96,7 @@ def logging_server():
             handlers=[handler],
             format=LOG_FORMAT,
             datefmt="%Y-%m-%d %H:%M:%S",
-            level=logging.DEBUG,
+            # level=logging.DEBUG,
         )
 
         with LogRecordSocketReceiver(port=args.port) as server:
