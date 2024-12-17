@@ -89,6 +89,8 @@ def logging_server():
             tags={"application": "pysystemtrade"},
         )
 
+        handler.setLevel(logging.DEBUG)
+
         logging.basicConfig(
             handlers=[handler],
             format=LOG_FORMAT,
