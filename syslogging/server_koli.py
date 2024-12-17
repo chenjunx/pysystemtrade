@@ -23,7 +23,7 @@ class LogRecordSocketReceiver(socketserver.ThreadingTCPServer):
 
     def __init__(
         self,
-        host="localhost",
+        host="0.0.0.0",
         port=logging.handlers.DEFAULT_TCP_LOGGING_PORT,
         handler=LogRecordStreamHandler,
 
