@@ -1,4 +1,3 @@
-import logging
 
 from syscore.constants import arg_not_supplied
 import time
