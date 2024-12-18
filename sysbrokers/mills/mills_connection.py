@@ -48,7 +48,11 @@ class connectionMills(object):
     #查询期货信息
     def query_contract_info(self,futures_contract: futuresContract):
         # res = self.send_post("/quote?action=contract_info",futures_contract.as_dict())
-        res = self.send_ws("/quote","contract_info",futures_contract.as_dict())
+        endpoint = "/quote"
+        action = "contract_info"
+        params = futures_contract.as_dict()
+        res = self.send_ws(endpoint,action,params)
+        self.log.info(f"请求地址:{endpoint},action:{action},请求参数:{params},返回参数:{res}")
         return res
 
     #查询指定的合同的历史价格
