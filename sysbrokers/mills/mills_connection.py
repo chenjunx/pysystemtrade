@@ -23,6 +23,7 @@ class connectionMills(object):
     ):
         ipaddress, port,username,password = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
         log.label(broker="mills")
+        self.log = log
         self._mills_connection_config = dict(
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
@@ -37,9 +38,7 @@ class connectionMills(object):
 
     def on_close(self):
         self.log.info("ws连接失败!")
-    @property
-    def log(self):
-        return self.log
+
 
     #获取汇率数据
     def query_fx_Data(self):
