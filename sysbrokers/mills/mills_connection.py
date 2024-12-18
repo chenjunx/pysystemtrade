@@ -52,7 +52,6 @@ class connectionMills(object):
         action = "contract_info"
         params = futures_contract.as_dict()
         res = self.send_ws(endpoint,action,params)
-        self.log.info(f"请求地址:{endpoint},action:{action},请求参数:{params},返回参数:{res}")
         return res
 
     #查询指定的合同的历史价格
@@ -128,7 +127,7 @@ class connectionMills(object):
         end_time = time.time()
         # 计算并打印运行时间
         run_time = end_time - start_time
-        logging.debug(f"get data from mills server by {url} {action} for {run_time} seconds.")
+        self.log.info(f"请求地址:{url},action:{action},请求参数:{data},返回参数:{res},for {run_time} seconds.")
         return res
 
     def query_posistions(self):
