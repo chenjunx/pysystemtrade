@@ -1,12 +1,17 @@
-
 from sysbrokers.IB.ib_connection import connectionIB
 from sysbrokers.IB.ib_orders import ibExecutionStackData
+from sysbrokers.IB.ib_translate_broker_order_objects import tradeWithContract
+from sysbrokers.broker_contract_commission_data import (
+    brokerFuturesContractCommissionData,
+)
 from sysdata.data_blob import dataBlob
 from sysexecution.orders.broker_orders import brokerOrder
 from sysobjects.contracts import futuresContract
 
 from syslogging.logger import *
-from sysbrokers.broker_commissions import brokerFuturesContractCommissionData
+from syscore.genutils import quickTimer
+from sysobjects.spot_fx_prices import currencyValue
+
 
 class ibFuturesContractCommissionData(brokerFuturesContractCommissionData):
     """
@@ -27,7 +32,7 @@ class ibFuturesContractCommissionData(brokerFuturesContractCommissionData):
         self._ibconnection = ibconnection
 
     def __repr__(self):
-        return "IB Futures commissions data %s" % str(self.ib_client)
+        return "IB Futures commissions data %s" % str(self.ibconnection)
 
     @property
     def ibconnection(self) -> connectionIB:
@@ -37,23 +42,37 @@ class ibFuturesContractCommissionData(brokerFuturesContractCommissionData):
     def execution_stack(self) -> ibExecutionStackData:
         return self.data.broker_execution_stack
 
-    def get_commission_for_contract(self, futures_contract: futuresContract) -> float:
-        ## FOR NOW DO NOT RUN IF ANYTHING ELSE IS RUNNING
-        ## NEEDS CODE TO TAKE THE TEST STRATEGY OFF THE STACK WHEN RETURNING ORDERS
-        size_of_test_trade = 10
+    def get_commission_for_contract(
+        self, futures_contract: futuresContract
+    ) -> currencyValue:
         instrument_code = futures_contract.instrument_code
         contract_date = futures_contract.contract_date.list_of_date_str[0]
 
-        broker_order =brokerOrder(test_commission_strategy, instrument_code, contract_date,
-                    size_of_test_trade)
+        broker_order = brokerOrder(
+            test_commission_strategy, instrument_code, contract_date, size_of_test_trade
+        )
 
-        order = self.execution_stack.put_what_if_order_on_stack(broker_order)
+        order = self.execution_stack.what_if_order(broker_order)
 
-        while not self.execution_stack.is_completed(order.order.order_id):
-            ## could last forever!
-            continue
+        timer = quickTimer(5)
+        comm_currency_value = currencyValue(currency="", value=0)
+        while timer.unfinished:
+            try:
+                comm_currency_value = get_commission_and_currency_from_ib_order(order)
+            except:
+                continue
 
-        order_from_stack = self.execution_stack.get_order_with_id_from_stack(order_id=order.order.order_id)
-        return order_from_stack.commission / 10.0
+        return comm_currency_value
 
-test_commission_strategy = "testCommmission"
+
+def get_commission_and_currency_from_ib_order(
+    ib_order: tradeWithContract,
+) -> currencyValue:
+    return currencyValue(
+        value=ib_order.trade.commission / size_of_test_trade,
+        currency=ib_order.trade.commissionCurrency,
+    )
+
+
+test_commission_strategy = "testCommmission"  ## whatever not put on stack
+size_of_test_trade = 10  ## arbitrary

@@ -110,6 +110,12 @@ slippage_report_config = reportConfig(
     output="email",
 )
 
+commission_report_config = reportConfig(
+    title="Commission report",
+    function="sysproduction.reporting.commissions_report.commissions_report",
+    output="email",
+)
+
 instrument_risk_report_config = reportConfig(
     title="Instrument risk report",
     function="sysproduction.reporting.instrument_risk_report.instrument_risk_report",
@@ -159,6 +165,13 @@ report_config_defaults = dict(
     risk_report=risk_report_config,
     status_report=status_report_config,
     liquidity_report=liquidity_report_config,
+    instrument_risk_report=instrument_risk_report_config,
+    min_capital=min_capital_report_config,
+    duplicate_market=duplicate_market_report_config,
+    remove_markets_report=remove_markets_report_config,
+    market_monitor_report=market_monitor_report_config,
+    account_curve_report=account_curve_report_config,
+    commission_report=commission_report_config,
     # # instrument_risk_report = instrument_risk_report_config,
     # # min_capital = min_capital_report_config,
     duplicate_market =duplicate_market_report_config,

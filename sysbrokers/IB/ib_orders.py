@@ -1,9 +1,5 @@
 from ib_insync import Trade as ibTrade
 
-from copy import copy
-
-import datetime
-
 from sysbrokers.IB.ib_futures_contracts_data import ibFuturesContractData
 from sysbrokers.IB.ib_instruments_data import ibFuturesInstrumentData
 from sysbrokers.IB.ib_translate_broker_order_objects import (
@@ -266,28 +262,34 @@ class ibExecutionStackData(brokerExecutionStackData):
         :param broker_order: key properties are instrument_code, contract_id, quantity
         :return: ibOrderWithControls or missing_order
         """
-        trade_with_contract_from_ib = self._send_broker_order_to_IB(broker_order, what_if=False)
+        trade_with_contract_from_ib = self._send_broker_order_to_IB(
+            broker_order, what_if=False
+        )
 
-        placed_broker_order_with_controls = self._return_place_order_given_ib_trade_with_contract(trade_with_contract_from_ib=trade_with_contract_from_ib,
-                                                                                                  broker_order=broker_order)
+        placed_broker_order_with_controls = (
+            self._return_place_order_given_ib_trade_with_contract(
+                trade_with_contract_from_ib=trade_with_contract_from_ib,
+                broker_order=broker_order,
+            )
+        )
 
         return placed_broker_order_with_controls
 
-    def put_what_if_order_on_stack(self, broker_order: brokerOrder) -> ibOrderWithControls:
+    def what_if_order(self, broker_order: brokerOrder) -> tradeWithContract:
         """
 
         :param broker_order: key properties are instrument_code, contract_id, quantity
         :return: ibOrderWithControls or missing_order
         """
-        trade_with_contract_from_ib = self._send_broker_order_to_IB(broker_order, what_if=True)
+        trade_with_contract_from_ib = self._send_broker_order_to_IB(
+            broker_order, what_if=True
+        )
 
-        placed_broker_order_with_controls = self._return_place_order_given_ib_trade_with_contract(
-            trade_with_contract_from_ib=trade_with_contract_from_ib,
-            broker_order=broker_order)
+        return trade_with_contract_from_ib
 
-        return placed_broker_order_with_controls
-
-    def _return_place_order_given_ib_trade_with_contract(self, trade_with_contract_from_ib: tradeWithContract, broker_order: brokerOrder) -> ibOrderWithControls:
+    def _return_place_order_given_ib_trade_with_contract(
+        self, trade_with_contract_from_ib: tradeWithContract, broker_order: brokerOrder
+    ) -> ibOrderWithControls:
         if trade_with_contract_from_ib is missing_order:
             return missing_order
 
@@ -309,7 +311,9 @@ class ibExecutionStackData(brokerExecutionStackData):
 
         return placed_broker_order_with_controls
 
-    def _send_broker_order_to_IB(self, broker_order: brokerOrder, what_if: bool = False) -> tradeWithContract:
+    def _send_broker_order_to_IB(
+        self, broker_order: brokerOrder, what_if: bool = False
+    ) -> tradeWithContract:
         """
 
         :param broker_order: key properties are instrument_code, contract_id, quantity
@@ -338,7 +342,7 @@ class ibExecutionStackData(brokerExecutionStackData):
             account_id=account_id,
             order_type=order_type,
             limit_price=limit_price,
-            what_if=what_if
+            what_if=what_if,
         )
         if placed_broker_trade_object is missing_order:
             self.log.warning("Couldn't submit order", **log_attrs)
@@ -448,7 +452,7 @@ class ibExecutionStackData(brokerExecutionStackData):
         """
         NOTE this does not update the internal state of orders, which will retain the original order
 
-        :param broker_orders_with_controls:
+        :param broker_order_with_controls:
         :param new_limit_price:
         :return:
         """
