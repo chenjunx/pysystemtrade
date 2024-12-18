@@ -39,7 +39,7 @@ class connectionMills(object):
         self.log.info("ws连接失败!")
     @property
     def log(self):
-        return self._log
+        return self.log
 
     #获取汇率数据
     def query_fx_Data(self):
