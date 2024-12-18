@@ -1,4 +1,0 @@
-#!/bin/bash
-#. ~/.profile
-#/home/software/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_reports.run_reports
-/home/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_reports.run_reports

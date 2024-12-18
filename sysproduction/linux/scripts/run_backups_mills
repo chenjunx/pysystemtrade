@@ -1,4 +1,0 @@
-#!/bin/bash
-#. ~/.profile
-#. p sysproduction.run_backups.run_backups
-/home/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.run_backups.run_backups

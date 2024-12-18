@@ -1,3 +1,0 @@
-#!/bin/bash
-/root/.bashrc
-/home/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.interactive_update_capital_manual.interactive_update_capital_manual

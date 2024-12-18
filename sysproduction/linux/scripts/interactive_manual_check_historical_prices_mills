@@ -1,3 +1,0 @@
-#!/bin/bash
-#. ~/.profile
-/home/pysystemtrade/sysproduction/linux/scripts/p_mills sysproduction.interactive_manual_check_historical_prices.interactive_manual_check_historical_prices
