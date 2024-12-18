@@ -102,12 +102,16 @@ class connectionMills(object):
         return
 
     def send_post(self, endpoint, params):
+
         url = self._mills_connection_config.get("header") + endpoint;
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
         req_body = session.post(url=url,
                      json=orjson.loads(orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str))).text
-        res = orjson.loads(req_body)
+        try:
+            res = orjson.loads(req_body)
+        except Exception as e:
+            self.log.error("读取返回数据失败:%s,请求地址%s,请求参数:%s,返回参数:%s",e,endpoint,params,req_body)
         if(res['code'] == 10000):
             return res['data']
         else:
