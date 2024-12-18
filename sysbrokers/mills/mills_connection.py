@@ -12,6 +12,7 @@ import json
 import requests
 import orjson
 from websocket import create_connection
+from syslogging.logger import *
 
 class connectionMills(object):
     def __init__(
@@ -19,10 +20,9 @@ class connectionMills(object):
             mills_ipaddress: str = arg_not_supplied,
             mills_port: int = arg_not_supplied,
             account: str = arg_not_supplied,
-            log=logtoscreen("connectionMills"),
+            log=get_logger("mills-serve"),
     ):
         ipaddress, port,username,password = mills_defaults(mills_ipaddress=mills_ipaddress, mills_port=mills_port)
-        log.label(broker="mills")
         self.log = log
         self._mills_connection_config = dict(
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
@@ -110,7 +110,7 @@ class connectionMills(object):
         try:
             res = orjson.loads(req_body)
         except Exception as e:
-            self.log.error(f"读取返回数据失败:{e},请求地址{endpoint},请求参数:{params},返回参数:{req_body}")
+            self.log.error(f"读取返回数据失败:%s,请求地址:%s,请求参数:%s,返回参数:%s",e,endpoint,params,req_body)
         if(res['code'] == 10000):
             return res['data']
         else:
