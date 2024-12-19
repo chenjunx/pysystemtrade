@@ -1,3 +1,4 @@
+import logging
 
 from syscore.constants import arg_not_supplied
 import time
@@ -95,6 +96,7 @@ class connectionMills(object):
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
         req_body = session.get(url=url, params=params).text
+        logging.info(f'请求地址:{url},请求参数:{params},返回地址:{req_body}')
         res = orjson.loads(req_body)
         if (res['code'] == 10000):
             return res['data']
