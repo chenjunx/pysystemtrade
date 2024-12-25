@@ -96,11 +96,11 @@ class connectionMills(object):
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
         req_body = session.get(url=url, params=params).text
-        logging.info(f'请求地址:{url},请求参数:{params},返回地址:{req_body}')
         res = orjson.loads(req_body)
         if (res['code'] == 10000):
             return res['data']
         else:
+            logging.info(f'请求地址:{url},请求参数:{params},返回地址:{req_body}')
             raise Exception("请求异常", res['msg'])
         return
 
@@ -129,7 +129,7 @@ class connectionMills(object):
         end_time = time.time()
         # 计算并打印运行时间
         run_time = end_time - start_time
-        self.log.info(f"请求地址:{url},action:{action},请求参数:{data},返回参数:{res},for {run_time} seconds.")
+        # self.log.info(f"请求地址:{url},action:{action},请求参数:{data},返回参数:{res},for {run_time} seconds.")
         return res
 
     def query_posistions(self):
