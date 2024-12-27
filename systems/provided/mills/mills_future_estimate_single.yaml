@@ -1512,6 +1512,52 @@ forecast_weights:
     skewrv30: 0.002
     skewrv365: 0.023
     skewrv90: 0.002
+  PX:
+    accel16: 0.024
+    accel32: 0.043
+    accel64: 0.038
+    assettrend16: 0.013000000000000001
+    assettrend2: 0.02099999999999999
+    assettrend32: 0.023
+    assettrend4: 0.018
+    assettrend64: 0.026
+    assettrend8: 0.025
+    breakout10: 0.022000000000000002
+    breakout160: 0.05
+    breakout20: 0.013
+    breakout40: 0.023
+    breakout80: 0.022
+    breakout320: 0.05
+    carry10: 0.026
+    carry30: 0.026
+    carry60: 0.026
+    carry125: 0.03
+    momentum16: 0.012
+    momentum32: 0.021
+    momentum4: 0.003
+    momentum64: 0.031000000000000001
+    momentum8: 0.003
+    mrinasset1000: 0.054000000000000006
+    mrwrings4: 0.018
+    normmom16: 0.024
+    normmom2: 0.022000000000000002
+    normmom32: 0.028
+    normmom4: 0.006999999999999999
+    normmom64: 0.031000000000000001
+    normmom8: 0.006999999999999999
+    relcarry: 0.016
+    relmomentum10: 0.017
+    relmomentum20: 0.02
+    relmomentum40: 0.031
+    relmomentum80: 0.04
+    skewabs180: 0.016
+    skewabs30: 0.006
+    skewabs365: 0.016
+    skewabs90: 0.006
+    skewrv180: 0.023
+    skewrv30: 0.002
+    skewrv365: 0.023
+    skewrv90: 0.002
   RB:
     accel16: 0.024
     accel32: 0.042
@@ -3618,5 +3664,5 @@ instruments: [
   'ss',
   'zn',
  'y',
-  'ETH_BINANCE','lc','si','i'
+  'ETH_BINANCE','lc','si','i','PX'
 ]
