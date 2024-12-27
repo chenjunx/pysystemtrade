@@ -8,6 +8,7 @@ this:
 
 
 """
+import datetime
 from syscore.constants import arg_not_supplied
 from syscore.exceptions import missingData
 
@@ -29,38 +30,9 @@ from sysproduction.data.backtest import store_backtest_state
 
 from syslogging.logger import *
 
-from systems.provided.rob_system.rawdata import myFuturesRawData
-
-
-from systems.forecasting import Rules
+from systems.provided.mills.millsbasesystem import futures_system
 from systems.basesystem import System
-from systems.forecast_combine import ForecastCombine
-from systems.positionsizing import PositionSizing
-from systems.portfolio import Portfolios
-from systems.accounts.accounts_stage import Account
-from systems.risk import Risk
-from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
-    volAttenForecastScaleCap,
-)
 
-
-def futures_system(data, config):
-    system = System(
-        [
-            Risk(),
-            Account(),
-            Portfolios(),
-            PositionSizing(),
-            myFuturesRawData(),
-            ForecastCombine(),
-            Rules(),
-            volAttenForecastScaleCap()
-        ],
-        data,
-        config,
-    )
-
-    return system
 
 class runSystemClassic(object):
     def __init__(

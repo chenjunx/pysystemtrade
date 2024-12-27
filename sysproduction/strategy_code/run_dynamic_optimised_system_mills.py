@@ -19,7 +19,9 @@ from sysproduction.data.backtest import store_backtest_state
 from syslogging.logger import *
 
 from systems.basesystem import System
-
+from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
+    volAttenForecastScaleCap,
+)
 
 class runSystemCarryTrendDynamic(runSystemClassic):
     # DO NOT CHANGE THE NAME OF THIS FUNCTION; IT IS HARDCODED INTO CONFIGURATION FILES
@@ -97,7 +99,7 @@ def futures_system(data, config):
             PositionSizing(),
             myFuturesRawData(),
             ForecastCombine(),
-            ForecastScaleCap(),
+            volAttenForecastScaleCap(),
             Rules(),
         ],
         data,
