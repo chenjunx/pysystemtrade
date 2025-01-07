@@ -594,7 +594,7 @@ CY,郑商所棉纱,5,CNH,Ags,0,0,4.01,ASIA
 FG,郑商所玻璃,20,CNH,Chemical,0,0,6.01,ASIA
 FU,上期所燃油,10,CNH,OilGas,0,0.00051,0,ASIA
 HC,上期所热卷,10,CNH,Black,0,0.00101,0,ASIA
-JD,大商所鸡蛋,10,CNH,Ags,0,0.0151,0,ASIA
+JD,大商所鸡蛋,10,CNH,Ags,0,0.000151,0,ASIA
 MA,郑商所甲醇,10,CNH,Chemical,0,0,1.01,ASIA
 MAIZE,大商所玉米,10,CNH,Ags,0,0,1.21,ASIA
 OI,郑商所菜油,10,CNH,Ags,0,0,2.01,ASIA
@@ -603,7 +603,7 @@ PP,大商所聚氯丙烯,5,CNH,Chemical,0,0,1.01,ASIA
 PVC,大商所聚氯乙烯,5,CNH,Chemical,0,0,1.01,ASIA
 RB,上期所螺纹钢,10,CNH,Black,0,0.00101,0,ASIA
 RM,郑商所菜粕,10,CNH,Ags,0,0,1.51,ASIA
-SA,郑商所纯碱,20,CNH,Chemical,0,0.02,0,ASIA
+SA,郑商所纯碱,20,CNH,Chemical,0,0.00021,0,ASIA
 SF,郑商所硅铁,5,CNH,Black,0,0,3.01,ASIA
 SM,郑商所猛硅,5,CNH,Black,0,0,3.01,ASIA
 SR,郑商所白糖,10,CNH,Ags,0,0,3.01,ASIA
@@ -648,7 +648,7 @@ BU,沥青,10,CNH,OilGas,0,0.00051,0,ASIA
 PF,短纤,5,CNH,Chemical,0,0,3.01,ASIA
 PK,花生,5,CNH,Ags,0,0,4.01,ASIA
 ao,氧化铝,20,CNH,Metail,0,0.003,0,ASIA
-SH,烧碱,30,CNH,Chemical,0,0.011,0,ASIA
+SH,烧碱,30,CNH,Chemical,0,0.00011,0,ASIA
 ec,欧线,50,CNH,TransportIndex,0,0,200,ASIA
 si,工业硅,5,CNH,Metail,0,0,20,ASIA
 lc,碳酸锂,1,CNH,Metail,0,0,20,ASIA
