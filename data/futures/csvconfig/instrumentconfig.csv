@@ -647,7 +647,7 @@ br,合成橡胶,5,CNH,Chemical,0,0.00021,0,ASIA
 BU,沥青,10,CNH,OilGas,0,0.00051,0,ASIA
 PF,短纤,5,CNH,Chemical,0,0,3.01,ASIA
 PK,花生,5,CNH,Ags,0,0,4.01,ASIA
-ao,氧化铝,20,CNH,Metail,0,0.003,0,ASIA
+ao,氧化铝,20,CNH,Metail,0,0.0003,0,ASIA
 SH,烧碱,30,CNH,Chemical,0,0.00011,0,ASIA
 ec,欧线,50,CNH,TransportIndex,0,0,200,ASIA
 si,工业硅,5,CNH,Metail,0,0,20,ASIA
