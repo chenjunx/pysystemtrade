@@ -609,7 +609,7 @@ SM,郑商所猛硅,5,CNH,Black,0,0,3.01,ASIA
 SR,郑商所白糖,10,CNH,Ags,0,0,3.01,ASIA
 SoybeanMeal,豆粕,10,CNH,Ags,0,0,1.51,ASIA
 TA,郑商所PTA,5,CNH,Chemical,0,0,3.01,ASIA
-UR,郑商所尿素,20,CNH,Chemical,0,0.0101,0,ASIA
+UR,郑商所尿素,20,CNH,Chemical,0,0.000101,0,ASIA
 a,大商所豆一,10,CNH,Ags,0,0,2.01,ASIA
 ag,上期所白银,15,CNH,Metals,0,0.00051,0,ASIA
 au,上期所黄金,1000,CNH,Metals,0,0,10.01,ASIA
@@ -617,7 +617,7 @@ bc,能源极阴铜,5,CNH,Metail,0,0.000011,0,ASIA
 cu,上期所铜,5,CNH,Metail,0,0.0006,0,ASIA
 eb,大商所苯乙烯,5,CNH,Chemical,0,0,3.01,ASIA
 eg,大商所乙二醇,10,CNH,Chemical,0,0,3.01,ASIA
-i,大商所铁矿石,100,CNH,Black,0,0.011,0,ASIA
+i,大商所铁矿石,100,CNH,Black,0,0.00011,0,ASIA
 j,大商所焦炭,100,CNH,Black,0,0.000141,0,ASIA
 jm,大商所焦煤,60,CNH,Black,0,0.011,0,ASIA
 lh,生猪,16,CNH,Farming,0,0.0011,0,ASIA
