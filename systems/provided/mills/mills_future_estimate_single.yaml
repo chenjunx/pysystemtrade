@@ -2379,50 +2379,52 @@ forecast_weights:
     skewrv365: 0.024000000000000006
     skewrv90: 0.002
   br:
-    accel16: 0.0
-    accel32: 0.0
-    accel64: 0.0
-    assettrend16: 0.0
-    assettrend2: 0.0
-    assettrend32: 0.0
-    assettrend4: 0.0
-    assettrend64: 0.0
-    assettrend8: 0.0
-    breakout10: 0.0
-    breakout160: 0.0
-    breakout20: 0.0
-    breakout40: 0.0
-    breakout80: 0.0
-    carry10: 0.0
-    carry30: 0.0
-    carry60: 0.0
-    momentum16: 0.0
-    momentum32: 0.0
-    momentum4: 0.0
-    momentum64: 0.0
-    momentum8: 0.0
-    mrinasset1000: 0.0
-    mrwrings4: 0.0
-    normmom16: 0.0
-    normmom2: 0.0
-    normmom32: 0.0
-    normmom4: 0.0
-    normmom64: 0.0
-    normmom8: 0.0
-    relcarry: 0.0
-    relmomentum10: 0.0
-    relmomentum20: 0.0
-    relmomentum40: 0.0
-    relmomentum80: 0.0
-    skewabs14: 0.0
-    skewabs180: 0.0
-    skewabs30: 0.0
-    skewabs365: 0.0
-    skewabs90: 0.0
-    skewrv180: 0.0
-    skewrv30: 0.0
-    skewrv365: 0.0
-    skewrv90: 0.0
+    accel16: 0.024
+    accel32: 0.043
+    accel64: 0.038
+    assettrend16: 0.013000000000000001
+    assettrend2: 0.02099999999999999
+    assettrend32: 0.023
+    assettrend4: 0.018
+    assettrend64: 0.026
+    assettrend8: 0.025
+    breakout10: 0.023
+    breakout160: 0.02
+    breakout20: 0.013
+    breakout40: 0.013
+    breakout80: 0.022
+    breakout320: 0.04
+    carry10: 0.016
+    carry30: 0.022
+    carry60: 0.022
+    carry125: 0.02
+    momentum16: 0.012
+    momentum32: 0.021
+    momentum4: 0.003
+    momentum64: 0.031000000000000001
+    momentum8: 0.003
+    mrinasset1000: 0.054000000000000006
+    mrwrings4: 0.018
+    normmom16: 0.024
+    normmom2: 0.022000000000000002
+    normmom32: 0.021
+    normmom4: 0.006999999999999999
+    normmom64: 0.031000000000000001
+    normmom8: 0.006999999999999999
+    relcarry: 0.012
+    relmomentum10: 0.017
+    relmomentum20: 0.029000000000000004
+    relmomentum40: 0.031
+    relmomentum80: 0.04
+    skewabs14: 0.012
+    skewabs180: 0.012
+    skewabs30: 0.012
+    skewabs365: 0.012
+    skewabs90: 0.006
+    skewrv180: 0.053
+    skewrv30: 0.002
+    skewrv365: 0.053
+    skewrv90: 0.002
   cu:
     accel16: 0.024
     accel32: 0.042
@@ -3664,5 +3666,5 @@ instruments: [
   'ss',
   'zn',
  'y',
-  'ETH_BINANCE','lc','si','i','PX','SH'
+  'ETH_BINANCE','lc','si','i','PX','SH','br'
 ]
