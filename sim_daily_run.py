@@ -21,7 +21,6 @@ from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
     volAttenForecastScaleCap,
 )
 data = dbFuturesSimData()
-/Users/xiachenjun/workfile/trade/pysystemtrade=/home/xiachenjun/pysystemtrade
 
 my_system = System(stage_list=[Risk(),
             accountForOptimisedStage(),
