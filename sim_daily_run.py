@@ -1,3 +1,6 @@
+import pydevd_pycharm
+pydevd_pycharm.settrace('192.168.50.41', port=12345, stdoutToServer=True,
+                        stderrToServer=True)
 from systems.basesystem import System
 from systems.risk import Risk
 from systems.provided.dynamic_small_system_optimise.accounts_stage import (
@@ -18,9 +21,7 @@ from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
     volAttenForecastScaleCap,
 )
 data = dbFuturesSimData()
-import pydevd_pycharm
-pydevd_pycharm.settrace('192.168.50.41', port=12345, stdoutToServer=True,
-                        stderrToServer=True)
+
 
 my_system = System(stage_list=[Risk(),
             accountForOptimisedStage(),
