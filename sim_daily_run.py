@@ -19,7 +19,7 @@ from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
 )
 data = dbFuturesSimData()
 import pydevd_pycharm
-pydevd_pycharm.settrace('192.168.50.117', port=12345, stdoutToServer=True,
+pydevd_pycharm.settrace('192.168.50.41', port=12345, stdoutToServer=True,
                         stderrToServer=True)
 
 my_system = System(stage_list=[Risk(),
