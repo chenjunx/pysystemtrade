@@ -1,6 +1,6 @@
-import pydevd_pycharm
-pydevd_pycharm.settrace('192.168.50.43', port=12345, stdoutToServer=True,
-                        stderrToServer=True)
+# import pydevd_pycharm
+# pydevd_pycharm.settrace('192.168.50.43', port=12345, stdoutToServer=True,
+#                         stderrToServer=True)
 from systems.basesystem import System
 from systems.risk import Risk
 from systems.provided.dynamic_small_system_optimise.accounts_stage import (
