@@ -730,7 +730,7 @@ class Portfolios(SystemStage):
         weight_index = instrument_weights.index
         new_pd_as_dict = dict(
             [
-                (instrument_code, pd.Series([0.0] * len(weight_index)))
+                (instrument_code, pd.Series([0.0] * len(weight_index),index=weight_index))
                 for instrument_code in instrument_list_to_add
             ]
         )
