@@ -52,7 +52,6 @@ def uniquets(x: Union[pd.Series, pd.DataFrame]) -> Union[pd.Series, pd.DataFrame
     """
     Makes x unique
     """
-    print("-----"+str(x))
     x = x.groupby(level=0).last()
     return x
 
