@@ -40,7 +40,7 @@ my_system = System(stage_list=[Risk(),
 
 from arctic import Arctic
 store = Arctic('localhost')
-store.initialize_library('mills_lib')
-library = store['daily_monitor']
+store.initialize_library('daily_monitor_data')
+library = store['daily_monitor_data']
 library.write('sim', my_system.accounts.portfolio().percent.curve())
 library.write('sim_dynamic', my_system.accounts.optimised_portfolio().percent.curve())
