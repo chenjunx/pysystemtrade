@@ -14,7 +14,6 @@ from systems.positionsizing import PositionSizing
 from systems.provided.rob_system.rawdata import myFuturesRawData
 from systems.forecast_combine import ForecastCombine
 from systems.forecasting import Rules
-from systems.forecast_scale_cap import ForecastScaleCap
 from sysdata.sim.db_futures_sim_data import dbFuturesSimData
 from sysdata.config.configdata import Config
 from systems.provided.attenuate_vol.vol_attenuation_forecast_scale_cap import (
@@ -35,6 +34,13 @@ my_system = System(stage_list=[Risk(),
                 config=Config("/home/xiachenjun/pysystemtrade/systems/provided/mills/mills_future_estimate_single.yaml")
                )
 #动态系统
-my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim_dynamic.csv")
+# my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim_dynamic.csv")
 #静态系统
-my_system.accounts.portfolio().percent.curve().to_csv("/home/xiachenjun/sim.csv")
+# my_system.accounts.portfolio().percent.curve().to_csv("/home/xiachenjun/sim.csv")
+
+from arctic import Arctic
+store = Arctic('localhost')
+store.initialize_library('mills_lib')
+library = store['daily_monitor']
+library.write('sim', my_system.accounts.portfolio().percent.curve())
+library.write('sim_dynamic', my_system.accounts.optimised_portfolio().percent.curve())
