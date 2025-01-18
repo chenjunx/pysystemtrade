@@ -395,14 +395,13 @@ trading_rules:
 #
 forecast_cap: 20.0
 
-instrument_div_multiplier: 2.4
+instrument_div_multiplier: 2.3
 
 risk_overlay:
-  max_risk_fraction_normal_risk: 1.75
-  max_risk_fraction_stdev_risk: 4.0
-  max_risk_limit_sum_abs_risk: 4.0
-  max_risk_leverage: 20.0
-
+  max_risk_fraction_normal_risk: 1.7
+  max_risk_fraction_stdev_risk: 2.8
+  max_risk_limit_sum_abs_risk: 3
+  max_risk_leverage: 7
 forecast_weights:
   AP:
     accel16: 0.024
