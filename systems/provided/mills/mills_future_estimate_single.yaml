@@ -395,7 +395,7 @@ trading_rules:
 #
 forecast_cap: 20.0
 
-instrument_div_multiplier: 2.3
+instrument_div_multiplier: 2.4
 
 risk_overlay:
   max_risk_fraction_normal_risk: 1.7
