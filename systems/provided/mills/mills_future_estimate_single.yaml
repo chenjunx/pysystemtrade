@@ -3661,7 +3661,7 @@ instruments: [
 #  'p',
 #  'pb',
   'pg',
-  'zn',
+#  'zn',
 # 'y',
   'ETH_BINANCE',
 #  'lc','si','i','PX','SH','br'
