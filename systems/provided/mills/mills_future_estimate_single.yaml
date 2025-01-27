@@ -399,9 +399,9 @@ instrument_div_multiplier: 2.3
 
 risk_overlay:
   max_risk_fraction_normal_risk: 1.7
-  max_risk_fraction_stdev_risk: 2.8
+  max_risk_fraction_stdev_risk: 3
   max_risk_limit_sum_abs_risk: 3
-  max_risk_leverage: 7
+  max_risk_leverage: 7.5
 forecast_weights:
   AP:
     accel16: 0.024
@@ -3620,50 +3620,49 @@ forecast_weights:
     skewrv365: 0.023
     skewrv90: 0.002
 instruments: [
-  'AP',
+#  'AP',
   'B',
   'BU',
-  'CF',
+#  'CF',
   'CJ',
  'CORNSTARCH',
  'FG',
- 'FU',
- 'HC',
+# 'FU',
+# 'HC',
  'JD',
  'MA',
  'MAIZE',
-  'PF',
+#  'PF',
   'PK',
- 'OI',
+# 'OI',
  'POLYETHYLENE',
  'PP',
  'PVC',
  'RB',
- 'RM',
+# 'RM',
  'SA',
  'SF',
  'SM',
- 'SR',
+# 'SR',
  'SoybeanMeal',
  'TA',
-  'UR',
+#  'UR',
  'a',
-  'al',
-  'ao',
+#  'al',
+#  'ao',
  'ag',
  'eb',
  'eg',
- 'p',
+# 'p',
  'sp',
  'ss',
 'lu',
-  'ni',
-  'p',
-  'pb',
+#  'ni',
+#  'p',
+#  'pb',
   'pg',
-  'sp',
-  'ss',
   'zn',
- 'y',
-  'ETH_BINANCE','lc','si','i','PX','SH','br'
+# 'y',
+  'ETH_BINANCE',
+#  'lc','si','i','PX','SH','br'
 ]
