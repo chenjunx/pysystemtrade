@@ -61,7 +61,7 @@ daily_pandl_report_config = reportConfig(
 month_pandl_report_config = reportConfig(
     title="Month P&L report",
     function="sysproduction.reporting.pandl_report.pandl_report",
-    calendar_days_back=33,
+    calendar_days_back=30,
     output="email"
 )
 
@@ -158,7 +158,7 @@ report_config_defaults = dict(
     costs_report=costs_report_config,
     roll_report=roll_report_config,
     daily_pandl_report=daily_pandl_report_config,
-    month_pandl_report=month_pandl_report_config,
+     # month_pandl_report=month_pandl_report_config,
     # # reconcile_report=reconcile_report_config,
     trade_report=trade_report_config,
     strategy_report=strategy_report_config,
