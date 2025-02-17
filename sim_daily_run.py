@@ -33,6 +33,8 @@ my_system = System(stage_list=[Risk(),
                 data=data,
                 config=Config("/home/xiachenjun/pysystemtrade/systems/provided/mills/mills_future_estimate_single.yaml")
                )
+
+my_system.config.use_instrument_weight_estimates = True
 #动态系统
 # my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim_dynamic.csv")
 #静态系统
@@ -47,3 +49,4 @@ library.write('sim_dynamic', my_system.accounts.optimised_portfolio().percent.cu
 current_date = datetime.datetime.today().date()
 library.write('sim_pct_change'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().pct_change())
 library.write('sim_pct_change_corr'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().pct_change().corr())
+library.write('sim_instrument_weights'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.get_instrument_weights())
