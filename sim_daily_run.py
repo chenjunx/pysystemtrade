@@ -37,10 +37,13 @@ my_system = System(stage_list=[Risk(),
 # my_system.accounts.optimised_portfolio().percent.curve().to_csv("/home/xiachenjun/sim_dynamic.csv")
 #静态系统
 # my_system.accounts.portfolio().percent.curve().to_csv("/home/xiachenjun/sim.csv")
-
+import datetime
 from arctic import Arctic
 store = Arctic('localhost')
 store.initialize_library('daily_monitor_data')
 library = store['daily_monitor_data']
 library.write('sim', my_system.accounts.portfolio().percent.curve())
 library.write('sim_dynamic', my_system.accounts.optimised_portfolio().percent.curve())
+current_date = datetime.datetime.today().date()
+library.write('sim_pct_change'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().pct_change())
+library.write('sim_pct_change_corr'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().pct_change().corr())
