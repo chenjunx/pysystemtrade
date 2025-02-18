@@ -47,6 +47,6 @@ library = store['daily_monitor_data']
 library.write('sim', my_system.accounts.portfolio().percent.curve())
 library.write('sim_dynamic', my_system.accounts.optimised_portfolio().percent.curve())
 current_date = datetime.datetime.today().date()
-library.write('sim_pct_change'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().pct_change())
-library.write('sim_pct_change_corr'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().pct_change().corr())
+library.write('sim_pct_change'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns())
+library.write('sim_pct_change_corr'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().corr())
 library.write('sim_instrument_weights'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.get_instrument_weights())
