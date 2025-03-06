@@ -5,7 +5,7 @@ base_currency: "CNH"
 capital_multiplier:
    func: syscore.capital.full_compounding
 
-use_forecast_scale_estimates: True
+use_forecast_scale_estimates: False
 use_forecast_weight_estimates: False
 use_forecast_div_mult_estimates: True
 use_instrument_weight_estimates: False
@@ -396,6 +396,53 @@ trading_rules:
 forecast_cap: 20.0
 
 instrument_div_multiplier: 2.6
+
+forecast_scalars:
+  accel16: 7.8170710605387095
+  accel32: 5.563487137713779
+  accel64: 3.896720541225276
+  assettrend16:  11.63
+  assettrend2: 29.95
+  assettrend32: 8.11
+  assettrend4: 21.49
+  assettrend64: 5.96
+  assettrend8: 15.84
+  breakout10: 0.6031025130185256
+  breakout160: 0.7388310187414805
+  breakout20: 0.6742627921625178
+  breakout320: 0.7366197028421859
+  breakout40: 0.7036929411910525
+  breakout80: 0.726260784624834
+  carry10: 16.42
+  carry125: 20.1
+  carry30: 17.59
+  carry60: 18.2
+  momentum16: 4.104172020369661
+  momentum32: 2.786994330124792
+  momentum4: 8.539940954709955
+  momentum64: 1.9093945630747895
+  momentum8: 5.949404365193165
+  mrinasset1000: 374
+  normmom16:  11.3
+  normmom2: 32.05
+  normmom32: 8.05
+  normmom4: 22.59
+  normmom64: 5.7
+  normmom8: 15.91
+  relcarry: 23.55
+  relmomentum10: 49.97
+  relmomentum20: 70.43
+  relmomentum40: 96.69
+  relmomentum80: 131.45
+  skewabs180: 4.590246757939031
+  skewabs365: 2.351483885205172
+  skewrv180: 5.244752769697409
+  skewrv365: 3.002222097593425
+  skewabs30: 12.74
+  skewabs90: 7.65
+  skewrv30: 12.89
+  mrwrings4: 2.17
+  skewrv90: 7.92
 
 risk_overlay:
   max_risk_fraction_normal_risk: 1.7
