@@ -496,8 +496,8 @@ forecast_weights:
     skewrv365: 0.033
     skewrv90: 0.002
   B:
-    accel16: 0.024
-    accel32: 0.043
+    accel16: 0.02
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.01099999999999999
@@ -515,7 +515,7 @@ forecast_weights:
     carry30: 0.027
     carry60: 0.021
     carry125: 0.04
-    momentum16: 0.012
+    momentum16: 0.022
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.011000000000000001
@@ -527,7 +527,7 @@ forecast_weights:
     normmom32: 0.041
     normmom4: 0.006999999999999999
     normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.016999999999999999
     relcarry: 0.016
     relmomentum10: 0.017
     relmomentum20: 0.019000000000000004
@@ -537,14 +537,14 @@ forecast_weights:
     skewabs30: 0.006
     skewabs365: 0.016
     skewabs90: 0.006
-    skewrv180: 0.033
+    skewrv180: 0.03
     skewrv30: 0.002
-    skewrv365: 0.033
+    skewrv365: 0.03
     skewrv90: 0.002
   BU:
-    accel16: 0.027000000000000003
-    accel32: 0.048
-    accel64: 0.043
+    accel16: 0.02000000000000003
+    accel32: 0.038
+    accel64: 0.033
     assettrend16: 0.015
     assettrend2: 0
     assettrend32: 0.012
@@ -561,11 +561,11 @@ forecast_weights:
     carry30: 0.032
     carry60: 0.034
     carry125: 0.03
-    momentum16: 0.013000000000000001
+    momentum16: 0.023000000000000001
     momentum32: 0.024
     momentum4: 0.004
     momentum64: 0.012
-    momentum8: 0.004
+    momentum8: 0.014
     mrinasset1000: 0.064
     mrwrings4: 0.013
     normmom16: 0.027000000000000003
@@ -573,20 +573,20 @@ forecast_weights:
     normmom32: 0.024
     normmom4: 0.006999999999999999
     normmom64: 0.012
-    normmom8: 0.008
+    normmom8: 0.029
     relcarry: 0.024
     relmomentum10: 0.005
     relmomentum20: 0.03
     relmomentum40: 0.034
     relmomentum80: 0.033
     skewabs14: 0.005
-    skewabs180: 0.032
-    skewabs30: 0.027999999999999997
+    skewabs180: 0.03
+    skewabs30: 0.02
     skewabs365: 0.022
     skewabs90: 0.013999999999999999
-    skewrv180: 0.033
+    skewrv180: 0.03
     skewrv30: 0.004
-    skewrv365: 0.032
+    skewrv365: 0.03
     skewrv90: 0.002
   CF:
     accel16: 0.024
@@ -636,7 +636,7 @@ forecast_weights:
     skewrv90: 0.002
   CJ:
     accel16: 0.025
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.039
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -658,7 +658,7 @@ forecast_weights:
     momentum32: 0.022000000000000002
     momentum4: 0.003
     momentum64: 0.011000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.011000000000000001
     mrwrings4: 0.016
     normmom16: 0.024
@@ -681,8 +681,8 @@ forecast_weights:
     skewrv365: 0.035
     skewrv90: 0.002
   CORNSTARCH:
-    accel16: 0.024
-    accel32: 0.042
+    accel16: 0.020
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.0202
@@ -704,7 +704,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.011000000000000001
-    momentum8: 0.003
+    momentum8: 0.017
     mrinasset1000: 0.057
     mrwrings4: 0.018
     normmom16: 0.024
@@ -712,19 +712,19 @@ forecast_weights:
     normmom32: 0.021
     normmom4: 0.006999999999999999
     normmom64: 0.011000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.026999999999999999
     relcarry: 0.024
     relmomentum10: 0.017999999999999996
     relmomentum20: 0.021
     relmomentum40: 0.031
     relmomentum80: 0.04
     skewabs180: 0.023
-    skewabs30: 0.024
+    skewabs30: 0.02
     skewabs365: 0.023
     skewabs90: 0.013
-    skewrv180: 0.034000000000000006
+    skewrv180: 0.03000000000000006
     skewrv30: 0.002
-    skewrv365: 0.034000000000000006
+    skewrv365: 0.03000000000000006
     skewrv90: 0.002
   CY:
     accel16: 0.025
@@ -773,8 +773,8 @@ forecast_weights:
     skewrv90: 0.002
   FG:
     accel16: 0.025
-    accel32: 0.043
-    accel64: 0.039
+    accel32: 0.033
+    accel64: 0.029
     assettrend16: 0.013000000000000001
     assettrend2: 0.01
     assettrend32: 0.023
@@ -791,11 +791,11 @@ forecast_weights:
     carry30: 0.033
     carry60: 0.033
     carry125: 0.030
-    momentum16: 0.012
+    momentum16: 0.022
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.011000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.011000000000000001
     mrwrings4: 0.01199999999999999
     normmom16: 0.024
@@ -803,19 +803,19 @@ forecast_weights:
     normmom32: 0.022000000000000002
     normmom4: 0.006999999999999999
     normmom64: 0.011000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.020999999999999999
     relcarry: 0.033
     relmomentum10: 0.017
     relmomentum20: 0.021
     relmomentum40: 0.031
     relmomentum80: 0.041
-    skewabs180: 0.043
+    skewabs180: 0.04
     skewabs30: 0.024
-    skewabs365: 0.033
+    skewabs365: 0.03
     skewabs90: 0.003
-    skewrv180: 0.034000000000000006
+    skewrv180: 0.03000000000000006
     skewrv30: 0.002
-    skewrv365: 0.034000000000000006
+    skewrv365: 0.03000000000000006
     skewrv90: 0.002
   FU:
     accel16: 0.024
@@ -1145,7 +1145,7 @@ forecast_weights:
     skewrv90: 0.002
   JD:
     accel16: 0.024
-    accel32: 0.042
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -1167,7 +1167,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.021000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.059000000000000004
     mrwrings4: 0.011
     normmom16: 0.024
@@ -1237,7 +1237,7 @@ forecast_weights:
     skewrv90: 0.002
   MAIZE:
     accel16: 0.024
-    accel32: 0.042
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.022
@@ -1259,7 +1259,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.011000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.055999999999999994
     mrwrings4: 0.01400000000000001
     normmom16: 0.024
@@ -1422,7 +1422,7 @@ forecast_weights:
     skewrv90: 0.002
   POLYETHYLENE:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -1444,7 +1444,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.021000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.055
     mrwrings4: 0.016
     normmom16: 0.024
@@ -1468,7 +1468,7 @@ forecast_weights:
     skewrv90: 0.002
   PP:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -1490,7 +1490,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.031000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.054000000000000006
     mrwrings4: 0.018
     normmom16: 0.024
@@ -1514,7 +1514,7 @@ forecast_weights:
     skewrv90: 0.002
   PVC:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -1536,7 +1536,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.031000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.054000000000000006
     mrwrings4: 0.018
     normmom16: 0.024
@@ -1606,7 +1606,7 @@ forecast_weights:
     skewrv90: 0.002
   RB:
     accel16: 0.024
-    accel32: 0.042
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.00099999999999999
@@ -1628,7 +1628,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.011000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.055999999999999994
     mrwrings4: 0.018
     normmom16: 0.034
@@ -1928,7 +1928,7 @@ forecast_weights:
     skewrv90: 0.002
   SoybeanMeal:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -1950,7 +1950,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.031000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.055
     mrwrings4: 0.018
     normmom16: 0.024
@@ -2021,7 +2021,7 @@ forecast_weights:
     skewrv90: 0.002
   TA:
     accel16: 0.024
-    accel32: 0.042
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -2051,7 +2051,7 @@ forecast_weights:
     normmom32: 0.029
     normmom4: 0.006999999999999999
     normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.016999999999999999
     relcarry: 0.016
     relmomentum10: 0.017
     relmomentum20: 0.02
@@ -2205,7 +2205,7 @@ forecast_weights:
     skewrv90: 0.002
   a:
     accel16: 0.024
-    accel32: 0.042
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -2235,7 +2235,7 @@ forecast_weights:
     normmom32: 0.029
     normmom4: 0.006999999999999999
     normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.016999999999999999
     relcarry: 0.016
     relmomentum10: 0.017
     relmomentum20: 0.02
@@ -2251,7 +2251,7 @@ forecast_weights:
     skewrv90: 0.002
   ag:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.025
     assettrend2: 0.0
@@ -2273,7 +2273,7 @@ forecast_weights:
     momentum32: 0.038
     momentum4: 0.0
     momentum64: 0.038
-    momentum8: 0.0
+    momentum8: 0.01
     mrinasset1000: 0.063
     normmom16: 0.025
     normmom2: 0.0
@@ -2520,7 +2520,7 @@ forecast_weights:
     skewrv90: 0.002
   eb:
     accel16: 0.025
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.039
     assettrend16: 0.013000000000000001
     assettrend2: 0.02300000000000001
@@ -2542,7 +2542,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.031000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.040999999999999995
     mrwrings4: 0.017
     normmom16: 0.024
@@ -2566,7 +2566,7 @@ forecast_weights:
     skewrv90: 0.002
   eg:
     accel16: 0.024
-    accel32: 0.042
+    accel32: 0.032
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -2588,7 +2588,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.031000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.055
     mrwrings4: 0.017
     normmom16: 0.024
@@ -2797,7 +2797,7 @@ forecast_weights:
     skewrv90: 0.0
   lu:
     accel16: 0.025
-    accel32: 0.044000000000000004
+    accel32: 0.034000000000000004
     accel64: 0.039
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -2827,7 +2827,7 @@ forecast_weights:
     normmom32: 0.022000000000000002
     normmom4: 0.006999999999999999
     normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.016999999999999999
     relcarry: 0.032
     relmomentum10: 0.017
     relmomentum20: 0.02
@@ -2938,7 +2938,7 @@ forecast_weights:
     skewrv90: 0.002
   p:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.02099999999999999
@@ -2960,7 +2960,7 @@ forecast_weights:
     momentum32: 0.021
     momentum4: 0.003
     momentum64: 0.031000000000000001
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.054000000000000006
     mrwrings4: 0.017
     normmom16: 0.024
@@ -3030,7 +3030,7 @@ forecast_weights:
     skewrv90: 0.002
   pg:
     accel16: 0.025
-    accel32: 0.044000000000000004
+    accel32: 0.034000000000000004
     accel64: 0.039
     assettrend16: 0.013000000000000001
     assettrend2: 0.022
@@ -3060,7 +3060,7 @@ forecast_weights:
     normmom32: 0.030000000000000002
     normmom4: 0.006999999999999999
     normmom64: 0.031000000000000001
-    normmom8: 0.006999999999999999
+    normmom8: 0.016999999999999999
     relcarry: 0.016
     relmomentum10: 0.017999999999999996
     relmomentum20: 0.021
@@ -3261,7 +3261,7 @@ forecast_weights:
     skewrv90: 0.002
   sp:
     accel16: 0.024
-    accel32: 0.043
+    accel32: 0.033
     accel64: 0.038
     assettrend16: 0.013000000000000001
     assettrend2: 0.00099999999999999
@@ -3291,7 +3291,7 @@ forecast_weights:
     normmom32: 0.038
     normmom4: 0.006999999999999999
     normmom64: 0.031000000000000001
-    normmom8: 0.016999999999999999
+    normmom8: 0.026999999999999999
     relcarry: 0.016
     relmomentum10: 0.007
     relmomentum20: 0.025
@@ -3307,7 +3307,7 @@ forecast_weights:
     skewrv90: 0.002
   ss:
     accel16: 0.023
-    accel32: 0.040999999999999995
+    accel32: 0.030999999999999995
     accel64: 0.039
     assettrend16: 0.015
     assettrend2: 0.02
@@ -3329,7 +3329,7 @@ forecast_weights:
     momentum32: 0.02
     momentum4: 0.003
     momentum64: 0.02
-    momentum8: 0.003
+    momentum8: 0.013
     mrinasset1000: 0.07
     mrwrings4: 0.0
     normmom16: 0.022000000000000002
@@ -3580,7 +3580,7 @@ forecast_weights:
     skewrv180: 0.04
     skewrv365: 0.04
   ETH_BINANCE:
-    accel16: 0.03
+    accel16: 0.02
     accel32: 0.03
     accel64: 0.03
     assettrend16: 0.02
@@ -3603,7 +3603,7 @@ forecast_weights:
     momentum32: 0.03
     momentum4: 0.005
     momentum64: 0.03
-    momentum8: 0.015
+    momentum8: 0.025
     mrinasset1000: 0.051
     normmom16: 0.02
     normmom2: 0.01
