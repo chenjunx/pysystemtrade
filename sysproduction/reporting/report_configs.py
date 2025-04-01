@@ -172,10 +172,4 @@ report_config_defaults = dict(
     market_monitor_report=market_monitor_report_config,
     account_curve_report=account_curve_report_config,
     # commission_report=commission_report_config,
-    # # instrument_risk_report = instrument_risk_report_config,
-    # # min_capital = min_capital_report_config,
-    # duplicate_market =duplicate_market_report_config,
-    # # remove_markets_report = remove_markets_report_config,
-    # # market_monitor_report = market_monitor_report_config,
-    # account_curve_report=account_curve_report_config
 )
