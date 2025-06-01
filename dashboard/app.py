@@ -212,7 +212,6 @@ def reconcile():
     except:
         # IB gateway connection failed
         retval["gateway_ok"] = False
-        raise e
     if "optimal" in retval["optimal"].columns:
         # Force the underlying class to do the optimal position calc for us
         retval["optimal"]["optimal"] = retval["optimal"]["optimal"].astype(str)
