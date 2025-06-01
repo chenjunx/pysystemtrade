@@ -209,7 +209,7 @@ def reconcile():
         retval["my"].set_index(
             ["instrument_code", "contract_date"], inplace=True, drop=False
         )
-    except e:
+    except:
         # IB gateway connection failed
         retval["gateway_ok"] = False
         raise e
