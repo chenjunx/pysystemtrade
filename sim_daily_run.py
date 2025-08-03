@@ -54,4 +54,4 @@ library.write('sim_pct_change'+'/'+current_date.strftime("%Y%m%d"), my_system.po
 library.write('sim_pct_change_corr'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.returns_pre_processor().get_net_returns().corr())
 library.write('sim_instrument_weights'+'/'+current_date.strftime("%Y%m%d"), my_system.portfolio.get_instrument_weights())
 library.write('zzsp_index', ak.futures_index_ccidx(symbol="中证商品期货指数"))
-library.write('sim_pandl_unweighted_tradingrules'+'/'+current_date.strftime("%Y%m%d"),my_system.accounts.pandl_for_all_trading_rules_unweighted().to_frame()/my_system.accounts.get_notional_capital()*100)
+library.write('sim_pandl_unweighted_tradingrules',my_system.accounts.pandl_for_all_trading_rules_unweighted().to_frame()/my_system.accounts.get_notional_capital()*100)
