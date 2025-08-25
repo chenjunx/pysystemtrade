@@ -145,7 +145,7 @@ def pl():
 
     perc_pandl_series = daily_pandl_series / all_capital * 100
     df = perc_pandl_series.to_frame()
-    daily_df = df.resample("1B").sum()
+    daily_df = df.resample("D").sum()
     # pandl_data[
     #     "captials_pandl"
     # ] = perc_pandl_series.to_dict(orient="records")
