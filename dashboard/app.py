@@ -137,16 +137,14 @@ def pl():
     pandl_data = {}
     data_capital = dataCapital()
 
-    # This is for 'non compounding' p&l
-    total_pandl_series = data_capital.get_series_of_accumulated_capital()
 
-    accumulated = total_pandl_series.to_frame()
+    accumulated = data_capital.get_series_of_accumulated_capital().to_frame()
 
     accumulated_pandl_series = accumulated.resample("1B").last().ffill().diff()
 
-    maximum_capital = data_capital.get_series_of_maximum_capital()
+    maximum_capital = data_capital.get_series_of_maximum_capital().to_frame()
 
-    maximum_capital_pandl_series = maximum_capital.resample("1B").first().ffill().diff()
+    maximum_capital_pandl_series = maximum_capital.resample("1B").first().ffill()
 
 
     perc_pandl_series = accumulated_pandl_series / maximum_capital_pandl_series * 100
