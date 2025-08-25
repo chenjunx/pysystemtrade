@@ -151,7 +151,7 @@ def pl():
     # pandl_data[
     #     "captials_pandl"
     # ] = perc_pandl_series.to_dict(orient="records")
-    return perc_pandl_series.ffill().cumsum().to_json()
+    return perc_pandl_series.ffill().fillna(0).cumsum().to_json()
 
 
 @app.route("/processes")
