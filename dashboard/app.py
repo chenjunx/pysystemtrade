@@ -138,11 +138,11 @@ def pl():
     data_capital = dataCapital()
 
 
-    accumulated = data_capital.get_series_of_accumulated_capital().to_frame()
+    accumulated = data_capital.get_series_of_accumulated_capital()
 
     accumulated_pandl_series = accumulated.resample("1B").last().ffill().diff()
 
-    maximum_capital = data_capital.get_series_of_maximum_capital().to_frame()
+    maximum_capital = data_capital.get_series_of_maximum_capital()
 
     maximum_capital_pandl_series = maximum_capital.resample("1B").first().ffill()
 
