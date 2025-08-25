@@ -137,21 +137,19 @@ def pl():
     pandl_data = {}
     data_capital = dataCapital()
 
+    # This is for 'non compounding' p&l
+    total_pandl_series = data_capital.get_series_of_accumulated_capital()
+    daily_pandl_series = total_pandl_series.ffill().diff()
 
-    accumulated = data_capital.get_series_of_accumulated_capital()
+    all_capital = data_capital.get_series_of_maximum_capital()
 
-    accumulated_pandl_series = accumulated.resample("1B").last().ffill().diff()
-
-    maximum_capital = data_capital.get_series_of_maximum_capital()
-
-    maximum_capital_pandl_series = maximum_capital.resample("1B").first().ffill()
-
-
-    perc_pandl_series = accumulated_pandl_series / maximum_capital_pandl_series * 100
+    perc_pandl_series = daily_pandl_series / all_capital * 100
+    df = perc_pandl_series.to_frame()
+    daily_df = df.resample("1B").sum()
     # pandl_data[
     #     "captials_pandl"
     # ] = perc_pandl_series.to_dict(orient="records")
-    return perc_pandl_series.ffill().fillna(0).cumsum().to_json()
+    return daily_df.ffill().cumsum().to_json()
 
 
 @app.route("/processes")
