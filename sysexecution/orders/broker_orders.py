@@ -43,7 +43,7 @@ class brokerOrderType(orderType):
             "stop_loss"
         ]
 
-stop_loss_order_type = brokerOrderType("stop loss")
+stop_loss_order_type = brokerOrderType("stop_loss")
 market_order_type = brokerOrderType("market")
 limit_order_type = brokerOrderType("limit")
 
