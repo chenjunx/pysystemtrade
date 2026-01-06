@@ -3635,10 +3635,10 @@ forecast_weights:
     breakout20: 0.013
     breakout40: 0.013
     breakout80: 0.012
-    breakout320: 0.06
-    carry10: 0.032
-    carry30: 0.026
-    carry60: 0.023
+    breakout320: 0.03
+    carry10: 0.042
+    carry30: 0.036
+    carry60: 0.033
     carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
@@ -3729,7 +3729,7 @@ instrument_weights:
    'SoybeanMeal': 0.05858328838982319
    'TA': 0.04819123424755117
    'a': 0.09536453891845505
-   'ag': 0.19785768591895478
+   'al': 0.19785768591895478
    'eb': 0.09776616312003769
    'eg': 0.08183682610835788
    'lu': 0.19195750895164898
