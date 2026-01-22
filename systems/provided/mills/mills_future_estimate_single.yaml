@@ -3452,18 +3452,18 @@ forecast_weights:
     assettrend2: 0.002
     assettrend32: 0.038
     assettrend4: 0.008
-    assettrend64: 0.051
+    assettrend64: 0.041
     assettrend8: 0.025
     breakout10: 0.002000000000000002
     breakout160: 0.05
     breakout20: 0.023
-    breakout40: 0.033
+    breakout40: 0.023
     breakout80: 0.022
-    breakout320: 0.05
-    carry10: 0.026
-    carry30: 0.026
-    carry60: 0.022
-    carry125: 0.02
+    breakout320: 0.03
+    carry10: 0.036
+    carry30: 0.036
+    carry60: 0.032
+    carry125: 0.03
     momentum16: 0.012
     momentum32: 0.021
     momentum4: 0.003
@@ -3718,7 +3718,8 @@ instrument_weights:
    'BU': 0.023186548414670008
    'CJ': 0.16216302859310686
    'CORNSTARCH': 0.05550941427699252
-   'ETH_BINANCE': 0.3808543647141159
+   'ETH_BINANCE': 0.2808543647141159
+   'si': 0.1008543647141159
    'FG': 0.10862916552392222
    'JD': 0.04394298880446575
    'MAIZE': 0.08287503948223579
