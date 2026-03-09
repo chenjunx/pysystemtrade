@@ -293,8 +293,22 @@ def anythingllm_report(
     headers = {"Authorization": f"Bearer {api_key}"}
 
     try:
+        # Use filename.encode('utf-8').decode('latin-1') to avoid requests header encoding issue if needed
+        # But better to just use the base name for the upload to be safe
+        base_name = os.path.basename(filename)
+        try:
+            base_name.encode("ascii")
+        except UnicodeEncodeError:
+            # If filename contains non-ascii characters, use a safe name
+            import uuid
+
+            extension = os.path.splitext(filename)[1]
+            safe_filename = f"report_{uuid.uuid4().hex}{extension}"
+        else:
+            safe_filename = base_name
+
         with open(filename, "rb") as f:
-            files = {"file": f}
+            files = {"file": (safe_filename, f)}
             response = requests.post(upload_url, files=files, headers=headers)
             response.raise_for_status()
 
