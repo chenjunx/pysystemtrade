@@ -5,6 +5,7 @@ import datetime
 import pandas as pd
 import os
 import shutil
+import requests
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
@@ -216,6 +217,11 @@ def output_report(
     elif output == "emailfile":
         email_report(parsed_report, report_config=report_config, data=data)
         output_file_report(parsed_report, report_config=report_config, data=data)
+    elif output == "anythingllm":
+        anythingllm_report(parsed_report, report_config=report_config, data=data)
+    elif output == "emailanythingllm":
+        email_report(parsed_report, report_config=report_config, data=data)
+        anythingllm_report(parsed_report, report_config=report_config, data=data)
     else:
         raise Exception("Report config output destination %s not recognised!" % output)
 
@@ -256,6 +262,53 @@ def email_report(
             subject=report_config.title,
             email_is_report=True,
         )
+
+
+def anythingllm_report(
+    parsed_report: ParsedReport, report_config: reportConfig, data: dataBlob
+):
+    # Get config
+    production_config = data.config
+    try:
+        api_key = production_config.get_element("anythingllm_api_key")
+        workspace_slug = production_config.get_element("anythingllm_workspace_slug")
+        base_url = production_config.get_element("anythingllm_base_url")
+    except Exception as e:
+        data.log.error(
+            "Missing anythingllm configuration (api_key, workspace_slug, or base_url)"
+        )
+        return
+
+    # Prepare file
+    full_filename = resolve_report_filename(report_config=report_config, data=data)
+    if parsed_report.contains_pdf:
+        filename = "%s.pdf" % full_filename
+        shutil.copyfile(parsed_report.pdf_filename, filename)
+    else:
+        filename = "%s.txt" % full_filename
+        write_text_report_to_file(report_text=parsed_report.text, full_filename=filename)
+
+    # 1. Upload
+    upload_url = f"{base_url}/api/v1/document/upload"
+    headers = {"Authorization": f"Bearer {api_key}"}
+
+    try:
+        with open(filename, "rb") as f:
+            files = {"file": f}
+            response = requests.post(upload_url, files=files, headers=headers)
+            response.raise_for_status()
+
+        doc_location = response.json()["documents"][0]["location"]
+
+        # 2. Embed
+        embed_url = f"{base_url}/api/v1/workspace/{workspace_slug}/update-embeddings"
+        payload = {"adds": [doc_location], "deletes": []}
+        embed_response = requests.post(embed_url, json=payload, headers=headers)
+        embed_response.raise_for_status()
+
+        data.log.info(f"Report {report_config.title} successfully uploaded to AnythingLLM")
+    except Exception as e:
+        data.log.error(f"Failed to upload report to AnythingLLM: {str(e)}")
 
 
 def output_file_report(

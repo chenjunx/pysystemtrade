@@ -5,7 +5,14 @@ from sysobjects.production.roll_state import ALL_ROLL_INSTRUMENTS
 
 class reportConfig(object):
     def __init__(self, title, function, output="console", **kwargs):
-        assert output in ["console", "email", "file", "emailfile"]
+        assert output in [
+            "console",
+            "email",
+            "file",
+            "emailfile",
+            "anythingllm",
+            "emailanythingllm",
+        ]
         self.title = title
         self.function = function
         self.output = output
