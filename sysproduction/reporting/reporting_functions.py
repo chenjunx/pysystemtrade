@@ -280,7 +280,9 @@ def anythingllm_report(
         return
 
     # Prepare file
-    full_filename = resolve_report_filename(report_config=report_config, data=data)
+    full_filename = resolve_report_filename(
+        report_config=report_config, data=data, add_timestamp=True
+    )
     if parsed_report.contains_pdf:
         filename = "%s.pdf" % full_filename
         shutil.copyfile(parsed_report.pdf_filename, filename)
@@ -350,9 +352,13 @@ def output_file_report(
     data.log.debug("Written report to %s" % full_filename)
 
 
-def resolve_report_filename(report_config, data: dataBlob):
+def resolve_report_filename(report_config, data: dataBlob, add_timestamp: bool = False):
     filename_with_spaces = report_config.title
     filename = filename_with_spaces.replace(" ", "_")
+    if add_timestamp:
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{filename}_{timestamp}"
+
     use_directory = get_directory_for_reporting(data)
     use_directory_resolved = get_resolved_pathname(use_directory)
     full_filename = os.path.join(use_directory_resolved, filename)
