@@ -320,7 +320,16 @@ def anythingllm_report(
         embed_response = requests.post(embed_url, json=payload, headers=headers)
         embed_response.raise_for_status()
 
-        data.log.info(f"Report {report_config.title} successfully uploaded to AnythingLLM")
+        # 3. Pin
+        # AnyThingLLM has a specific API to pin documents to a workspace
+        # This keeps the document in the context of all chats in that workspace
+        pin_url = f"{base_url}/api/v1/workspace/{workspace_slug}/pin-documents"
+        # The payload for pin-documents is a list of document locations (full paths)
+        pin_payload = {"documentLocations": [doc_location]}
+        pin_response = requests.post(pin_url, json=pin_payload, headers=headers)
+        pin_response.raise_for_status()
+
+        data.log.info(f"Report {report_config.title} successfully uploaded and pinned to AnythingLLM")
     except Exception as e:
         data.log.error(f"Failed to upload report to AnythingLLM: {str(e)}")
 
