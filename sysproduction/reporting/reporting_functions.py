@@ -323,9 +323,9 @@ def anythingllm_report(
         # 3. Pin
         # AnyThingLLM has a specific API to pin documents to a workspace
         # This keeps the document in the context of all chats in that workspace
-        pin_url = f"{base_url}/api/v1/workspace/{workspace_slug}/pin-documents"
+        pin_url = f"{base_url}/api/v1/workspace/{workspace_slug}/update-pin"
         # The payload for pin-documents is a list of document locations (full paths)
-        pin_payload = {"documentLocations": [doc_location]}
+        pin_payload = {"docPath": [doc_location],"pinStatus":True}
         pin_response = requests.post(pin_url, json=pin_payload, headers=headers)
         pin_response.raise_for_status()
 
