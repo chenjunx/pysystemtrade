@@ -27,7 +27,8 @@ class connectionMills(object):
         self._mills_connection_config = dict(
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
-        self._ws_connection = create_connection(url = "ws://"+str(ipaddress)+":"+str(port)+"/websocket")
+        self._ws_url = "ws://"+str(ipaddress)+":"+str(port)+"/websocket"
+        self._ws_connection = create_connection(url=self._ws_url, timeout=10)
         pass
 
     def on_error(self,error):
@@ -91,11 +92,13 @@ class connectionMills(object):
         res = self.send_get("/order")
         return res
 
-    def send_get(self,endpoint,params={}):
-        url= self._mills_connection_config.get("header")+endpoint;
+    def send_get(self, endpoint, params=None):
+        if params is None:
+            params = {}
+        url = self._mills_connection_config.get("header") + endpoint
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
-        req_body = session.get(url=url, params=params).text
+        req_body = session.get(url=url, params=params, timeout=10).text
         res = orjson.loads(req_body)
         if (res['code'] == 10000):
             return res['data']
@@ -105,12 +108,12 @@ class connectionMills(object):
         return
 
     def send_post(self, endpoint, params):
-
-        url = self._mills_connection_config.get("header") + endpoint;
+        url = self._mills_connection_config.get("header") + endpoint
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
         req_body = session.post(url=url,
-                     json=orjson.loads(orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str))).text
+                     json=orjson.loads(orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str)),
+                     timeout=10).text
         try:
             res = orjson.loads(req_body)
             if (res['code'] == 10000):
@@ -119,17 +122,18 @@ class connectionMills(object):
             self.log.error("读取返回数据失败:%s,请求地址:%s,请求参数:%s,返回参数:%s",e,endpoint,params,req_body)
 
 
-    def send_ws(self,url,action,data):
+    def send_ws(self, url, action, data):
         params = {"url": url, "action": action, "data": data}
-        # 记录开始时间
         start_time = time.time()
-        self._ws_connection.send(json.dumps(json.dumps(params)))
-        res = self._ws_connection.recv()
-        # 记录结束时间
-        end_time = time.time()
-        # 计算并打印运行时间
-        run_time = end_time - start_time
-        # self.log.info(f"请求地址:{url},action:{action},请求参数:{data},返回参数:{res},for {run_time} seconds.")
+        try:
+            self._ws_connection.send(json.dumps(json.dumps(params)))
+            res = self._ws_connection.recv()
+        except Exception as e:
+            self.log.warning("WebSocket连接断开，尝试重连: %s", e)
+            self._ws_connection = create_connection(url=self._ws_url, timeout=10)
+            self._ws_connection.send(json.dumps(json.dumps(params)))
+            res = self._ws_connection.recv()
+        run_time = time.time() - start_time
         return res
 
     def query_posistions(self):
