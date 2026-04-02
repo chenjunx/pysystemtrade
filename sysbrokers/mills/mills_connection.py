@@ -1,7 +1,6 @@
 import logging
 
 from syscore.constants import arg_not_supplied
-import time
 
 from syslogdiag.log_to_screen import logtoscreen
 from sysbrokers.mills.mills_connection_defaults import mills_defaults
@@ -28,7 +27,7 @@ class connectionMills(object):
             ipaddress=ipaddress, port=port,header="http://"+str(ipaddress)+":"+str(port),username=username,password=password
         )
         self._ws_url = "ws://"+str(ipaddress)+":"+str(port)+"/websocket"
-        self._ws_connection = create_connection(url=self._ws_url, timeout=10)
+        self._ws_connection = create_connection(url=self._ws_url, timeout=60)
         pass
 
     def on_error(self,error):
@@ -124,17 +123,20 @@ class connectionMills(object):
 
     def send_ws(self, url, action, data):
         params = {"url": url, "action": action, "data": data}
-        start_time = time.time()
         try:
             self._ws_connection.send(json.dumps(json.dumps(params)))
             res = self._ws_connection.recv()
+            return res
         except Exception as e:
-            self.log.warning("WebSocket连接断开，尝试重连: %s", e)
-            self._ws_connection = create_connection(url=self._ws_url, timeout=10)
-            self._ws_connection.send(json.dumps(json.dumps(params)))
-            res = self._ws_connection.recv()
-        run_time = time.time() - start_time
-        return res
+            self.log.warning("WebSocket请求失败，尝试重连: %s", e)
+            try:
+                self._ws_connection = create_connection(url=self._ws_url, timeout=60)
+                self._ws_connection.send(json.dumps(json.dumps(params)))
+                res = self._ws_connection.recv()
+                return res
+            except Exception as e2:
+                self.log.error("WebSocket重连后仍然失败: %s", e2)
+                raise
 
     def query_posistions(self):
         res = self.send_get("/position")
