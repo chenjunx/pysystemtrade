@@ -97,28 +97,48 @@ class connectionMills(object):
         url = self._mills_connection_config.get("header") + endpoint
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
-        req_body = session.get(url=url, params=params, timeout=10).text
-        res = orjson.loads(req_body)
+        try:
+            response = session.get(url=url, params=params, timeout=10)
+            req_body = response.text
+        except Exception as e:
+            self.log.error(f"请求发送失败: {e}, 地址: {url}, 参数: {params}")
+            raise Exception(f"请求发送失败: {e}")
+
+        try:
+            res = orjson.loads(req_body)
+        except Exception as e:
+            self.log.error(f"解析返回数据失败: {e}, 地址: {url}, 参数: {params}, 返回内容: {req_body}")
+            raise Exception(f"解析返回数据失败: {e}")
+
         if (res['code'] == 10000):
             return res['data']
         else:
-            logging.info(f'请求地址:{url},请求参数:{params},返回地址:{req_body}')
+            self.log.info(f'请求地址:{url},请求参数:{params},返回数据:{req_body}')
             raise Exception("请求异常", res['msg'])
-        return
 
     def send_post(self, endpoint, params):
         url = self._mills_connection_config.get("header") + endpoint
         session = requests.Session()
         session.auth = (self._mills_connection_config.get("username"), self._mills_connection_config.get("password"))
-        req_body = session.post(url=url,
-                     json=orjson.loads(orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str)),
-                     timeout=10).text
+        try:
+            response = session.post(url=url,
+                         json=orjson.loads(orjson.dumps(params, option=orjson.OPT_SERIALIZE_NUMPY, default=str)),
+                         timeout=10)
+            req_body = response.text
+        except Exception as e:
+            self.log.error(f"请求发送失败: {e}, 地址: {url}, 参数: {params}")
+            raise Exception(f"请求发送失败: {e}")
+
         try:
             res = orjson.loads(req_body)
             if (res['code'] == 10000):
                 return res['data']
+            else:
+                self.log.info(f'请求地址:{url},请求参数:{params},返回数据:{req_body}')
+                raise Exception("请求异常", res['msg'])
         except Exception as e:
             self.log.error("读取返回数据失败:%s,请求地址:%s,请求参数:%s,返回参数:%s",e,endpoint,params,req_body)
+            raise Exception(f"解析返回数据失败: {e}")
 
 
     def send_ws(self, url, action, data):
