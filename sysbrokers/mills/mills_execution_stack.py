@@ -196,16 +196,16 @@ class millsExecutionStackData(brokerExecutionStackData):
 
 
     def cancel_order_on_stack(self, broker_order: brokerOrder):
-        log = broker_order.log_with_attributes(self.log)
+        log_attrs = {**broker_order.log_attributes(), "method": "temp"}
         matched_control_order = (
             self.match_db_broker_order_to_control_order_from_brokers(broker_order)
         )
         if matched_control_order is missing_order:
-            log.warn("Couldn't cancel non existent order")
+            self.log.warning("Couldn't cancel non existent order", **log_attrs)
             return None
 
         self.cancel_order_given_control_object(matched_control_order)
-        log.msg("Sent cancellation for %s" % str(broker_order))
+        self.log.info("Sent cancellation for %s" % str(broker_order), **log_attrs)
 
     def check_order_is_cancelled(self, broker_order: brokerOrder) -> bool:
         trade_with_contract_from_mills = self._connection_Mills.get_order_by_id(broker_order)
