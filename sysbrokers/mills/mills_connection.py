@@ -131,14 +131,15 @@ class connectionMills(object):
 
         try:
             res = orjson.loads(req_body)
-            if (res['code'] == 10000):
-                return res['data']
-            else:
-                self.log.info(f'请求地址:{url},请求参数:{params},返回数据:{req_body}')
-                raise Exception("请求异常", res['msg'])
         except Exception as e:
             self.log.error("读取返回数据失败:%s,请求地址:%s,请求参数:%s,返回参数:%s",e,endpoint,params,req_body)
             raise Exception(f"解析返回数据失败: {e}")
+
+        if (res['code'] == 10000):
+            return res['data']
+        else:
+            self.log.info(f'请求地址:{url},请求参数:{params},返回数据:{req_body}')
+            raise Exception("请求异常", res['msg'])
 
 
     def send_ws(self, url, action, data):

@@ -8,6 +8,7 @@ from sysexecution.orders.broker_orders import brokerOrder
 from sysexecution.order_stacks.broker_order_stack import orderWithControls
 from sysexecution.orders.named_order_objects import missing_order
 from syscore.constants import arg_not_supplied, success
+from sysexecution.order_stacks.order_stack import missingOrder
 
 from  sysbrokers.mills.mills_order_with_controls import millsOrderCouldntCreateException
 from sysbrokers.mills.mills_order_with_controls import millsOrderWithControls
@@ -208,9 +209,14 @@ class millsExecutionStackData(brokerExecutionStackData):
         self.log.info("Sent cancellation for %s" % str(broker_order), **log_attrs)
 
     def check_order_is_cancelled(self, broker_order: brokerOrder) -> bool:
-        trade_with_contract_from_mills = self._connection_Mills.get_order_by_id(broker_order)
+        try:
+            trade_with_contract_from_mills = self._connection_Mills.get_order_by_id(broker_order)
+        except Exception as e:
+            if '该委托单不存在' in str(e):
+                raise missingOrder()
+            raise
         ##todo 查询订单是否已取消
-        if trade_with_contract_from_mills['status'] == 'closed' and \
+        if trade_with_contract_from_mills['status'] in ('closed', 'close') and \
                 float(trade_with_contract_from_mills['filled']) == 0.0:
             return True
         else:
