@@ -7,11 +7,35 @@ from sysbrokers.mills.mills_connection_defaults import mills_defaults
 from sysobjects.contracts import futuresContract
 from sysexecution.orders.base_orders import Order
 import json
+import time
 
 import requests
 import orjson
 from websocket import create_connection
 from syslogging.logger import *
+
+# 网关返回这些错误码时，委托的真实状态未知：
+#   10004 改价时撤单超时；10005 网关内存里找不到委托；10008 合约配置查询失败
+ORDER_STATE_UNKNOWN_CODES = {10004, 10005, 10008}
+GET_ORDER_RETRIES = 3
+GET_ORDER_RETRY_WAIT_SECONDS = 0.5
+
+
+class millsRequestError(Exception):
+    def __init__(self, msg, code=None, http_status=None):
+        super().__init__(msg)
+        self.code = code
+        self.http_status = http_status
+
+
+class millsOrderStateUnknown(millsRequestError):
+    """
+    委托状态未知（10004/10005/10008、网络异常、返回无法解析）
+    绝不能当成已撤单或成交 0 处理
+    """
+
+    pass
+
 
 class connectionMills(object):
     def __init__(
@@ -28,7 +52,8 @@ class connectionMills(object):
         )
         self._ws_url = "ws://"+str(ipaddress)+":"+str(port)+"/websocket"
         self._ws_connection = create_connection(url=self._ws_url, timeout=60)
-        pass
+        # broker_tempid -> (查询时间, 返回数据)，用于限制查单频率
+        self._order_query_cache = {}
 
     def on_error(self,error):
         self.log.error(error)
@@ -102,19 +127,9 @@ class connectionMills(object):
             req_body = response.text
         except Exception as e:
             self.log.error(f"请求发送失败: {e}, 地址: {url}, 参数: {params}")
-            raise Exception(f"请求发送失败: {e}")
+            raise millsRequestError(f"请求发送失败: {e}") from e
 
-        try:
-            res = orjson.loads(req_body)
-        except Exception as e:
-            self.log.error(f"解析返回数据失败: {e}, 地址: {url}, 参数: {params}, 返回内容: {req_body}")
-            raise Exception(f"解析返回数据失败: {e}")
-
-        if (res['code'] == 10000):
-            return res['data']
-        else:
-            self.log.info(f'请求地址:{url},请求参数:{params},返回数据:{req_body}')
-            raise Exception("请求异常", res['msg'])
+        return self._parse_response(response, req_body, url, params)
 
     def send_post(self, endpoint, params):
         url = self._mills_connection_config.get("header") + endpoint
@@ -127,19 +142,49 @@ class connectionMills(object):
             req_body = response.text
         except Exception as e:
             self.log.error(f"请求发送失败: {e}, 地址: {url}, 参数: {params}")
-            raise Exception(f"请求发送失败: {e}")
+            raise millsRequestError(f"请求发送失败: {e}") from e
 
+        return self._parse_response(response, req_body, url, params)
+
+    def _parse_response(self, response, req_body, url, params):
         try:
             res = orjson.loads(req_body)
         except Exception as e:
-            self.log.error("读取返回数据失败:%s,请求地址:%s,请求参数:%s,返回参数:%s",e,endpoint,params,req_body)
-            raise Exception(f"解析返回数据失败: {e}")
+            self.log.error(f"解析返回数据失败: {e}, 地址: {url}, 参数: {params}, 返回内容: {req_body}")
+            raise millsRequestError(
+                f"解析返回数据失败: {e}", http_status=response.status_code
+            ) from e
 
         if (res['code'] == 10000):
             return res['data']
         else:
             self.log.info(f'请求地址:{url},请求参数:{params},返回数据:{req_body}')
-            raise Exception("请求异常", res['msg'])
+            raise millsRequestError(
+                "请求异常 code=%s msg=%s" % (res.get('code'), res.get('msg')),
+                code=res.get('code'),
+                http_status=response.status_code,
+            )
+
+    def _order_request(self, action: str, order, retries: int = 1):
+        last_error = None
+        for attempt in range(retries):
+            try:
+                return self.send_post("/order?action=%s" % action, order.as_dict())
+            except millsRequestError as e:
+                if e.code is not None and e.code not in ORDER_STATE_UNKNOWN_CODES:
+                    # 网关明确拒绝，委托状态是确定的
+                    raise
+                last_error = e
+                self.log.warning(
+                    "委托状态未知 action=%s tempid=%s 第%d次: %s"
+                    % (action, order.broker_tempid, attempt + 1, e)
+                )
+                if attempt < retries - 1:
+                    time.sleep(GET_ORDER_RETRY_WAIT_SECONDS)
+
+        raise millsOrderStateUnknown(
+            str(last_error), code=last_error.code, http_status=last_error.http_status
+        )
 
 
     def send_ws(self, url, action, data):
@@ -169,7 +214,9 @@ class connectionMills(object):
         return res
 
     def place_order(self, new_order: Order):
-        res = self.send_post("/order?action=place_order",new_order.as_dict())
+        # 不重试：超时后单子可能已经下出去了，重发可能重复下单
+        self._order_query_cache.pop(new_order.broker_tempid, None)
+        res = self._order_request("place_order", new_order, retries=1)
         return res
 
     def query_ask_bid_data(self, contract_object):
@@ -177,12 +224,27 @@ class connectionMills(object):
         return res
 
 
-    def get_order_by_id(self,order):
-        res = self.send_post("/order?action=get",order.as_dict())
+    def get_order_by_id(self, order, max_age_seconds: float = 0.0):
+        """
+        :param max_age_seconds: 同一张委托在这段时间内查过，就直接用上次的结果
+        :raises millsOrderStateUnknown: 重试后仍无法确定委托状态
+        """
+        broker_tempid = order.broker_tempid
+        cached = self._order_query_cache.get(broker_tempid, None)
+        if (
+            max_age_seconds > 0
+            and cached is not None
+            and time.time() - cached[0] < max_age_seconds
+        ):
+            return cached[1]
+
+        res = self._order_request("get", order, retries=GET_ORDER_RETRIES)
+        self._order_query_cache[broker_tempid] = (time.time(), res)
         return res
 
     def cancel_order(self, order):
-        res = self.send_post("/order?action=cancel",order.as_dict())
+        self._order_query_cache.pop(order.broker_tempid, None)
+        res = self._order_request("cancel", order, retries=1)
         return res
 
     def close_connection(self):

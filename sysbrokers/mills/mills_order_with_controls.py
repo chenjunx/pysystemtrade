@@ -1,5 +1,5 @@
 import datetime
-from sysbrokers.mills.mills_connection import connectionMills
+from sysbrokers.mills.mills_connection import connectionMills, millsOrderStateUnknown
 
 from sysexecution.order_stacks.broker_order_stack import orderWithControls
 from sysexecution.orders.broker_orders import brokerOrder
@@ -11,6 +11,10 @@ from syscore.constants import arg_not_supplied
 from sysexecution.trade_qty import tradeQuantity
 from sysexecution.orders.broker_orders import brokerOrderType
 from copy import copy
+from syslogging.logger import get_logger
+
+# 同一张委托两次查单的最小间隔，algo 循环里每轮会查好几次
+ORDER_QUERY_MIN_INTERVAL_SECONDS = 0.5
 
 def extract_fill_info(order):
     fill_info = [extract_single_fill(order)]
@@ -27,10 +31,8 @@ def extract_single_fill(single_fill):
     commission = single_fill['fee']
     commission_ccy = single_fill['fee_currency']
     cum_qty = float(single_fill['filled'])
-    sign = 1
-    if single_fill['side'] == 'sell':
-        sign = -1
-    signed_qty = cum_qty * sign
+    # 网关返回的 filled 本身带符号，卖为负
+    signed_qty = cum_qty
 
     price = single_fill['info']['avgFillPrice'] if single_fill['info']['avgFillPrice'] is None else float(single_fill['info']['avgFillPrice'])
     avg_price = single_fill['info']['avgFillPrice'] if single_fill['info']['avgFillPrice'] is None else float(single_fill['info']['avgFillPrice'])
@@ -269,39 +271,75 @@ class millsOrderWithControls(orderWithControls):
         super().__init__(broker_order=mills_broker_order, control_object=order, ticker_object=ticker_object)
 
 
-    def update_order(self):
-        trade_with_contract_from_mills = self._connectionMills.get_order_by_id(self.order)
-        if trade_with_contract_from_mills is missing_order:
-            return missing_order
+    @classmethod
+    def from_db_broker_order(
+        cls, broker_order: brokerOrder, trade_with_contract_from_mills: dict, connectionMills: connectionMills
+    ):
+        # 以数据库里的 broker order 为底，叠加网关返回的成交，和 update_order 的结果一致
+        order_with_controls = cls(
+            trade_with_contract_from_mills,
+            broker_order=broker_order,
+            connectionMills=connectionMills,
+        )
+        order_with_controls._order = copy(broker_order)
+        order_with_controls.update_order_from_trade_object(trade_with_contract_from_mills)
 
-        ## 检测fill情况,如果已经填充，则更新brokerOrder
+        return order_with_controls
+
+    def update_order(self):
+        # 委托状态未知时抛出 millsOrderStateUnknown，不能用旧状态冒充最新状态：
+        #   algo 结束后会按这里的成交落库并释放 contract order，旧状态可能是错的成交 0
+        trade_with_contract_from_mills = self.get_order_from_broker()
+        self.update_order_from_trade_object(trade_with_contract_from_mills)
+
+    def update_order_without_alert(self):
+        # 后台反复刷新时用：状态未知只记 warning，避免每轮都发 critical
+        trade_with_contract_from_mills = self.get_order_from_broker(alert_if_unknown=False)
+        self.update_order_from_trade_object(trade_with_contract_from_mills)
+
+    def update_order_from_trade_object(self, trade_with_contract_from_mills: dict):
         broker_order_from_trade_object = millsOrderWithControls(
             trade_with_contract_from_mills,
             broker_order=self._orgin_broker_order,
             connectionMills=self._connectionMills,
-        )
+        ).order
 
-
-        ##1.判断填充方法  broker_order_from_trade_object.fill.equals_zero()
+        # 和 IB 的 add_trade_info_to_broker_order 一致（mills 没有 permid 和 algo_comment）
         new_broker_order = copy(self.order)
+        new_broker_order.commission = broker_order_from_trade_object.commission
+        new_broker_order.broker_tempid = broker_order_from_trade_object.broker_tempid
+        new_broker_order.leg_filled_price = broker_order_from_trade_object.leg_filled_price
 
-
-        new_broker_order.commission = broker_order_from_trade_object._order.commission
-        new_broker_order.broker_tempid = broker_order_from_trade_object._order.broker_tempid
-        broker_order_is_filled = not broker_order_from_trade_object.order.fill.equals_zero()
-        ## 2.填充方法 new_broker_order.fill_order
-
+        broker_order_is_filled = not broker_order_from_trade_object.fill.equals_zero()
         if broker_order_is_filled:
             new_broker_order.fill_order(
-                broker_order_from_trade_object.order.fill,
-                broker_order_from_trade_object.order.filled_price,
+                broker_order_from_trade_object.fill,
+                broker_order_from_trade_object.filled_price,
                 datetime.strptime(trade_with_contract_from_mills['datetime'],'%Y-%m-%dT%H:%M:%S.%fZ'),
             )
 
         self._order = new_broker_order
 
+    def get_order_from_broker(
+        self,
+        max_age_seconds: float = ORDER_QUERY_MIN_INTERVAL_SECONDS,
+        alert_if_unknown: bool = True,
+    ) -> dict:
+        try:
+            return self._connectionMills.get_order_by_id(
+                self.order, max_age_seconds=max_age_seconds
+            )
+        except millsOrderStateUnknown as e:
+            log = get_logger("millsOrderWithControls")
+            msg = "委托状态未知，需人工核对 %s: %s" % (str(self.order), str(e))
+            if alert_if_unknown:
+                log.critical(msg, **self.order.log_attributes(), method="temp")
+            else:
+                log.warning(msg, **self.order.log_attributes(), method="temp")
+            raise
+
     def broker_limit_price(self) -> float:
-        trade_with_contract_from_mills = self._connectionMills.get_order_by_id(self.order)
+        trade_with_contract_from_mills = self.get_order_from_broker()
         if trade_with_contract_from_mills['info']['price'] is None:
             return None
         else:
