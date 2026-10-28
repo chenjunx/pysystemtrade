@@ -25,7 +25,23 @@ def extract_fill_info(order):
     return fill_info_without_bags
 
 import json
+import math
 from datetime import datetime
+
+
+def valid_fill_price(cum_qty: float, raw_avg_fill_price):
+    # 被拒或未成交的委托，网关的 avgFillPrice 是 0，不能当成交价，否则会拉低合约单的成交均价
+    if cum_qty == 0 or raw_avg_fill_price is None:
+        return None
+    try:
+        price = float(raw_avg_fill_price)
+    except (TypeError, ValueError):
+        return None
+    if math.isnan(price) or price <= 0:
+        return None
+
+    return price
+
 
 def extract_single_fill(single_fill):
     commission = single_fill['fee']
@@ -34,8 +50,8 @@ def extract_single_fill(single_fill):
     # 网关返回的 filled 本身带符号，卖为负
     signed_qty = cum_qty
 
-    price = single_fill['info']['avgFillPrice'] if single_fill['info']['avgFillPrice'] is None else float(single_fill['info']['avgFillPrice'])
-    avg_price = single_fill['info']['avgFillPrice'] if single_fill['info']['avgFillPrice'] is None else float(single_fill['info']['avgFillPrice'])
+    price = valid_fill_price(cum_qty, single_fill['info']['avgFillPrice'])
+    avg_price = price
 
     time = single_fill['datetime']
     temp_id = single_fill['id']
@@ -180,7 +196,11 @@ class millsBrokerOrder(brokerOrder):
 
         fill = tradeQuantity([extracted_trade_data.fills[0].cum_qty])
 
-        fill_price = extracted_trade_data.fills[0].avg_price
+        # 0 成交时没有成交价，filled_price 和 commission 都保持 None
+        if fill.equals_zero():
+            fill_price = None
+        else:
+            fill_price = extracted_trade_data.fills[0].avg_price
         commission = None
         # todo 手续费查询
         if fill_price is not None:

@@ -19,6 +19,7 @@ from sysbrokers.mills.mills_order_with_controls import (
     extract_single_fill,
 )
 from sysexecution.orders.named_order_objects import missing_order
+from sysexecution.orders.list_of_orders import listOfOrders
 
 ORIGINAL_TEMPID = "72ffee9c3ffbb49c383da6b536ca51d7"
 NEW_TEMPID = "513b3c4a098b0cdd6787b56d600a0aed"
@@ -288,6 +289,81 @@ def test_signed_qty_keeps_gateway_sign():
     single_fill = extract_single_fill(raw_order(filled=-1.0, avg_fill_price=3068.0))
 
     assert single_fill.signed_qty == -1.0
+
+
+# 被拒或 0 成交的委托不能有成交价
+
+
+@pytest.mark.parametrize("avg_fill_price", [0.0, 0, "0", None, float("nan"), -1.0])
+def test_unfilled_order_has_no_fill_price(avg_fill_price):
+    single_fill = extract_single_fill(raw_order(filled=0.0, avg_fill_price=avg_fill_price))
+
+    assert single_fill.price is None
+    assert single_fill.avg_price is None
+
+
+@pytest.mark.parametrize("avg_fill_price", [0.0, None, float("nan")])
+def test_filled_order_with_bad_avg_fill_price_has_no_fill_price(avg_fill_price):
+    single_fill = extract_single_fill(raw_order(filled=-1.0, avg_fill_price=avg_fill_price))
+
+    assert single_fill.avg_price is None
+
+
+def test_normal_fill_price_unchanged():
+    single_fill = extract_single_fill(raw_order(filled=-1.0, avg_fill_price=3068.0))
+
+    assert single_fill.price == 3068.0
+    assert single_fill.avg_price == 3068.0
+
+
+def test_rejected_order_has_no_filled_price_or_commission():
+    # 模拟 CTP 资金不足拒单：已关闭、0 成交、avgFillPrice 为 0
+    connection = scriptedConnection(
+        get=[raw_order(filled=0.0, status="close", avg_fill_price=0.0, fee=0.0)]
+    )
+    order_with_controls = placed_order_with_controls(connection)
+
+    assert order_with_controls.order.filled_price is None
+    assert order_with_controls.order.commission is None
+
+    order_with_controls.update_order()
+
+    assert order_with_controls.order.fill.equals_zero()
+    assert order_with_controls.order.filled_price is None
+    assert order_with_controls.order.commission is None
+    [single_fill] = order_with_controls.order.leg_filled_price
+    assert single_fill.avg_price is None
+
+
+def test_rejected_order_matched_after_restart_has_no_filled_price():
+    connection = scriptedConnection(
+        get=[raw_order(filled=0.0, status="close", avg_fill_price=0.0)]
+    )
+    stack = execution_stack(connection)
+    stack._traded_object_store = {}
+
+    matched_order = stack.match_db_broker_order_to_order_from_brokers(db_broker_order())
+
+    assert matched_order.fill.equals_zero()
+    assert matched_order.filled_price is None
+
+
+def test_average_fill_price_ignores_rejected_child_order():
+    # 2026-10-28 p 合约单 5097：成交 9315、被拒 0 成交、成交 9316
+    connection = scriptedConnection()
+    child_orders = [
+        millsOrderWithControls(
+            raw_order(tempid=str(index), filled=filled, status="close", avg_fill_price=price),
+            broker_order=db_broker_order(broker_tempid=str(index)),
+            connectionMills=connection,
+        ).order
+        for index, (filled, price) in enumerate(
+            [(-1.0, 9315.0), (0.0, 0.0), (-1.0, 9316.0)]
+        )
+    ]
+
+    assert child_orders[1].filled_price is None
+    assert listOfOrders(child_orders).average_fill_price() == 9315.5
 
 
 # 改价
