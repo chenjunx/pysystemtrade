@@ -1,5 +1,60 @@
 # Release notes
 
+## Version 1.8.3
+
+- fully adopt pyproject.toml (#1421)
+- improve docs (#1434)
+- fix pandas FutureWarnings (#1463, #1494)
+- fix forecast weight bug with auto-grouping (#1467)
+- handle zero spreads (#1478)
+- fix FX init (#1480)
+- fix instruments crash backtest when estimating instrument weights (#1482)
+- fix missing pyarrow dependency (#1489)
+- add uv install docs (#1495)
+- remove EDOLLAR from docs (#1497)
+- fix PnL report crash (#1498)
+- fix order generation exception (#1513)
+- fix licence file name (#1514)
+- fix market hours exception (#1516)
+- fix incorrect spread timestamps (#1517)
+- add update shipped IB prices init script (#1550)
+- update docs for getting recent data (#1553)
+- various minor improvements (#1566, #1558, #1567)
+- avoid strategy / roll order conflicts (#1571)
+- set existing optimal positions to 0 if not in system (#1581)
+- update psutil version (#1587)
+- add docs for Norgate as data source (#1590)
+- remove EDOLLAR from notebooks (#1591)
+- optional force roll warnings (#1592)
+- new project org (#1594)
+- fix commission report currency mismatch (#1596)
+- reduce stack handler logging (#1600)
+- fix roll status message (#1601)
+- fix error getting strategy when no trades (#1602)
+- document trading hours (#1604)
+- improve path resolution (#1605)
+- fix warnings (#1607)
+- report additional or unlikely duplicate instruments (#1608)
+- fix IBOXX roll config (#1611)
+- fix spread config instrument codes (#1612)
+- optimise parquet access (#1615)
+- fix invalid package refs (#1618)
+- fix IB client ID log level (#1619)
+- migrate to ib_async (#1620)
+- fix logging config when no log server (#1621)
+- fix SGX multiplier (#1623)
+- fix rejected order handling (#1624)
+- fix KRWUSD instrument config (#1626)
+- optionally log process fail at critical level (#1628)
+- optionally wrap email content with pre tags (#1634)
+- fix incorrect estimator function call (#1636)
+- index renamed instead of columns (#1637)
+- covariance instead of correlation (#1643)
+- fix SR cost sign error (#1644)
+- fix parquet_adjusted_prices docstring (#1651)
+- fix combo BAG lookup exception (#1659)
+- enforce issue and PR submission quality (#1665)
+
 ## Version 1.8.2
 
 - new Commission Report highlights where values need to be updated
@@ -8,12 +63,12 @@
 - add support for import of split frequency CSV prices
 - references to arctic updated in sysinit scripts
 - CONTRIBUTING.md updated
-- 
+
 ## Version 1.80
 
 - *NO LONGER REQUIRES ARCTIC* Time series data is stored in parquet, install pyarrow
 - But does require newer versions of pandas and python, see requirements.txt
-- See the discussion [here](https://github.com/robcarver17/pysystemtrade/discussions/1290) to see how to switch from arctic to parquet
+- See the discussion [here](https://github.com/pst-group/pysystemtrade/discussions/1290) to see how to switch from arctic to parquet
 - added long only constraint to dynamic optimisation
 - various bugs fixed
 
@@ -77,7 +132,7 @@ Other:
 
 ## Version 1.50
 
-- Added optional code to run price collection throughout the day, see [announcement](https://github.com/robcarver17/pysystemtrade/discussions/961)
+- Added optional code to run price collection throughout the day, see [announcement](https://github.com/pst-group/pysystemtrade/discussions/961)
 - Added ability to pass arguments to methods through control_config.yaml
 - Added regions to instrument.csv configuration; use interactive_controls, option 5, option 52 to apply
 
@@ -85,12 +140,12 @@ Other:
 
 - Added new run_ processes, breaking out FX, update sampled contracts, and update multiple/adjusted prices from daily price updates. You will need to update your crontab and control_config.yaml, see **discussion here**
 - Refactoring syscore
-- Changed handling of expensive instruments, [see this discussion](https://github.com/robcarver17/pysystemtrade/discussions/938)
-- Added requirement for BLACK [see this discussion](https://github.com/robcarver17/pysystemtrade/discussions/921)
-- Roll report clean up format [discussed here](https://github.com/robcarver17/pysystemtrade/discussions/864)
+- Changed handling of expensive instruments, [see this discussion](https://github.com/pst-group/pysystemtrade/discussions/938)
+- Added requirement for BLACK [see this discussion](https://github.com/pst-group/pysystemtrade/discussions/921)
+- Roll report clean up format [discussed here](https://github.com/pst-group/pysystemtrade/discussions/864)
 - Gradual removal of missing_data, missing_contract type objects and replace with exceptions
-- Algos won't be allocated just before day end [discussed here](https://github.com/robcarver17/pysystemtrade/discussions/853)
-- Timezones can now be manually configured [discussed here](https://github.com/robcarver17/pysystemtrade/discussions/845)
+- Algos won't be allocated just before day end [discussed here](https://github.com/pst-group/pysystemtrade/discussions/853)
+- Timezones can now be manually configured [discussed here](https://github.com/pst-group/pysystemtrade/discussions/845)
 - Auto copying of instrument config data between db and csv
 - Utility to cross check IB configuration multipliers
 - Utility to delete instrument data
@@ -115,9 +170,9 @@ Other:
 - "Market movers" report added
 - Nicer functionality to get dates into reports interactively
 - Added volume limits to auto fill position limits
-- Fixed cost calculation for dynamic optimisation (see [discussion](https://github.com/robcarver17/pysystemtrade/discussions/647))
-- Private config now always pulled in, even for backtests (see [discussion](https://github.com/robcarver17/pysystemtrade/discussions/633))
-- Improved price cleaning (see [discussion](https://github.com/robcarver17/pysystemtrade/discussions/646))
+- Fixed cost calculation for dynamic optimisation (see [discussion](https://github.com/pst-group/pysystemtrade/discussions/647))
+- Private config now always pulled in, even for backtests (see [discussion](https://github.com/pst-group/pysystemtrade/discussions/633))
+- Improved price cleaning (see [discussion](https://github.com/pst-group/pysystemtrade/discussions/646))
 
 ## Version 1.31 (didn't seem to do any notes for 1.30)
 
@@ -466,7 +521,7 @@ Moved most examples except core to separate git [here](https://github.com/robcar
 
 ## Version 0.12.0
 
-* Capital correction now works. New methods: system.accounts.capital_multiplier, system.accounts.portfolio_with_multiplier, system.portfolio.get_actual_positon, system.portfolio.get_actual_buffers_with_position, system.accounts.get_buffered_position_with_multiplier. See this [blog post](https://qoppac.blogspot.com/2016/06/capital-correction-pysystemtrade.html) and [the guide](https://github.com/robcarver17/pysystemtrade/blob/master/docs/userguide.md#capcorrection)
+* Capital correction now works. New methods: system.accounts.capital_multiplier, system.accounts.portfolio_with_multiplier, system.portfolio.get_actual_positon, system.portfolio.get_actual_buffers_with_position, system.accounts.get_buffered_position_with_multiplier. See this [blog post](https://qoppac.blogspot.com/2016/06/capital-correction-pysystemtrade.html) and [the guide](https://github.com/pst-group/pysystemtrade/blob/master/docs/backtesting.md#capital-correction---varying-capital)
 
 
 ## Version 0.11.2

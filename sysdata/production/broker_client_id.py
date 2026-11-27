@@ -47,7 +47,7 @@ class brokerClientIdData(baseData):
 
     def _is_clientid_used(self, clientid: int) -> bool:
         """
-        Checks if a clientis is in use
+        Checks if a client id is in use
         :param clientid: int
         :return: bool
         """
@@ -87,7 +87,7 @@ class brokerClientIdData(baseData):
         :return:
         """
         client_id_list = self._get_list_of_clientids()
-        self.log.critical(
+        self.log.warning(
             "Clearing all broker client IDs: if anything still running will probably break!"
         )
         for client_id in client_id_list:

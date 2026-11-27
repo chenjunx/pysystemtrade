@@ -1,9 +1,11 @@
+from pathlib import Path
 import os
 import pandas as pd
 
 from syscore.exceptions import missingData
 from syscore.pandas.pdutils import check_df_equals, check_ts_equals
 from syscore.dateutils import CALENDAR_DAYS_IN_YEAR
+from sysdata.config.production_config import get_production_config
 from sysdata.data_blob import dataBlob
 
 from sysdata.csv.csv_futures_contracts import csvFuturesContractData
@@ -57,7 +59,7 @@ class backupDbToCsv:
         backup_data = get_data_and_create_csv_directories(self.data.log_name)
         log = self.data.log
 
-        log.debug("Dumping from arctic, mongo to .csv files")
+        log.debug("Dumping from db, mongo to .csv files")
         backup_adj_to_csv(backup_data)
         backup_futures_contract_prices_to_csv(backup_data)
         backup_spreads_to_csv(backup_data)
@@ -71,7 +73,7 @@ class backupDbToCsv:
         backup_spread_cost_data(backup_data)
         backup_optimal_positions(backup_data)
         backup_roll_state_data(backup_data)
-        log.debug("Copying to backup directory")
+        log.debug("Copying to offsystem backup directory")
         backup_csv_dump(self.data)
 
 
@@ -97,10 +99,9 @@ def get_data_and_create_csv_directories(logname):
     )
 
     for class_name, path in class_paths.items():
-        dir_name = os.path.join(csv_dump_dir, path)
-        class_paths[class_name] = dir_name
-        if not os.path.exists(dir_name):
-            os.makedirs(dir_name)
+        dir_name = Path(csv_dump_dir, path)
+        class_paths[class_name] = str(dir_name)
+        Path(dir_name).mkdir(exist_ok=True)
 
         data = dataBlob(csv_data_paths=class_paths, log_name=logname)
 
@@ -484,7 +485,8 @@ def backup_csv_dump(data):
     source_path = get_csv_dump_dir()
     destination_path = get_csv_backup_directory()
     data.log.debug("Copy from %s to %s" % (source_path, destination_path))
-    os.system("rsync -av %s %s" % (source_path, destination_path))
+    options = get_production_config().get_element("offsystem_backup_options")
+    os.system(f"rsync {options} {source_path} {destination_path}")
 
 
 if __name__ == "__main__":

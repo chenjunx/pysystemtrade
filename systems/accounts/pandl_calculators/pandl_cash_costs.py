@@ -2,7 +2,6 @@ import datetime
 import numpy as np
 import pandas as pd
 
-from syscore.pandas.pdutils import uniquets
 from syscore.pandas.find_data import get_row_of_series_before_date
 from syscore.pandas.strategy_functions import calculate_cost_deflator, years_in_data
 from syscore.dateutils import generate_equal_dates_within_year
@@ -44,7 +43,7 @@ class pandlCalculationWithCashCostsAndFills(
         net = self.net_pandl_in_instrument_currency()
 
         calculations_df = pd.concat([pandl, costs, net], axis=1)
-        calculations_df.index = ["gross", "costs", "net"]
+        calculations_df.columns = ["gross", "costs", "net"]
 
         return calculations_df
 
@@ -71,7 +70,9 @@ class pandlCalculationWithCashCostsAndFills(
             self.costs_from_trading_in_instrument_currency_as_list()
         )
         date_index = self.date_index_for_all_fills()
-        costs_as_pd_series = pd.Series(instrument_currency_costs_as_list, date_index)
+        costs_as_pd_series = pd.Series(
+            instrument_currency_costs_as_list, date_index, dtype="float64"
+        )
         costs_as_pd_series = costs_as_pd_series.sort_index()
         costs_as_pd_series = costs_as_pd_series.groupby(costs_as_pd_series.index).sum()
 

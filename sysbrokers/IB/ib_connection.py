@@ -1,11 +1,11 @@
 """
-IB connection using ib-insync https://ib-insync.readthedocs.io/api.html
+IB connection using ib_async https://github.com/ib-api-reloaded/ib_async
 
 """
 
 import time
 
-from ib_insync import IB
+from ib_async import IB
 
 from sysbrokers.IB.ib_connection_defaults import ib_defaults
 from syscore.exceptions import missingData
@@ -70,7 +70,7 @@ class connectionIB(object):
             # Under the default production setup this should send an email.
             # Error is reraised as we can't really continue and user intervention is required
             self.log.critical(
-                f"IB connection falied with exception - {e}, connection aborted."
+                f"IB connection failed with exception - {e}, connection aborted."
             )
             raise
 
@@ -89,7 +89,7 @@ class connectionIB(object):
             )
             ib.connect(ipaddress, port, clientId=client_id)
         else:
-            ## conncect using account
+            ## connect using account
             ib.connect(ipaddress, port, clientId=client_id, account=account)
 
         # Sometimes takes a few seconds to resolve... only have to do this once per process so no biggie

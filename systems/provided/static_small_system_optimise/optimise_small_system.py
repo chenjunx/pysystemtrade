@@ -1,5 +1,5 @@
 from copy import copy
-
+import numpy as np
 from syscore.constants import arg_not_supplied
 from syscore.dateutils import WEEKS_IN_YEAR
 
@@ -191,7 +191,7 @@ def estimate_SR_given_weights(
 
     wt = np.array(risk_weights.as_list_given_keys(instrument_list))
     mu = np.array(mean_estimates.list_in_key_order(instrument_list))
-    cm = handcraft_portfolio.estimates.correlation_matrix
+    cm = handcraft_portfolio.estimates.covariance_matrix
 
     SR = -neg_SR(wt, cm, mu)
 

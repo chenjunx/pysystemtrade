@@ -1,9 +1,8 @@
-from copy import copy
+import copy
 
 from sysbrokers.IB.ib_connection import connectionIB
 from syscore.objects import get_class_name
 from syscore.constants import arg_not_supplied
-from syscore.fileutils import get_resolved_pathname
 from sysbrokers.mills.mills_connection import connectionMills
 from syscore.text import camel_case_split
 from sysdata.config.production_config import get_production_config, Config
@@ -362,14 +361,19 @@ class dataBlob(object):
 
     @property
     def parquet_access(self) -> ParquetAccess:
-        return ParquetAccess(self.parquet_root_directory)
+        parquet_access = getattr(self, "_parquet_access", arg_not_supplied)
+        if parquet_access is arg_not_supplied:
+            parquet_access = ParquetAccess(self.parquet_root_directory)
+            self._parquet_access = parquet_access
+
+        return parquet_access
 
     @property
     def parquet_root_directory(self) -> str:
         path = self._parquet_store_path
         if path is arg_not_supplied:
             try:
-                path = get_parquet_root_directory(self.config)
+                path = self.config.get_element("parquet_store")
             except:
                 raise Exception("Need to define parquet_store in config to use parquet")
 
@@ -408,11 +412,6 @@ class dataBlob(object):
 
 
 source_dict = dict(arctic="db", mongo="db", csv="db", ib="broker",mills="broker", parquet="db")
-
-def get_parquet_root_directory(config):
-    path = config.get_element("parquet_store")
-    return get_resolved_pathname(path)
-
 
 def identifying_name(
     split_up_name: list,

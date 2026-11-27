@@ -1,4 +1,3 @@
-from syscore.constants import arg_not_supplied
 from sysdata.sim.csv_futures_sim_data import csvFuturesSimData
 from sysquant.estimators.vol import robust_vol_calc
 from systems.provided.rules.ewmac import ewmac_forecast_with_defaults as ewmac
@@ -236,6 +235,7 @@ class TestExamples:
         print(my_system.portfolio.get_instrument_weights().tail(5))
         print(my_system.portfolio.get_instrument_diversification_multiplier().tail(5))
 
+    @pytest.mark.slow  # will be skipped unless run with 'pytest --runslow'
     def test_simple_system_portfolio_fixed(
         self, data, raw_data, my_rules, my_config, fcs, combiner, possizer, portfolio
     ):
@@ -253,6 +253,7 @@ class TestExamples:
 
         print(my_system.portfolio.get_notional_position("SOFR").tail(5))
 
+    @pytest.mark.slow  # will be skipped unless run with 'pytest --runslow'
     def test_simple_system_costs(
         self,
         data,
@@ -280,6 +281,7 @@ class TestExamples:
         print(profits.gross.percent.stats())
         print(profits.net.percent.stats())
 
+    @pytest.mark.slow  # will be skipped unless run with 'pytest --runslow'
     def test_simple_system_config_object(self, data, ewmac_8, ewmac_32):
         my_config = Config(
             dict(
@@ -357,6 +359,7 @@ class TestExamples:
         )
         print(my_system.portfolio.get_notional_position("SOFR").tail(5))
 
+    @pytest.mark.slow  # will be skipped unless run with 'pytest --runslow'
     def test_simple_system_config_import(self, data):
         my_config = Config("systems.provided.example.simplesystemconfig.yaml")
         my_config.exclude_instrument_lists = dict(

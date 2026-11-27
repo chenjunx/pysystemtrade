@@ -35,8 +35,6 @@ class algoLimit(Algo):
         raise Exception("Limit order shouldn't be managed")
 
 
-
-
 class algoStopLoss(algoLimit):
     """
     Submit a limit order which is a stop loss

@@ -6,10 +6,14 @@ from syscore.exceptions import missingData
 
 
 class spreadsForInstrument(pd.Series):
-    def add_spread(self, spread: float, current_time=datetime.datetime.now()):
+    def add_spread(self, spread: float, current_time=None):
+        if current_time is None:
+            current_time = datetime.datetime.now()
         new_row = pd.Series(spread, index=[current_time])
 
-        return spreadsForInstrument(pd.concat([self, new_row], axis=0))
+        return spreadsForInstrument(
+            pd.concat([self if not self.empty else None, new_row], axis=0)
+        )
 
     def average_spread_last_n_days(self, n_days: int = 14):
         recent_data = self[n_days_ago(n_days)]

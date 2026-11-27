@@ -3,8 +3,8 @@ from dateutil.tz import tz
 import datetime
 import pandas as pd
 
-from ib_insync import Contract as ibContract
-from ib_insync import util
+from ib_async import Contract as ibContract
+from ib_async import util
 
 from sysbrokers.IB.client.ib_client import PACING_INTERVAL_SECONDS
 from sysbrokers.IB.client.ib_contracts_client import ibContractsClient
@@ -22,7 +22,6 @@ from syslogging.logger import *
 
 from sysobjects.contracts import futuresContract
 from sysexecution.trade_qty import tradeQuantity
-from sysexecution.tick_data import get_next_n_ticks_from_ticker_object
 
 TIMEOUT_SECONDS_ON_HISTORICAL_DATA = 20
 

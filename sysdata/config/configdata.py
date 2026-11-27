@@ -12,10 +12,6 @@ trading_rules - a specification of the trading rules for a system
 
 """
 
-from pathlib import Path
-import os
-from typing import Any
-
 import yaml
 
 from syscore.exceptions import missingData
@@ -24,12 +20,8 @@ from syscore.constants import arg_not_supplied
 from sysdata.config.defaults import get_system_defaults_dict
 from sysdata.config.private_config import (
     get_private_config_as_dict,
-    PRIVATE_CONFIG_FILE,
 )
-from sysdata.config.private_directory import (
-    get_full_path_for_private_config,
-    PRIVATE_CONFIG_DIR_ENV_VAR,
-)
+
 from syslogging.logger import *
 from sysdata.config.fill_config_dict_with_defaults import fill_config_dict_with_defaults
 
@@ -59,7 +51,7 @@ class Config(object):
                         multiple elements, latter elements will overwrite
                         earlier ones)
 
-        :type config_object: str or dict
+        :type config_object: str or dict or list
 
         :returns: new Config object
 
@@ -181,11 +173,10 @@ class Config(object):
 
         self.add_elements(attr_names)
 
-    def system_init(self, base_system):
+    def system_init(self):
         """
         This is run when added to a base system
 
-        :param base_system
         :return: nothing
         """
 
@@ -228,7 +219,7 @@ class Config(object):
         """
         Fills with defaults - private stuff first, then defaults
         """
-        self.log.debug("Adding config defaults")
+        # self.log.debug("Adding config defaults")
 
         self_as_dict = self.as_dict()
         defaults_dict = self.default_config_dict
@@ -288,12 +279,7 @@ class Config(object):
         if hasattr(cls, "evaluated"):
             return cls.evaluated
 
-        if os.getenv(PRIVATE_CONFIG_DIR_ENV_VAR):
-            config = Config(
-                private_filename=get_full_path_for_private_config(PRIVATE_CONFIG_FILE)
-            )
-        else:
-            config = Config()
+        config = Config(get_private_config_as_dict())
         config.fill_with_defaults()
 
         cls.evaluated = config

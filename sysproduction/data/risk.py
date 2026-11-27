@@ -93,8 +93,9 @@ def get_annualised_stdev_perc_of_instruments(data, instrument_list) -> stdevEsti
 def get_perc_returns_across_instruments(data, instrument_list: list) -> pd.DataFrame:
     perc_returns = dict(
         [
-            (instrument_code, get_daily_perc_returns_for_risk(data, instrument_code))
-            for instrument_code in instrument_list
+            (instr, returns)
+            for instr in instrument_list
+            if len(returns := get_daily_perc_returns_for_risk(data, instr)) > 0
         ]
     )
     price_df = pd.DataFrame(perc_returns)
@@ -149,11 +150,13 @@ def get_perc_of_strategy_capital_for_instrument_per_contract(
     data, strategy_name, instrument_code
 ):
     capital_base_fx = capital_for_strategy(data, strategy_name)
-    exposure_per_contract = get_exposure_per_contract_base_currency(
-        data, instrument_code
-    )
-
-    return exposure_per_contract / capital_base_fx
+    if capital_base_fx == 0.0:
+        return 0.0
+    else:
+        exposure_per_contract = get_exposure_per_contract_base_currency(
+            data, instrument_code
+        )
+        return exposure_per_contract / capital_base_fx
 
 
 def get_current_ann_stdev_of_prices(data, instrument_code):
